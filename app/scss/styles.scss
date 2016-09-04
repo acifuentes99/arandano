@@ -1,0 +1,38 @@
+$arandano: #33334d;
+$arandano_claro:  #d1d1e0;
+
+body{
+    background-color: $arandano_claro;
+    .jumbotron{
+        background-color: rgba(255,255,255,0);
+    }
+}
+h1{
+    color: blue;
+    font-size: 50px;
+}
+
+.thelogo{
+    height: 140px;
+    display: block;
+    margin: auto;
+}
+.btn-arandano{
+    color: white;
+    margin: auto;
+    display: block;
+    min-width: 200px;
+    transition: 0.4s;
+    &:hover {
+        background-color: $arandano_claro;
+        color: $arandano;
+    }
+    &:focus {
+        color: white;
+    }
+}
+
+@keyframes button{
+    0% {background-color: $arandano;}
+    100% {background-color: $arandano_claro;}
+}

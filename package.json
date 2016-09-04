@@ -1,0 +1,33 @@
+{
+  "name": "arandano",
+  "version": "0.0.1",
+  "description": "Proyecto FISW Aliwen Team",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Aliwen team",
+  "license": "ISC",
+  "dependencies": {
+    "angular": "^1.5.8",
+    "angular-dragula": "^1.2.7",
+    "body-parser": "^1.15.2",
+    "bootstrap": "^3.3.6",
+    "cookie-parser": "^1.4.3",
+    "debug": "^2.2.0",
+    "ejs": "^2.5.1",
+    "express": "^4.14.0",
+    "morgan": "^1.7.0",
+    "node-mysql": "^0.4.2"
+  },
+  "devDependencies": {
+    "browserify": "^13.0.0",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-livereload": "^3.8.1",
+    "gulp-nodemon": "^2.0.6",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.3.1",
+    "gulp-uglify": "^1.5.3"
+  }
+}

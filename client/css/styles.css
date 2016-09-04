@@ -1,0 +1,31 @@
+body {
+  background-color: #d1d1e0; }
+  body .jumbotron {
+    background-color: rgba(255, 255, 255, 0); }
+
+h1 {
+  color: blue;
+  font-size: 50px; }
+
+.thelogo {
+  height: 140px;
+  display: block;
+  margin: auto; }
+
+.btn-arandano {
+  color: white;
+  margin: auto;
+  display: block;
+  min-width: 200px;
+  transition: 0.4s; }
+  .btn-arandano:hover {
+    background-color: #d1d1e0;
+    color: #33334d; }
+  .btn-arandano:focus {
+    color: white; }
+
+@keyframes button {
+  0% {
+    background-color: #33334d; }
+  100% {
+    background-color: #d1d1e0; } }
