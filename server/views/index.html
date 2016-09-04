@@ -2,7 +2,7 @@
 <html ng-app="todoApp">
  
 <head>
-  <title>Todo App</title>
+  <title>Arándano</title>
   <link rel="stylesheet" type="text/css" href="/lib/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="/css/styles.css">
  
@@ -10,16 +10,17 @@
     <script src="/node_modules/angular/angular.js"></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/dragula/$VERSION/dragula.min.js'></script>
     <script type="text/javascript" src="/lib/angular-route/angular-route.min.js"></script>
+    <script type="text/javascript" src="/lib/angular-animate/angular-animate.min.js"></script>
     <script type="text/javascript" src="/js/app.js"></script>
     <script type="text/javascript" src="/js/factory.js"></script>
     <script type="text/javascript" src="/js/controllers.js"></script>
 </head>
  
 <body>
-  <div class="container">
-    <h1>Todo App</h1>
-    <hr/>
-    <ng-view></ng-view>
+
+  <div class="content">
+    <!--h1>Todo App</h1-->
+    <ng-view class="page {{ PageClass }}"></ng-view>
   </div>
  
   <!-- Live reload script -->

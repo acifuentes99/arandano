@@ -7,6 +7,7 @@
     "jquery": "^3.1.0",
     "bootstrap": "^3.3.7",
     "angular": "^1.5.8",
-    "angular-route": "^1.5.8"
+    "angular-route": "^1.5.8",
+    "angular-animate": "^1.5.8"
   }
 }
