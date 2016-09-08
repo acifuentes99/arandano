@@ -16,10 +16,16 @@ var connection = mysql.createConnection({
     database: 'arandano',
     password: 'arandano'
 });
+var db = mysql;
 
 connection.query('SELECT * FROM customers', function(err, rows) {
     console.log(rows);
 });
+
+
+
+
+
 
 //app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);

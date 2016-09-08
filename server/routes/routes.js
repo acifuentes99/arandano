@@ -9,3 +9,8 @@ module.exports = function (app) {
         });
 };
 
+
+<action="POST" url="/">
+ <input name="nombre">
+ <input name="nombre2">
+<>

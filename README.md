@@ -12,3 +12,11 @@ Proyecto para el ramo FISW de la UTFSM
     - bower install
 - En carpeta raiz, ejecutar "gulp"
 - Metase a localhost:8080, para ver el sito
+
+## Esructura de Archivos
+(puede ir cambiando con el tiempo, para mejores practicas)
+
+* Modelos: /client/models/*.js
+* Vistas: /client/partials/*.html
+* Controladores: /client/js/controllers.js
+
