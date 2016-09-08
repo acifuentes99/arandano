@@ -4,7 +4,7 @@ module.exports = function (app) {
 
     app.route('/')
         .get(function(req, res) {
-            //res.sendFile(process.cwd() + '/public/index.html');
+            //res.sendfile(process.cwd() + '/public/index.html');
             res.render('index.html');
         });
 };

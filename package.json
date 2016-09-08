@@ -18,6 +18,7 @@
     "ejs": "^2.5.1",
     "express": "^4.14.0",
     "morgan": "^1.7.0",
+    "mysql2": "^1.0.0-rc.12",
     "node-mysql": "^0.4.2"
   },
   "devDependencies": {

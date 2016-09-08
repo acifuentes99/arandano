@@ -2,6 +2,7 @@ var express     = require('express'),
     path        = require('path'),
     bodyParser  = require('body-parser'),
     cookieParser= require('cookie-parser'),
+    mysql       = require('mysql2'),
     routes      = require('./routes/routes.js');
    // angular = require('angular'),
    // angularDragula = require('angular-dragula');
@@ -9,6 +10,16 @@ var express     = require('express'),
 //var app = angular.module('my-app', [angularDragula(angular)]);
 
 var app = express();
+
+var connection = mysql.createConnection({ 
+    user: 'aliwen', 
+    database: 'arandano',
+    password: 'arandano'
+});
+
+connection.query('SELECT * FROM customers', function(err, rows) {
+    console.log(rows);
+});
 
 //app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);

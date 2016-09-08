@@ -1,5 +1,6 @@
+@import 'https://fonts.googleapis.com/css?family=Paytone+One';
 body {
-  background-color: #d1d1e0; }
+  background-color: arandano_claro; }
   body .jumbotron {
     background-color: rgba(255, 255, 255, 0); }
   body .container {
@@ -23,8 +24,9 @@ form {
   background-color: red; }
 
 h1 {
-  color: blue;
-  font-size: 50px; }
+  color: #33334d;
+  font-size: 50px;
+  font-family: 'Paytone One'; }
 
 form input {
   color: white; }

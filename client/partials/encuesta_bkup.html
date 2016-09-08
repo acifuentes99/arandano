@@ -9,9 +9,6 @@
     <h1 align="center">Encuesta</h1>
     <br>
     <form>
-        <div>
-
-        </div>
          <table >
           <tr>
             <td>Nombre</td>
@@ -20,18 +17,18 @@
           <tr>
             <td>¿Que estilo prefieres ser?</td>
             <td>
-                1) Cuando aprendo...<br>
-                me gusta vivir sensaciones<br>
-
-                me gusta pensar sobre ideas<br>
-                me gusta estar haciendo cosas<br>
-                me gusta observar y esuchar<br>
-
-                2) Aprendo mejor cuando
-                escucho y observo cuidadosamente
-                Confio en el pensamiento lógico
-                confio en mi intuición y sentimientos
-                trabajo duro para lograr hacer las cosas
+                <select ng-model="myVar">
+                    <option value="Co">Convergente
+                    <option value="Di">Divergente
+                    <option value="As">Asimilador
+                    <option value="Ac">Acomodador
+                </select>
+                <select ng-model="myVar2">
+                    <option value="Co">Convergente
+                    <option value="Di">Divergente
+                    <option value="As">Asimilador
+                    <option value="Ac">Acomodador
+                </select>
             </td>
           </tr>
         </table> 
