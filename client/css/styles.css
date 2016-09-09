@@ -34,6 +34,16 @@ form input {
 form select {
   color: white; }
 
+.la_encuesta {
+  display: block;
+  max-width: 600px;
+  margin: auto;
+  text-align: left; }
+  .la_encuesta table {
+    display: block; }
+    .la_encuesta table td {
+      max-width: 60vw; }
+
 .thelogo {
   height: 140px;
   display: block;

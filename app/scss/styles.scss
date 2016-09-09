@@ -53,6 +53,19 @@ form{
     }
 }
 
+.la_encuesta{
+    display: block;
+    max-width: 600px;
+    margin: auto;
+    text-align: left;
+    table{
+        display: block;
+        td{
+            max-width: 60vw;
+        }
+    }
+}
+
 .thelogo{
     height: 140px;
     display: block;
