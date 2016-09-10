@@ -97,6 +97,50 @@ todoApp.controller('Practica', function($rootScope, $scope) {
 });
 
 todoApp.controller('Encuesta', function($rootScope, $scope){
+
+    this.getResults = function(){
+        console.log('Holaa!');
+        console.log($scope);
+        console.log(this.respuestas);
+        var ec = 0, or = 0, ca = 0; ea = 0;
+        this.respuestas.forEach(function(asd){
+          ec += asd.ec;  
+          or += asd.or;  
+          ca += asd.ca;  
+          ea += asd.ea;  
+        });
+        var caec = ca - ec;
+        var eaor = ea - or;
+
+        if(eaor > 0 && caec < 0){
+            this.tipo = 'Adaptador';
+            this.tipon = 1;
+        }
+        else if(eaor < 0 && caec < 0){
+            this.tipo = 'Divergente'
+            this.tipon = 2;
+        }
+        else if(eaor > 0 && caec > 0){
+            this.tipo = 'Convergente'
+            this.tipon = 3;
+        }
+        else{
+            this.tipo = 'Asimilador'
+            this.tipon = 4;
+        }
+        console.log(ca+' '+ec+' '+or+' '+ea)
+        console.log($scope);
+    };
+    
+    this.results = {
+        'ec': 0,
+        'or': 0,
+        'ca': 0,
+        'ea': 0
+    };
+
+    this.respuestas = [];
+
     this.preguntas = [
         {
             'titulo': 'Cuando aprendo...' ,

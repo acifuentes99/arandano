@@ -10,7 +10,7 @@
     <br>
 
 
-    <form class="la_encuesta">
+    <form class="la_encuesta" name="encuesta.laencuesta">
 
         <p>Hola!, estas a punto de tener una experiencia educativa unica. Rellena el siguiente formulario, para conocer como es tu modo de aprendizaje, para comenzar a entregar contenidos personalizados.</p><p>
     Elige con un 4 la alterativa qu se seintas más identificado, ycon 1 la que menos. Rellena las opciones con el 1, 2, 3 y 4 respectivos (1 por pregunta)</p>
@@ -23,16 +23,16 @@
                     <td><span>{{ preg.ec }}</span></td>
                     <td>
                         <label class="radio-inline">
-                            <input type="radio" name="{{'preg'+$index+'_1'}}" >1
+                            <input type="radio" name="{{'preg'+$index+'_1'}}" ng-model="encuesta.respuestas[$index].ec" ng-value="1" >1
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name="{{'preg'+$index+'_1'}}">2
+                            <input type="radio" name="{{'preg'+$index+'_1'}}" ng-model="encuesta.respuestas[$index].ec" ng-value="2">2
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name="{{'preg'+$index+'_1'}}">3
+                            <input type="radio" name="{{'preg'+$index+'_1'}}" ng-model="encuesta.respuestas[$index].ec" ng-value="3">3
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name="{{'preg'+$index+'_1'}}">4
+                            <input type="radio" name="{{'preg'+$index+'_1'}}" ng-model="encuesta.respuestas[$index].ec" ng-value="4">4
                         </label>
                     </td>
                 </tr>
@@ -41,16 +41,24 @@
                     <td>
                     
                         <label class="radio-inline">
-                            <input type="radio" name="{{'preg'+$index+'_2'}}" >1
+                            <input type="radio" name="{{'preg'+$index+'_2'}}"
+                            ng-model="encuesta.respuestas[$index].or" ng-value="1"
+                            >1
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name="{{'preg'+$index+'_2'}}">2
+                            <input type="radio" name="{{'preg'+$index+'_2'}}"
+                            ng-model="encuesta.respuestas[$index].or" ng-value="2"
+                            >2
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name="{{'preg'+$index+'_2'}}">3
+                            <input type="radio" name="{{'preg'+$index+'_2'}}"
+                            ng-model="encuesta.respuestas[$index].or" ng-value="3"
+                            >3
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name="{{'preg'+$index+'_2'}}">4
+                            <input type="radio" name="{{'preg'+$index+'_2'}}"
+                            ng-model="encuesta.respuestas[$index].or" ng-value="4"
+                            >4
                         </label>
                     
                     </td>
@@ -60,16 +68,24 @@
                     <td>
                     
                         <label class="radio-inline">
-                            <input type="radio" name="{{'preg'+$index+'_3'}}" >1
+                            <input type="radio" name="{{'preg'+$index+'_3'}}"
+                            ng-model="encuesta.respuestas[$index].ca" ng-value="1"
+                            >1
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name="{{'preg'+$index+'_3'}}">2
+                            <input type="radio" name="{{'preg'+$index+'_3'}}"
+ ng-model="encuesta.respuestas[$index].ca" ng-value="2"                           
+                            >2
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name="{{'preg'+$index+'_3'}}">3
+                            <input type="radio" name="{{'preg'+$index+'_3'}}"
+                            ng-model="encuesta.respuestas[$index].ca" ng-value="3"
+                            >3
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name="{{'preg'+$index+'_3'}}">4
+                            <input type="radio" name="{{'preg'+$index+'_3'}}"
+                            ng-model="encuesta.respuestas[$index].ca" ng-value="4"
+                            >4
                         </label>
                     </td>
                 </tr>
@@ -78,177 +94,37 @@
                     <td>
 
                         <label class="radio-inline">
-                            <input type="radio" name="{{'preg'+$index+'_4'}}" >1
+                            <input type="radio" name="{{'preg'+$index+'_4'}}"
+                            ng-model="encuesta.respuestas[$index].ea" ng-value="1"
+                            >1
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name="{{'preg'+$index+'_4'}}">2
+                            <input type="radio" name="{{'preg'+$index+'_4'}}"
+                            ng-model="encuesta.respuestas[$index].ea" ng-value="2"
+                            >2
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name="{{'preg'+$index+'_4'}}">3
+                            <input type="radio" name="{{'preg'+$index+'_4'}}"
+                            ng-model="encuesta.respuestas[$index].ea" ng-value="3"
+                            >3
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name="{{'preg'+$index+'_4'}}">4
+                            <input type="radio" name="{{'preg'+$index+'_4'}}"
+                            ng-model="encuesta.respuestas[$index].ea" ng-value="4"
+                            >4
                         </label>
                     </td>
                 </tr>
             </table>
         </div> 
-    </div>
+
     <br>
-    <button class="btn" >Enviar</button>
+    <button class="btn" ng-click="encuesta.getResults()" >Enviar</button>
     </form>
 
 
-    <form>
-         <table >
-          <tr>
-            <td>Nombre</td>
-            <td><input type="text" ng-model="firstname"></td>
-          </tr>
-          <tr>
-            <td>¿Que estilo prefieres ser?</td>
-            <td><h4> 1) Cuando aprendo...</h4>
-
-                <table>
-                    <tr>  <td>me gusta vivir sensaciones</td>
-
-                    <td>
-<label class="radio-inline">
-    <input type="radio" name="preg1_1">1
-</label>
-<label class="radio-inline">
-    <input type="radio" name="preg1_1">2
-</label>
-<label class="radio-inline">
-    <input type="radio" name="preg1_1">3
-</label>
-<label class="radio-inline">
-    <input type="radio" name="preg1_1">4
-</label>
-                    </td></tr>
-    <tr><td>me gusta pensar sobre ideas</td>
-        <td>
-  <label class="radio-inline">
-      <input type="radio" name="preg1_2">1
-    </label>
-    <label class="radio-inline">
-      <input type="radio" name="preg1_2">2
-    </label>
-    <label class="radio-inline">
-      <input type="radio" name="preg1_2">3
-    </label>
-    <label class="radio-inline">
-      <input type="radio" name="preg1_2">4
-    </label></td></tr>
-    
-    <tr>
-        <td>me gusta estar haciendo cosas</td>
-
-        <td>
-  <label class="radio-inline">
-      <input type="radio" name="preg1_3">1
-    </label>
-    <label class="radio-inline">
-      <input type="radio" name="preg1_3">2
-    </label>
-    <label class="radio-inline">
-      <input type="radio" name="preg1_3">3
-    </label>
-    <label class="radio-inline">
-      <input type="radio" name="preg1_3">4
-    </label></td>
-        </tr><tr>
-            <td> me gusta observar y esuchar</td>
-
-        <td>
-  <label class="radio-inline">
-      <input type="radio" name="preg1_4">1
-    </label>
-    <label class="radio-inline">
-      <input type="radio" name="preg1_4">2
-    </label>
-    <label class="radio-inline">
-      <input type="radio" name="preg1_4">3
-    </label>
-    <label class="radio-inline">
-      <input type="radio" name="preg1_4">4
-    </label></td>
-        </tr></table>
-        <br>
-                2) Aprendo mejor cuando
-                escucho y observo cuidadosamente
-                Confio en el pensamiento lógico
-                confio en mi intuición y sentimientos
-                trabajo duro para lograr hacer las cosas
-                
-                3) Cuando estoy aprendiendo..
-                tiendo a usar el razonamiento
-                soy responsable con lo que hago
-                soy callado y reservado
-                tengo fuertes senaciones y reacciones
-
-                4) Yo aprendo..
-                Sintiendo
-                Haciendo
-                Observando
-                Poensando
-
-                5) Cuando aprendo...
-                estoy abierto a nuevas experiencias
-                observo todos los aspectos del asunto
-                me gusta analizar las cosas, descomponerlas en sus aprtes
-                me gusta probar e intentar hacer las cosas
-
-                6) Cando estoy aprendiendo..
-                soy una persona observadora
-                soy una persona activa 
-                soy una persona intuitiva
-                soy una persona lógica
-
-                7) Yo aprendo mejor de...
-                la observacón
-                la relacion con otras personas
-                las teorias racionales
-                la oportunidad de probar y practicar
-
-                8) Cuando aprendo...
-                me gusta ver lso resultados de mi trabajo
-                me gustan las ideas y las teorias
-                me tomo mi timepo antes de acutar
-                me siento personalmente involucrado en las cosas
-
-                9) Aprendo mejor cuando...
-                confio en mis observciones
-                confio en mis sentimientos
-                puedo probar por mi cuenta
-                confio en mis ideas
-
-                10) cuando estoy aprendiendo...
-                soy una persona reservada
-                soy una persona receptiva
-                soyuna persona responsable
-                soy una persona racional
-
-                11) Cuanod aprendo...
-                me inolucro
-                me gusta observar
-                evaluo las cosas
-                me gusta ser activo
-
-                12) Aprendo mejor cuando..
-                analizo ideas
-                soy receptivo y abierto
-                soy cuidadoso
-                soy practico
+    </div>
 
 
-
-            </td>
-          </tr>
-        </table> 
-    </form>
-
-    <!--h1>You entered: {{firstname}}</h1-->
-    <a href="#dashboard"><button class="btn btn-lg btn-arandano" ng-show="asd.product.show">Enviar</button></a>
     
 </div>
