@@ -44,12 +44,6 @@ h1 {
   font-size: 50px;
   font-family: 'Paytone One'; }
 
-form input {
-  color: white; }
-
-form select {
-  color: white; }
-
 .la_encuesta {
   display: block;
   max-width: 600px;
@@ -74,7 +68,8 @@ form select {
   margin: auto;
   display: block;
   min-width: 200px;
-  transition: 0.4s; }
+  transition: 0.4s;
+  background: #33334d; }
   .btn-arandano:hover {
     background-color: #d1d1e0;
     color: #33334d; }

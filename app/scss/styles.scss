@@ -72,10 +72,10 @@ h1{
 }
 form{
     input{
-        color: white;
+        //color: white;
     }
     select{
-        color: white;
+        //color: white;
     }
 }
 
@@ -108,6 +108,7 @@ form{
     display: block;
     min-width: 200px;
     transition: 0.4s;
+    background: $arandano;
     &:hover {
         background-color: $arandano_claro;
         color: $arandano;
