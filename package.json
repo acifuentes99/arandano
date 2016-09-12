@@ -4,7 +4,7 @@
   "description": "Proyecto FISW Aliwen Team",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+       "start": "node ./server/server.js"
   },
   "author": "Aliwen team",
   "license": "ISC",
@@ -18,7 +18,9 @@
     "ejs": "^2.5.1",
     "express": "^4.14.0",
     "morgan": "^1.7.0",
-    "mysql2": "^1.0.0-rc.12"
+    "mysql2": "^1.0.0-rc.12",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0"
   },
   "devDependencies": {
     "browserify": "^13.0.0",

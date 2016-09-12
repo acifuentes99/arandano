@@ -4,6 +4,9 @@ $arandano: #33334d;
 $arandano_claro:  #d1d1e0;
 
 //lalalsla 
+
+
+
 body{
     //background-color: $arandano_claro;
     background-color: arandano_claro;
@@ -21,7 +24,30 @@ body{
         width: 100%;
     }
 }
+
+
+/* Estilos para ciertas secciones*/
+.front_page{
+    clear: both;
+    .btn{
+        margin-bottom: 30px;
+    }
+    form{
+        margin: 0 auto;
+        width: 300px;
+        input{
+            width: 100%;
+            height: 40px;
+            clear: both;
+            margin-bottom: 10px;
+        }
+    }
+}
+
 form{
+    input{
+        margin-bottom: 5px;
+    }
     table{
         margin: auto;
         td {

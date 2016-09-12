@@ -10,8 +10,8 @@ Proyecto para el ramo FISW de la UTFSM
 - Ejecutar en terminal:
     - npm install
     - bower install
-- En carpeta raiz, ejecutar "gulp"
-- Metase a localhost:8080, para ver el sito
+- En carpeta raiz, ejecutar "npm start"
+- Metase a localhost:8080, para entrar al sito
 
 ## Esructura de Archivos
 (puede ir cambiando con el tiempo, para mejores practicas)

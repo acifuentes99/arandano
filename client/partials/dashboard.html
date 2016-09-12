@@ -1,4 +1,4 @@
- <div class="container" ng-controller="Practica as asd">
+ <div class="container" >
 
      <a href="#/"><img class="img-responsive thelogo2" src="assets/arandano.svg"></img></a>
     <!--span> {{asd.product.value}} </span>
@@ -8,7 +8,11 @@
     <hr>
     <h2>Dashboard</h2>
 
-    <div>Proximamente con contenido</div>
+    <div ng-controller="Dashboard as dash">
+        <h3>Felicidades!, eres de tipo: {{ dash.stu.tipo }}</h3>
+
+        <p>Proximamente con contenido</p>
+    </div>
 
 
 </div>

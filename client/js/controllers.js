@@ -87,6 +87,11 @@ todoApp.controller('Practica', function($rootScope, $scope) {
         'value': "Esto es el valor, lalala: 200",
         'show': true
     };
+
+    this.login = {
+        "user": "Nombre Usuario",
+        "pass": "Contraseña"
+    }
  
     this.product = gem;     
 /*
@@ -96,7 +101,22 @@ todoApp.controller('Practica', function($rootScope, $scope) {
  
 });
 
-todoApp.controller('Encuesta', function($rootScope, $scope){
+
+todoApp.controller('Dashboard', function($rootScope, $scope, $location, arandanoFactory, shareData){
+    this.stu = shareData.get();
+
+});
+
+todoApp.controller('Encuesta', function($rootScope, $scope, $location, arandanoFactory, shareData){
+
+    this.stu = {
+        'nombre': '',
+        'nickname': '',
+        'email': '',
+        'password': '',
+        'tipon': 0,
+        'tipo': ''
+    };
 
     this.getResults = function(){
         console.log('Holaa!');
@@ -113,25 +133,32 @@ todoApp.controller('Encuesta', function($rootScope, $scope){
         var eaor = ea - or;
 
         if(eaor > 0 && caec < 0){
-            this.tipo = 'Adaptador';
-            this.tipon = 1;
+            this.stu.tipo = 'Adaptador';
+            this.stu.tipon = 1;
         }
         else if(eaor < 0 && caec < 0){
-            this.tipo = 'Divergente'
-            this.tipon = 2;
+            this.stu.tipo = 'Divergente'
+            this.stu.tipon = 2;
         }
         else if(eaor > 0 && caec > 0){
-            this.tipo = 'Convergente'
-            this.tipon = 3;
+            this.stu.tipo = 'Convergente'
+            this.stu.tipon = 3;
         }
         else{
-            this.tipo = 'Asimilador'
-            this.tipon = 4;
+            this.stu.tipo = 'Asimilador'
+            this.stu.tipo_n = 4;
         }
-        console.log(ca+' '+ec+' '+or+' '+ea)
+        console.log(ca+' '+ec+' '+or+' '+ea);
         console.log($scope);
+
+        shareData.set(this.stu);
+        arandanoFactory.saveData(this.stu)
+        .then(function(){
+            $location.path('/dashboard');
+        });
     };
     
+
     this.results = {
         'ec': 0,
         'or': 0,

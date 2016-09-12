@@ -10,12 +10,39 @@
     <br>
 
 
+    <div ng-controller="Encuesta as encuesta">
+
+
     <form class="la_encuesta" name="encuesta.laencuesta">
+        <table >
+            <tr>
+                <td>Nombre y Apellido</td> 
+                <td><input type="text" ng-model="encuesta.stu.nombre" name="nickname" /></td> 
+            </tr>
+            <tr>
+                <td>Nombre Usuario</td> 
+                <td><input type="text" ng-model="encuesta.stu.nickname" name="username" /></td> 
+            </tr>
+            <tr>
+                <td>Correo Electronico</td> 
+                <td><input type="text" ng-model="encuesta.stu.email" name="email" /></td> 
+            </tr>
+            <tr>
+                <td>Contraseña</td> 
+                <td><input type="password" ng-model="encuesta.stu.password" name="password" /></td> 
+            </tr>
+            <tr>
+                <td>Repita Contraseña</td> 
+                <td><input type="password" name="password_r" /></td> 
+            </tr>
+        </table>
+
+        <br>
 
         <p>Hola!, estas a punto de tener una experiencia educativa unica. Rellena el siguiente formulario, para conocer como es tu modo de aprendizaje, para comenzar a entregar contenidos personalizados.</p><p>
     Elige con un 4 la alterativa qu se seintas más identificado, ycon 1 la que menos. Rellena las opciones con el 1, 2, 3 y 4 respectivos (1 por pregunta)</p>
         <br>
-    <div ng-controller="Encuesta as encuesta">
+
         <div ng-repeat="preg in encuesta.preguntas">
             <h4>{{ $index+1 + ') ' + preg.titulo }}</h4> 
             <table text-align="left">
