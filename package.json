@@ -4,7 +4,7 @@
   "description": "Proyecto FISW Aliwen Team",
   "main": "server.js",
   "scripts": {
-       "start": "node ./server/server.js"
+       "start": "node ./server.js"
   },
   "author": "Aliwen team",
   "license": "ISC",

@@ -12,27 +12,28 @@ livereload({ start: true });
 
 gulp.task('server', function () {
 	nodemon({
-		script: 'server/server.js',
+		script: 'server.js',
 		ext: 'js html',
         ignore: ['app/**/*','public/**/*', 'client/**/*']
 	});
 });
 
 gulp.task('sass', function() {
-    return gulp.src('app/scss/*.scss')
+    return gulp.src('private/scss/*.scss')
     //gulp.src('app/scss/*.scss')
         //.pipe(sass.sync().on('error', sass.logError))
         .pipe(sass().on('error', sass.logError))
-        .pipe(gulp.dest('client/css'))
+        .pipe(gulp.dest('public/css'))
         .pipe(livereload());
 });
 
 gulp.task('reload', function(){
-    return gulp.src('client/js/**/*.js')
+    //return gulp.src('public/js/**/*.js')
+    return gulp.src('public/**/*.js')
     .pipe(livereload());
 });
 gulp.task('reload2', function(){
-    return gulp.src('client/partials/**/*.html')
+    return gulp.src('public/partials/**/*.html')
     .pipe(livereload());
 });
 
@@ -49,10 +50,9 @@ gulp.task('scripts2', function() {
 // Watch Files For Changes
 gulp.task('watch', function() {
     livereload.listen();
-    gulp.watch('client/js/**/*.js', ['reload']);
-    gulp.watch('client/partials/**/*.html', ['reload2']);
-    gulp.watch('app/jsx/*.js', ['scripts']);
-    gulp.watch('app/scss/*.scss', ['sass']);
+    gulp.watch('public/js/**/*.js', ['reload']);
+    gulp.watch('public/partials/**/*.html', ['reload2']);
+    gulp.watch('private/scss/*.scss', ['sass']);
 });
 
 gulp.task('default', ['server', 'sass', 'watch']);

@@ -32,7 +32,7 @@ app.set('views', path.join(__dirname, 'views'));
 
 //app.use('/views', express.static(process.cwd() + '../server/views'));
 app.use('/node_modules', express.static(process.cwd() + '/node_modules'));
-app.use(express.static(path.join(__dirname, '../client')));
+app.use(express.static(path.join(__dirname, './public')));
 //app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
 
 app.use(bodyParser.json());
