@@ -5,11 +5,35 @@ body {
   body .jumbotron {
     background-color: rgba(255, 255, 255, 0); }
   body .container {
-    position: relative; }
+    position: relative;
+    width: 100%; }
   body .page {
     position: absolute; }
   body ng-view {
     width: 100%; }
+
+#sidebar {
+  position: absolute;
+  height: 100vh;
+  width: 400px;
+  background-color: #33334d;
+  top: 0;
+  left: 0;
+  z-index: 8000; }
+  #sidebar .cont {
+    color: white;
+    font-size: 22px;
+    margin-top: 100px;
+    margin-left: 20px; }
+
+.sidebar-collapse {
+  display: none; }
+
+.nav-center {
+  margin: 0 auto;
+  width: 100%;
+  left: 35%;
+  position: absolute; }
 
 /* Estilos para ciertas secciones*/
 .front_page {
@@ -61,8 +85,15 @@ h1 {
   margin: auto; }
 
 .thelogo2 {
+  height: 40px; }
+
+.thelogo_sm {
   height: 40px;
-  display: block; }
+  z-index: 15000;
+  position: absolute; }
+
+nav {
+  z-index: 500; }
 
 .btn-arandano {
   color: white;

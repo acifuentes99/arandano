@@ -1,0 +1,37 @@
+
+<nav class="navbar navbar-default navbar-fixed-top" ng-controller="Header as head">
+
+        <div ng-include="head.url"></div>
+      <div class="container">
+
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+
+          <div class="navbar-brand" ng-click="head.toogle()">
+           <img class="img-responsive thelogo_sm" src="assets/arandano2.svg"></img>
+        </div>
+
+
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+
+         <a class="navbar-brand nav-center" href="#/"><img class="img-responsive thelogo2" src="assets/arandano.svg"></img>
+         </a>
+
+          <ul class="nav navbar-nav navbar-right">
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+
+    </nav>
+

@@ -39,21 +39,22 @@ gulp.task('reload2', function(){
 
 // Concatenate & Minify JS
 gulp.task('scripts2', function() {
-    return gulp.src('js/*.js')
-        .pipe(concat('all.js'))
-        .pipe(gulp.dest('dist'))
-        .pipe(rename('all.min.js'))
+	return gulp.src('public/controllers/*.js')
+        .pipe(concat('controllers.js'))
+		.pipe(gulp.dest('public/js'))
+        .pipe(rename('controllers.min.js'))
         .pipe(uglify())
-        .pipe(gulp.dest('dist/js'));
+        .pipe(gulp.dest('public/js'));
 });
 
 // Watch Files For Changes
 gulp.task('watch', function() {
     livereload.listen();
-    gulp.watch('public/js/**/*.js', ['reload']);
-    gulp.watch('public/partials/**/*.html', ['reload2']);
+	gulp.watch('public/js/**/*.js', ['reload']);
+	gulp.watch('public/partials/**/*.html', ['reload2']);
     gulp.watch('private/scss/*.scss', ['sass']);
+    gulp.watch('public/controllers/*.js', ['scripts2']);
 });
 
-gulp.task('default', ['server', 'sass', 'watch']);
+gulp.task('default', ['server', 'scripts2', 'sass', 'watch']);
 

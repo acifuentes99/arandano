@@ -9,17 +9,17 @@
  
     <!--script type="text/javascript" src="/lib/angular/angular.min.js"></script-->
     <script src="/node_modules/angular/angular.js"></script>
+    <script src="/lib/jquery/dist/jquery.min.js"></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/dragula/$VERSION/dragula.min.js'></script>
     <script type="text/javascript" src="/lib/angular-route/angular-route.min.js"></script>
     <script type="text/javascript" src="/lib/angular-animate/angular-animate.min.js"></script>
     <script type="text/javascript" src="/js/app.js"></script>
-    <script type="text/javascript" src="/controllers/factory.js"></script>
-    <script type="text/javascript" src="/controllers/controllers.js"></script>
+    <!--script type="text/javascript" src="/controllers/factory.js"></script-->
+    <script type="text/javascript" src="/js/controllers.js"></script>
 </head>
  
 <body>
   <div class="content">
-    <!--h1>Todo App</h1-->
     <ng-view class="page {{ PageClass }}"></ng-view>
   </div>
  
