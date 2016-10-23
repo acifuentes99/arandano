@@ -1,0 +1,7 @@
+!_TAG_FILE_SORTED	2	/0=unsorted, 1=sorted, 2=foldcase/
+bloque_id	/run/media/aczombie/Storage/Files/Documentos/1_Web_Projects/11_ArandanoProject/public/models/Bloque.js	/^	bloque_id: int(11),$/;"	p	language:JavaScript	class:bloque
+curso_id	/run/media/aczombie/Storage/Files/Documentos/1_Web_Projects/11_ArandanoProject/public/models/Curso.js	/^	curso_id: int(11),$/;"	p	language:JavaScript	class:curso
+exp_id	/run/media/aczombie/Storage/Files/Documentos/1_Web_Projects/11_ArandanoProject/public/models/Experto.js	/^	exp_id: int(11),$/;"	p	language:JavaScript	class:experto
+mod_id	/run/media/aczombie/Storage/Files/Documentos/1_Web_Projects/11_ArandanoProject/public/models/Modulo.js	/^	mod_id: int(11),$/;"	p	language:JavaScript	class:modulo
+prof_id	/run/media/aczombie/Storage/Files/Documentos/1_Web_Projects/11_ArandanoProject/public/models/Profesor.js	/^	prof_id: int(11),$/;"	p	language:JavaScript	class:profesor
+stu_id	/run/media/aczombie/Storage/Files/Documentos/1_Web_Projects/11_ArandanoProject/public/models/Estudiante.js	/^	stu_id: int(11),$/;"	p	language:JavaScript	class:estudiante

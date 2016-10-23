@@ -44,6 +44,40 @@
   return _todoService;
 });
 
+
+ todoApp.factory('arandanoBDExperto', function($http) {
+	var urlBase = '/api/experto';
+	var _todoService = {};
+ 
+  _todoService.getData= function(data) {
+	  return $http.get(urlBase+'/'+data)
+		  .then(function(response){
+		  	return response;
+		  })
+	  ;
+	  /*
+	  $http.get(urlBase+'/'+data)
+		  .then(function(arr){
+		  	return arr.nombre_exp;
+		  }, function(err){alert("fail");})*/
+  };
+ 
+  _todoService.saveData = function(data) {
+    return $http.post(urlBase, data);
+  };
+ 
+  _todoService.updateData = function(data) {
+    return $http.put(urlBase, data);
+  };
+ 
+  _todoService.deleteData = function(id) {
+    return $http.delete(urlBase + '/' + id);
+  };
+ 
+  return _todoService;
+});
+
+
 todoApp.factory('shareData', function(){
     var savedData = {};
      function set(data) {

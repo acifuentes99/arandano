@@ -1,4 +1,5 @@
- @import 'https://fonts.googleapis.com/css?family=Paytone+One';
+@import "front";
+@import 'https://fonts.googleapis.com/css?family=Paytone+One';
 
 $arandano: #33334d;
 $arandano_claro:  #d1d1e0;
@@ -82,7 +83,18 @@ form{
         }
     }
     margin-bottom: 30px;
+
+	.ng-invalid.ng-dirty{
+		border-color: #FA787E;
+		//outline: 1px solid red;
+		//*
+	}
+	.ng-valid.ng-dirty{
+		border-color: #78FA89;
+		//outline: 1px solid green;
+	}
 }
+
 
 .content{
     background-color: red;
@@ -100,6 +112,11 @@ form{
     select{
         //color: white;
     }
+}
+
+.incompleteResp{
+	display: none;
+	color: red;
 }
 
 .la_encuesta{

@@ -1,0 +1,11 @@
+/* Este estilo, define las 2 pantallas de log in
+ * Asegurarse de colocar un div con class = "front", para
+ * aplicarlo */
+.front .special {
+  display: block;
+  margin: 0 auto;
+  height: 30px; }
+
+.front p {
+  text-align: center;
+  width: 100%; }

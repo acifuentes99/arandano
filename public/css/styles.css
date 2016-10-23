@@ -1,4 +1,16 @@
+/* Este estilo, define las 2 pantallas de log in
+ * Asegurarse de colocar un div con class = "front", para
+ * aplicarlo */
 @import 'https://fonts.googleapis.com/css?family=Paytone+One';
+.front .special {
+  display: block;
+  margin: 0 auto;
+  height: 30px; }
+
+.front p {
+  text-align: center;
+  width: 100%; }
+
 /* 11 de Septiembre, stylish */
 body {
   background-color: arandano_claro; }
@@ -60,6 +72,10 @@ form {
       text-align: left; }
     form table th, form table td {
       padding-left: 15px; }
+  form .ng-invalid.ng-dirty {
+    border-color: #FA787E; }
+  form .ng-valid.ng-dirty {
+    border-color: #78FA89; }
 
 .content {
   background-color: red; }
@@ -68,6 +84,10 @@ h1 {
   color: #33334d;
   font-size: 50px;
   font-family: 'Paytone One'; }
+
+.incompleteResp {
+  display: none;
+  color: red; }
 
 .la_encuesta {
   display: block;

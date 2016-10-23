@@ -17,6 +17,21 @@
         //controller: 'TodoCtrl'
         controller: 'Practica'
       })
+      .when('/login2', {
+        templateUrl: '/partials/log_in2.html',
+        //controller: 'TodoCtrl'
+        controller: 'Practica'
+      })
+      .when('/reg', {
+        templateUrl: '/partials/registro2.html',
+        //controller: 'TodoCtrl'
+        controller: 'Practica'
+      })
+      .when('/regexitoso', {
+        templateUrl: '/partials/registroExitoso.html',
+        //controller: 'TodoCtrl'
+        controller: 'Practica'
+      })
       .otherwise({
         redirectTo: '/'
       });
