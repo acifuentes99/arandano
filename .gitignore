@@ -7,3 +7,4 @@ public/lib/
 *.swy
 *.swz
 tags
+.*
