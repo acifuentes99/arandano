@@ -1,20 +1,36 @@
-todoApp.controller('Login', function($rootScope, $scope, $location, arandanoBDExperto, shareData){
+todoApp.controller('Login', function($rootScope,$http, $scope, $location, arandanoBDExperto, shareData){
 
 	this.data = {};
+	var aux;
+	var that = this;
 
     this.submitLogin = function(){
-        console.log('Holaa!');
-        console.log($scope);
+		//var aux = arandanoBDExperto.getData(this.data.user);
+		
+		//arandanoBDExperto.sendLogin(that.data);
+		//arandanoBDExperto.consol();
 
-        var aux = arandanoBDExperto.getData(this.data.user);
-		console.log(this.data.user);
-		console.log(aux);
-		console.log(aux.state);
+		console.log(that.data);
+		$http.post('/api/login', that.data)
+			.then(function(res){
+				if(res.data.login === 1){
+					$location.path('/dash_exp');
+				}
+			})
+		;
+
 
 		/*
-        .then(function(){
-            $location.path('/dashboard');
-		});
+		 //Intento con .get , que es inseguro para passwords
+		arandanoBDExperto.getData(this.data.user, function(data){
+			aux = data;
+			//console.log(aux.data[0].exp_pass);
+			if(that.data.pass === aux.data[0].exp_pass) $location.path('/dashboard');
+			else{
+				$("#wrongpass").fadeIn(1000).css("display","block");
+			}
+
+		}); 
 		*/
     };
     

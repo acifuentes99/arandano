@@ -49,12 +49,42 @@
 	var urlBase = '/api/experto';
 	var _todoService = {};
  
-  _todoService.getData= function(data) {
-	  return $http.get(urlBase+'/'+data)
+
+  _todoService.getData = function(data, callbackData) {
+	  $http.get(urlBase+'/'+data)
 		  .then(function(response){
-		  	return response;
-		  })
-	  ;
+		  	callbackData(response);
+		  });
+
+  _todoService.sendLogin = function(data) {
+	  return $http.post('/api/login', data);
+  };
+
+
+  _todoService.consol = function() {
+	  console.log("si existo");
+	  return true;
+  };
+	  /*
+app.controller('PoniesCtrl', function($scope, ponyService) {
+  ponyService.getPonies(function(ponies) {
+    $scope.ponies = ponies;
+  });
+});
+
+app.factory('ponyService', function($http) {
+  var getPonies = function(callbackFn) {
+    $http.get('/api/ponies').success(function(data) {
+      callbackFn(data);
+    });
+  };
+
+  return {
+    getPonies: getPonies
+  };
+});
+	  */
+
 	  /*
 	  $http.get(urlBase+'/'+data)
 		  .then(function(arr){

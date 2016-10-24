@@ -1,0 +1,28 @@
+
+<div class="" ng-include="'partials/header.html'"></div>
+ <div class="dashcontent" >
+
+    <!--span> {{asd.product.value}} </span>
+    <span> {{5+5}} </span>
+    <span> {{"This is some text"}} </span-->
+
+
+    <div ng-controller="Dashboard as dash">
+
+    <h2>Dashboard Experto</h2>
+
+	<h3>Mis Cursos</h3>
+
+	<a><button  ng-click="goCats = !goCats">Añadir Curso</button></a>
+	<div ng-show="goCats">
+		<form ng-submit="" >
+			Nombre Curso <input type="text"></input><br>
+			Descripción Curso <input type="text"></input><br>
+			Url Imagen <input type="text"></input><br>
+			<button>Agregar</button>
+		</form>
+	</div>
+    </div>
+
+
+</div>

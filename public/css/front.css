@@ -9,3 +9,9 @@
 .front p {
   text-align: center;
   width: 100%; }
+
+.front .wrongpass {
+  display: none;
+  color: red;
+  text-align: center;
+  margin: 0 auto; }

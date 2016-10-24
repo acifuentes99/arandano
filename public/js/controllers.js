@@ -337,12 +337,42 @@ todoApp.controller('Encuesta', function($rootScope, $scope, $location, arandanoF
 	var urlBase = '/api/experto';
 	var _todoService = {};
  
-  _todoService.getData= function(data) {
-	  return $http.get(urlBase+'/'+data)
+
+  _todoService.getData = function(data, callbackData) {
+	  $http.get(urlBase+'/'+data)
 		  .then(function(response){
-		  	return response;
-		  })
-	  ;
+		  	callbackData(response);
+		  });
+
+  _todoService.sendLogin = function(data) {
+	  return $http.post('/api/login', data);
+  };
+
+
+  _todoService.consol = function() {
+	  console.log("si existo");
+	  return true;
+  };
+	  /*
+app.controller('PoniesCtrl', function($scope, ponyService) {
+  ponyService.getPonies(function(ponies) {
+    $scope.ponies = ponies;
+  });
+});
+
+app.factory('ponyService', function($http) {
+  var getPonies = function(callbackFn) {
+    $http.get('/api/ponies').success(function(data) {
+      callbackFn(data);
+    });
+  };
+
+  return {
+    getPonies: getPonies
+  };
+});
+	  */
+
 	  /*
 	  $http.get(urlBase+'/'+data)
 		  .then(function(arr){
@@ -397,23 +427,39 @@ todoApp.controller('Header', function($rootScope, $scope, $location, arandanoFac
     }; 
 });
 
-todoApp.controller('Login', function($rootScope, $scope, $location, arandanoBDExperto, shareData){
+todoApp.controller('Login', function($rootScope,$http, $scope, $location, arandanoBDExperto, shareData){
 
 	this.data = {};
+	var aux;
+	var that = this;
 
     this.submitLogin = function(){
-        console.log('Holaa!');
-        console.log($scope);
+		//var aux = arandanoBDExperto.getData(this.data.user);
+		
+		//arandanoBDExperto.sendLogin(that.data);
+		//arandanoBDExperto.consol();
 
-        var aux = arandanoBDExperto.getData(this.data.user);
-		console.log(this.data.user);
-		console.log(aux);
-		console.log(aux.state);
+		console.log(that.data);
+		$http.post('/api/login', that.data)
+			.then(function(res){
+				if(res.data.login === 1){
+					$location.path('/dash_exp');
+				}
+			})
+		;
+
 
 		/*
-        .then(function(){
-            $location.path('/dashboard');
-		});
+		 //Intento con .get , que es inseguro para passwords
+		arandanoBDExperto.getData(this.data.user, function(data){
+			aux = data;
+			//console.log(aux.data[0].exp_pass);
+			if(that.data.pass === aux.data[0].exp_pass) $location.path('/dashboard');
+			else{
+				$("#wrongpass").fadeIn(1000).css("display","block");
+			}
+
+		}); 
 		*/
     };
     

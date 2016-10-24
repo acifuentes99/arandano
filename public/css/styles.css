@@ -11,18 +11,11 @@
   text-align: center;
   width: 100%; }
 
-/* 11 de Septiembre, stylish */
-body {
-  background-color: arandano_claro; }
-  body .jumbotron {
-    background-color: rgba(255, 255, 255, 0); }
-  body .container {
-    position: relative;
-    width: 100%; }
-  body .page {
-    position: absolute; }
-  body ng-view {
-    width: 100%; }
+.front .wrongpass {
+  display: none;
+  color: red;
+  text-align: center;
+  margin: 0 auto; }
 
 #sidebar {
   position: absolute;
@@ -41,11 +34,44 @@ body {
 .sidebar-collapse {
   display: none; }
 
+.inner {
+  width: 100%; }
+
 .nav-center {
-  margin: 0 auto;
   width: 100%;
-  left: 35%;
+  height: 60px;
+  text-align: center; }
+  .nav-center img {
+    margin: 0 auto;
+    margin-top: 10px;
+    display: inline-block; }
+
+.thelogo2 {
+  height: 40px; }
+
+.thelogo_sm {
+  height: 35px;
+  z-index: 15000;
   position: absolute; }
+
+.dashcontent {
+  position: relative;
+  margin: 0 auto;
+  margin-top: 80px;
+  width: 80%; }
+
+/* 11 de Septiembre, stylish */
+body {
+  background-color: arandano_claro; }
+  body .jumbotron {
+    background-color: rgba(255, 255, 255, 0); }
+  body .container {
+    position: relative;
+    width: 100%; }
+  body .page {
+    position: absolute; }
+  body ng-view {
+    width: 100%; }
 
 /* Estilos para ciertas secciones*/
 .front_page {
@@ -103,14 +129,6 @@ h1 {
   height: 140px;
   display: block;
   margin: auto; }
-
-.thelogo2 {
-  height: 40px; }
-
-.thelogo_sm {
-  height: 40px;
-  z-index: 15000;
-  position: absolute; }
 
 nav {
   z-index: 500; }
