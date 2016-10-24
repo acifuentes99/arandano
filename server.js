@@ -3,6 +3,7 @@ var express     = require('express'),
     bodyParser  = require('body-parser'),
     cookieParser= require('cookie-parser'),
     mysql       = require('mysql2'),
+    passport    = require('passport'),
     routes      = require('./routes/routes.js');
    // angular = require('angular'),
    // angularDragula = require('angular-dragula');
@@ -41,7 +42,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cookieParser())
 
-routes(app, connection);
+routes(app, connection, passport);
 
 var port = process.env.PORT || 8080;
 app.listen(port, function() {

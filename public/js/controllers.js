@@ -1,27 +1,3 @@
- todoApp = angular.module('todoApp', ['ngRoute', 'ngAnimate'])
-  .config(function($routeProvider) {
-    $routeProvider
-      .when('/', {
-        //templateUrl: '/partials/todo.html',
-        templateUrl: '/partials/front.html',
-        //controller: 'TodoCtrl'
-        controller: 'Practica'
-      })
-      .when('/encuesta', {
-        templateUrl: '/partials/encuesta.html',
-        //controller: 'TodoCtrl'
-        controller: 'Practica'
-      })
-      .when('/dashboard', {
-        templateUrl: '/partials/dashboard.html',
-        //controller: 'TodoCtrl'
-        controller: 'Practica'
-      })
-      .otherwise({
-        redirectTo: '/'
-      });
-  });
-
  todoApp.controller('TodoCtrl', function($rootScope, $scope, todosFactory) {
  
   $scope.todos = [];
@@ -128,22 +104,59 @@ todoApp.controller('Encuesta', function($rootScope, $scope, $location, arandanoF
     this.stu = {
         'nombre': '',
         'nickname': '',
-        'email': '',
+        'email': ' ',
         'password': '',
         'tipon': 0,
         'tipo': ''
     };
 
-    this.getResults = function(){
+	this.checkResp = function(resp, index){
+		console.log("changing resp");
+		var ec = resp.ec;
+		var or = resp.or;
+		var ca = resp.ca;
+		var ea = resp.ea;
+		console.log("ec: "+ec+"; or: "+or+"; ca: "+ca+"; ea: "+ea);
+		if(resp.ec && resp.or && resp.ca && resp.ea){
+			if(
+				ec===or || ec===ca || ec===ea ||
+				or===ca || or===ea || ca===ea 	){
+				resp.check = false;
+				$("#incom"+index).css("display", "block")
+					//console.log("bad!");
+			}
+			else{
+				//console.log("good!");
+				$("#incom"+index).css("display", "none")
+				resp.check = true;	
+			}
+		}
+	}
+	this.checkPass = function(){
+		var aux = this.stu;
+		if(aux.password !== aux.password2){
+			$("pass2").css("display", "block")
+			console.log("password dosent match");	
+		}
+		else{
+			$("#pass2").css("display", "block")
+			console.log("password matches!");
+		}	
+	}
+
+    this.submitEncuesta = function(){
         console.log('Holaa!');
         console.log($scope);
         console.log(this.respuestas);
         var ec = 0, or = 0, ca = 0; ea = 0;
         this.respuestas.forEach(function(asd){
-          ec += asd.ec;  
-          or += asd.or;  
-          ca += asd.ca;  
-          ea += asd.ea;  
+			  ec += asd.ec;  
+			  or += asd.or;  
+			  ca += asd.ca;  
+			  ea += asd.ea;
+			if(!asd.check){
+				return false;
+			}
         });
         var caec = ca - ec;
         var eaor = ea - or;
@@ -192,6 +205,7 @@ todoApp.controller('Encuesta', function($rootScope, $scope, $location, arandanoF
             'ca': 'me gusta estar haciendo cosas',
             'ea': 'me gusta observar y escuchar'
         },
+
         {
             'titulo': 'Aprendo mejor cuando' ,
             'ec': 'escucho y observo cuidadosamente',
@@ -318,6 +332,70 @@ todoApp.controller('Encuesta', function($rootScope, $scope, $location, arandanoF
   return _todoService;
 });
 
+
+ todoApp.factory('arandanoBDExperto', function($http) {
+	var urlBase = '/api/experto';
+	var _todoService = {};
+ 
+
+  _todoService.getData = function(data, callbackData) {
+	  $http.get(urlBase+'/'+data)
+		  .then(function(response){
+		  	callbackData(response);
+		  });
+
+  _todoService.sendLogin = function(data) {
+	  return $http.post('/api/login', data);
+  };
+
+
+  _todoService.consol = function() {
+	  console.log("si existo");
+	  return true;
+  };
+	  /*
+app.controller('PoniesCtrl', function($scope, ponyService) {
+  ponyService.getPonies(function(ponies) {
+    $scope.ponies = ponies;
+  });
+});
+
+app.factory('ponyService', function($http) {
+  var getPonies = function(callbackFn) {
+    $http.get('/api/ponies').success(function(data) {
+      callbackFn(data);
+    });
+  };
+
+  return {
+    getPonies: getPonies
+  };
+});
+	  */
+
+	  /*
+	  $http.get(urlBase+'/'+data)
+		  .then(function(arr){
+		  	return arr.nombre_exp;
+		  }, function(err){alert("fail");})*/
+  };
+ 
+  _todoService.saveData = function(data) {
+    return $http.post(urlBase, data);
+  };
+ 
+  _todoService.updateData = function(data) {
+    return $http.put(urlBase, data);
+  };
+ 
+  _todoService.deleteData = function(id) {
+    return $http.delete(urlBase + '/' + id);
+  };
+ 
+  return _todoService;
+});
+
+
 todoApp.factory('shareData', function(){
     var savedData = {};
      function set(data) {
@@ -347,4 +425,84 @@ todoApp.controller('Header', function($rootScope, $scope, $location, arandanoFac
             sidebar = false;
         }
     }; 
+});
+
+todoApp.controller('Login', function($rootScope,$http, $scope, $location, arandanoBDExperto, shareData){
+
+	this.data = {};
+	var aux;
+	var that = this;
+
+    this.submitLogin = function(){
+		//var aux = arandanoBDExperto.getData(this.data.user);
+		
+		//arandanoBDExperto.sendLogin(that.data);
+		//arandanoBDExperto.consol();
+
+		console.log(that.data);
+		$http.post('/api/login', that.data)
+			.then(function(res){
+				if(res.data.login === 1){
+					$location.path('/dash_exp');
+				}
+			})
+		;
+
+
+		/*
+		 //Intento con .get , que es inseguro para passwords
+		arandanoBDExperto.getData(this.data.user, function(data){
+			aux = data;
+			//console.log(aux.data[0].exp_pass);
+			if(that.data.pass === aux.data[0].exp_pass) $location.path('/dashboard');
+			else{
+				$("#wrongpass").fadeIn(1000).css("display","block");
+			}
+
+		}); 
+		*/
+    };
+    
+});
+
+
+/*
+ * aloja
+ * 1234
+ * */
+
+todoApp.controller('Registro', function($rootScope, $scope, $location, arandanoBDExperto, shareData){
+
+    this.stu = {
+        'nombre': '',
+        'nickname': '',
+        'email': ' ',
+        'password': '',
+        'tipon': 0,
+        'tipo': ''
+    };
+
+	this.checkPass = function(){
+		var aux = this.stu;
+		if(aux.password !== aux.password2){
+			$("pass2").css("display", "block")
+			console.log("password dosent match");	
+		}
+		else{
+			$("#pass2").css("display", "block")
+			console.log("password matches!");
+		}	
+	}
+
+    this.submitReg = function(){
+        console.log('Holaa!');
+        console.log($scope);
+
+		//shareData.set(this.stu);
+        arandanoBDExperto.saveData(this.stu)
+        .then(function(){
+            $location.path('/regexitoso');
+        });
+    };
+    
 });

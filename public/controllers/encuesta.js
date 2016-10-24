@@ -3,22 +3,59 @@ todoApp.controller('Encuesta', function($rootScope, $scope, $location, arandanoF
     this.stu = {
         'nombre': '',
         'nickname': '',
-        'email': '',
+        'email': ' ',
         'password': '',
         'tipon': 0,
         'tipo': ''
     };
 
-    this.getResults = function(){
+	this.checkResp = function(resp, index){
+		console.log("changing resp");
+		var ec = resp.ec;
+		var or = resp.or;
+		var ca = resp.ca;
+		var ea = resp.ea;
+		console.log("ec: "+ec+"; or: "+or+"; ca: "+ca+"; ea: "+ea);
+		if(resp.ec && resp.or && resp.ca && resp.ea){
+			if(
+				ec===or || ec===ca || ec===ea ||
+				or===ca || or===ea || ca===ea 	){
+				resp.check = false;
+				$("#incom"+index).css("display", "block")
+					//console.log("bad!");
+			}
+			else{
+				//console.log("good!");
+				$("#incom"+index).css("display", "none")
+				resp.check = true;	
+			}
+		}
+	}
+	this.checkPass = function(){
+		var aux = this.stu;
+		if(aux.password !== aux.password2){
+			$("pass2").css("display", "block")
+			console.log("password dosent match");	
+		}
+		else{
+			$("#pass2").css("display", "block")
+			console.log("password matches!");
+		}	
+	}
+
+    this.submitEncuesta = function(){
         console.log('Holaa!');
         console.log($scope);
         console.log(this.respuestas);
         var ec = 0, or = 0, ca = 0; ea = 0;
         this.respuestas.forEach(function(asd){
-          ec += asd.ec;  
-          or += asd.or;  
-          ca += asd.ca;  
-          ea += asd.ea;  
+			  ec += asd.ec;  
+			  or += asd.or;  
+			  ca += asd.ca;  
+			  ea += asd.ea;
+			if(!asd.check){
+				return false;
+			}
         });
         var caec = ca - ec;
         var eaor = ea - or;
@@ -67,6 +104,7 @@ todoApp.controller('Encuesta', function($rootScope, $scope, $location, arandanoF
             'ca': 'me gusta estar haciendo cosas',
             'ea': 'me gusta observar y escuchar'
         },
+
         {
             'titulo': 'Aprendo mejor cuando' ,
             'ec': 'escucho y observo cuidadosamente',

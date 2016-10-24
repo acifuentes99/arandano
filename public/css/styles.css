@@ -1,16 +1,21 @@
+/* Este estilo, define las 2 pantallas de log in
+ * Asegurarse de colocar un div con class = "front", para
+ * aplicarlo */
 @import 'https://fonts.googleapis.com/css?family=Paytone+One';
-/* 11 de Septiembre, stylish */
-body {
-  background-color: arandano_claro; }
-  body .jumbotron {
-    background-color: rgba(255, 255, 255, 0); }
-  body .container {
-    position: relative;
-    width: 100%; }
-  body .page {
-    position: absolute; }
-  body ng-view {
-    width: 100%; }
+.front .special {
+  display: block;
+  margin: 0 auto;
+  height: 30px; }
+
+.front p {
+  text-align: center;
+  width: 100%; }
+
+.front .wrongpass {
+  display: none;
+  color: red;
+  text-align: center;
+  margin: 0 auto; }
 
 #sidebar {
   position: absolute;
@@ -29,11 +34,44 @@ body {
 .sidebar-collapse {
   display: none; }
 
+.inner {
+  width: 100%; }
+
 .nav-center {
-  margin: 0 auto;
   width: 100%;
-  left: 35%;
+  height: 60px;
+  text-align: center; }
+  .nav-center img {
+    margin: 0 auto;
+    margin-top: 10px;
+    display: inline-block; }
+
+.thelogo2 {
+  height: 40px; }
+
+.thelogo_sm {
+  height: 35px;
+  z-index: 15000;
   position: absolute; }
+
+.dashcontent {
+  position: relative;
+  margin: 0 auto;
+  margin-top: 80px;
+  width: 80%; }
+
+/* 11 de Septiembre, stylish */
+body {
+  background-color: arandano_claro; }
+  body .jumbotron {
+    background-color: rgba(255, 255, 255, 0); }
+  body .container {
+    position: relative;
+    width: 100%; }
+  body .page {
+    position: absolute; }
+  body ng-view {
+    width: 100%; }
 
 /* Estilos para ciertas secciones*/
 .front_page {
@@ -60,6 +98,10 @@ form {
       text-align: left; }
     form table th, form table td {
       padding-left: 15px; }
+  form .ng-invalid.ng-dirty {
+    border-color: #FA787E; }
+  form .ng-valid.ng-dirty {
+    border-color: #78FA89; }
 
 .content {
   background-color: red; }
@@ -68,6 +110,10 @@ h1 {
   color: #33334d;
   font-size: 50px;
   font-family: 'Paytone One'; }
+
+.incompleteResp {
+  display: none;
+  color: red; }
 
 .la_encuesta {
   display: block;
@@ -83,14 +129,6 @@ h1 {
   height: 140px;
   display: block;
   margin: auto; }
-
-.thelogo2 {
-  height: 40px; }
-
-.thelogo_sm {
-  height: 40px;
-  z-index: 15000;
-  position: absolute; }
 
 nav {
   z-index: 500; }

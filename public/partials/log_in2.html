@@ -1,0 +1,19 @@
+<div class="front">
+<div class="jumbotron">
+	<a href="#/"><img class="img-responsive thelogo" src="assets/arandano.svg"></img></a>
+	<p>Acceso Especial</p>
+</div>
+ <div ng-controller="Login as login" class="front_page">
+    <br>
+
+    <form ng-submit="login.submitLogin()">
+        <input type="text" ng-model="login.data.user" name="username"></input><br>
+        <input type="password" ng-model="login.data.pass" name="thepass"></input><br>
+        <button type="submit" class="btn btn-lg btn-arandano">Ingresar</button>
+    </form>
+	<span id="wrongpass" class="wrongpass">Password Incorrecto, intente otra vez</span>
+
+    <a href='#reg'><button class="btn btn-lg btn-arandano" >Registrarse</button></a>
+
+</div>
+</div>

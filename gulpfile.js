@@ -42,16 +42,17 @@ gulp.task('scripts2', function() {
 	return gulp.src('public/controllers/*.js')
         .pipe(concat('controllers.js'))
 		.pipe(gulp.dest('public/js'))
-        .pipe(rename('controllers.min.js'))
-        .pipe(uglify())
-        .pipe(gulp.dest('public/js'));
+		.pipe(livereload());
+	//.pipe(rename('controllers.min.js'))
+	//  .pipe(uglify())
+	//  .pipe(gulp.dest('public/js'));
 });
 
 // Watch Files For Changes
 gulp.task('watch', function() {
     livereload.listen();
-	gulp.watch('public/js/**/*.js', ['reload']);
-	gulp.watch('public/partials/**/*.html', ['reload2']);
+	//gulp.watch('public/js/**/*.js', ['reload']);
+	//gulp.watch('public/partials/**/*.html', ['reload2']);
     gulp.watch('private/scss/*.scss', ['sass']);
     gulp.watch('public/controllers/*.js', ['scripts2']);
 });

@@ -1,7 +1,10 @@
- @import 'https://fonts.googleapis.com/css?family=Paytone+One';
-
 $arandano: #33334d;
 $arandano_claro:  #d1d1e0;
+@import "front";
+@import "header";
+@import "dashboards";
+@import 'https://fonts.googleapis.com/css?family=Paytone+One';
+
 
 /* 11 de Septiembre, stylish */
 
@@ -24,29 +27,6 @@ body{
     }
 }
 
-#sidebar{
-    position: absolute;
-    height: 100vh;
-    width: 400px;
-    background-color: $arandano;
-    top: 0;
-    left: 0;
-    z-index: 8000;
-    .cont{
-        color: white;
-        font-size: 22px;
-        margin-top: 100px;
-        margin-left: 20px;
-    }
-}
-.sidebar-collapse{ display: none; }
-
-.nav-center{
-    margin: 0 auto;
-    width: 100%;
-    left: 35%;
-    position: absolute;
-}
 
 
 /* Estilos para ciertas secciones*/
@@ -82,7 +62,18 @@ form{
         }
     }
     margin-bottom: 30px;
+
+	.ng-invalid.ng-dirty{
+		border-color: #FA787E;
+		//outline: 1px solid red;
+		//*
+	}
+	.ng-valid.ng-dirty{
+		border-color: #78FA89;
+		//outline: 1px solid green;
+	}
 }
+
 
 .content{
     background-color: red;
@@ -102,6 +93,11 @@ form{
     }
 }
 
+.incompleteResp{
+	display: none;
+	color: red;
+}
+
 .la_encuesta{
     display: block;
     max-width: 600px;
@@ -119,14 +115,6 @@ form{
     height: 140px;
     display: block;
     margin: auto;
-}
-.thelogo2{
-    height: 40px;
-}
-.thelogo_sm{
-    height: 40px;
-    z-index: 15000;
-    position: absolute;
 }
 nav{
     z-index: 500;
