@@ -99,6 +99,43 @@ todoApp.controller('Dashboard', function($rootScope, $scope, $location, arandano
 });
 
 
+todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, arandanoFactory, shareData, $route){
+
+    this.stu = {
+		nombrecurso: '',
+		desccurso: '',
+		imgurl: ''
+    };
+	var that = this;
+
+	//this.theData = cursosData;
+	//this.theData = 'olfdsafsdaljfal';
+
+	console.log("En controlador, Data = "+this.theData);
+
+    var that = this;
+
+    this.submitCurso = function(){
+        console.log("algo");
+		$http.post('/api/curso', that.stu)
+        .then(function(){
+            $route.reload();
+        });
+    };
+
+    this.verCursos = function(){
+        $http.get('/api/curso/1')
+            .then(function(res){
+               console.log(res);
+				that.theCursos = res.data;
+               //colocar variable para coloar en la pagina
+            })
+        ;
+    }
+    
+
+});
+
 todoApp.controller('Encuesta', function($rootScope, $scope, $location, arandanoFactory, shareData){
 
     this.stu = {
@@ -209,8 +246,8 @@ todoApp.controller('Encuesta', function($rootScope, $scope, $location, arandanoF
         {
             'titulo': 'Aprendo mejor cuando' ,
             'ec': 'escucho y observo cuidadosamente',
-            'or': 'Confio en el pensamiento lógico',
-            'ca': 'confio en mi intuición y sentimientos',
+            'or': 'Confío en el pensamiento lógico',
+            'ca': 'confío en mi intuición y sentimientos',
             'ea': 'trabajo duro para lograr hacer las cosas'
         },
         {
@@ -218,7 +255,7 @@ todoApp.controller('Encuesta', function($rootScope, $scope, $location, arandanoF
             'ec': 'tiendo a usar el razonamiento',
             'or': 'soy responsable con lo que hago',
             'ca': 'soy callado y reservado',
-            'ea': 'tengo fuertes senaciones y reacciones'
+            'ea': 'tengo fuertes sensasiones y reacciones'
         },
         {
             'titulo': 'Yo aprendo..' ,
@@ -231,7 +268,7 @@ todoApp.controller('Encuesta', function($rootScope, $scope, $location, arandanoF
             'titulo': 'Cuando aprendo...' ,
             'ec': 'estoy abierto a nuevas experiencias',
             'or': 'observo todos los aspectos del asunto',
-            'ca': 'me gusta analizar las cosas, descomponerlas en sus aprtes',
+            'ca': 'me gusta analizar las cosas, descomponerlas en sus partes',
             'ea': 'me gusta probar e intentar hacer las cosas'
         },
         {
@@ -243,37 +280,37 @@ todoApp.controller('Encuesta', function($rootScope, $scope, $location, arandanoF
         },
         {
             'titulo': 'Yo aprendo mejor de...' ,
-            'ec': 'la observacón',
-            'or': 'la relacion con otras personas',
-            'ca': 'las teorias racionales',
+            'ec': 'la observación',
+            'or': 'la relación con otras personas',
+            'ca': 'las teorías racionales',
             'ea': 'la oportunidad de probar y practicar'
         },
         {
             'titulo': 'Cuando aprendo...' ,
-            'ec': 'me gusta ver lso resultados de mi trabajo',
-            'or': 'me gustan las ideas y las teorias',
-            'ca': 'me tomo mi timepo antes de acutar',
+            'ec': 'me gusta ver los resultados de mi trabajo',
+            'or': 'me gustan las ideas y las teorías',
+            'ca': 'me tomo mi tiempo antes de actuar',
             'ea': 'me siento personalmente involucrado en las cosas'
         },
         {
             'titulo': 'Aprendo mejor cuando...' ,
-            'ec': 'confio en mis observciones',
-            'or': 'confio en mis sentimientos',
+            'ec': 'confío en mis observaciones',
+            'or': 'confío en mis sentimientos',
             'ca': 'puedo probar por mi cuenta',
-            'ea': 'confio en mis ideas'
+            'ea': 'confío en mis ideas'
         },
         {
             'titulo': 'cuando estoy aprendiendo...' ,
             'ec': 'soy una persona reservada',
             'or': 'soy una persona receptiva',
-            'ca': 'soyuna persona responsable',
+            'ca': 'soy una persona responsable',
             'ea': 'soy una persona racional'
         },
         {
-            'titulo': 'Cuanod aprendo...' ,
-            'ec': 'me inolucro',
+            'titulo': 'Cuando aprendo...' ,
+            'ec': 'me involucro',
             'or': 'me gusta observar',
-            'ca': 'evaluo las cosas',
+            'ca': 'evaluó las cosas',
             'ea': 'me gusta ser activo'
         },
         {
@@ -332,6 +369,26 @@ todoApp.controller('Encuesta', function($rootScope, $scope, $location, arandanoF
   return _todoService;
 });
 
+
+todoApp.factory('TheFactory', function($http, $window) {
+	var theResult = {
+		getCursos: function(){
+			var promise = $http({
+				method: 'GET',
+				url: 'http://localhost:8080/api/curso/1'
+			})
+			.success(function(data, status, headers, config){
+				console.log('desde factory: '+data[0].curso_id);
+				return data;
+			})
+			;
+			return promise;
+		}
+	};
+	//console.log(theResult.getCursos());
+	return theResult; 
+ 
+ });
 
  todoApp.factory('arandanoBDExperto', function($http) {
 	var urlBase = '/api/experto';

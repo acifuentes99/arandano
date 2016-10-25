@@ -5,3 +5,27 @@
 	width: 80%;
 
 }
+
+.curso{
+	position: relative;
+	height: 160px;
+	width: 100%;
+	overflow: hidden;
+	color: white;
+	margin-bottom: 10px;
+	h3{
+   		font-size: 40px;
+		font-weight: bold;
+	}
+	.texto{
+		position: absolute;
+		background-color: rgba(0,0,0,0.4);
+		width: 100%;
+		p{
+			margin: 0 8px 0 8px;
+		}
+	}
+	img{
+		width: 100%;
+	}
+}

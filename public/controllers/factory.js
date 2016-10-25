@@ -45,6 +45,26 @@
 });
 
 
+todoApp.factory('TheFactory', function($http, $window) {
+	var theResult = {
+		getCursos: function(){
+			var promise = $http({
+				method: 'GET',
+				url: 'http://localhost:8080/api/curso/1'
+			})
+			.success(function(data, status, headers, config){
+				console.log('desde factory: '+data[0].curso_id);
+				return data;
+			})
+			;
+			return promise;
+		}
+	};
+	//console.log(theResult.getCursos());
+	return theResult; 
+ 
+ });
+
  todoApp.factory('arandanoBDExperto', function($http) {
 	var urlBase = '/api/experto';
 	var _todoService = {};
