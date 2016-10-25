@@ -1,28 +1,47 @@
 
 <div class="" ng-include="'partials/header.html'"></div>
+
+    <div ng-controller="Practica as practica">
  <div class="dashcontent" >
 
-    <!--span> {{asd.product.value}} </span>
-    <span> {{5+5}} </span>
-    <span> {{"This is some text"}} </span-->
-
-
-    <div ng-controller="Dashboard as dash">
+    <div ng-controller="Dash_exp as dash" ng-init="dash.verCursos()">
 
     <h2>Dashboard Experto</h2>
 
 	<h3>Mis Cursos</h3>
 
+	<div ng-repeat="curso in dash.theCursos">
+		<div class="curso">
+			<div class="texto">
+				<h3>{{curso.nombre}}</h3>
+				<p>{{curso.descripcion}}</p>
+			</div>
+			<img class="img-responsive" src={{curso.imagen}}></img>
+		</div>
+	</div>
+
 	<a><button  ng-click="goCats = !goCats">Añadir Curso</button></a>
 	<div ng-show="goCats">
-		<form ng-submit="" >
-			Nombre Curso <input type="text"></input><br>
-			Descripción Curso <input type="text"></input><br>
-			Url Imagen <input type="text"></input><br>
-			<button>Agregar</button>
+		<form ng-submit="dash.submitCurso()" >
+			Nombre Curso <input type="text"
+				ng-model="dash.stu.nombrecurso"
+				name="nombrecurso" ></input><br>
+			Descripción Curso <input type="text"
+			ng-model="dash.stu.desccurso"
+			name="desccurso" ></input><br>
+			Url Imagen <input type="text"
+			ng-model="dash.stu.imgurl"
+			name="imgurl" ></input><br>
+			<br>
+			Experto administrador <input type="text"
+			ng-model="dash.stu.admin"
+			name="admin" ></input><br>
+			
+
+			<button type="submit">Agregar</button>
 		</form>
 	</div>
     </div>
 
-
+</div>
 </div>

@@ -37,7 +37,13 @@
       .when('/dash_exp', {
         templateUrl: '/partials/dashboard_exp.html',
         //controller: 'TodoCtrl'
-        controller: 'Practica'
+        controller: 'Dash_exp',
+		resolve: {
+			cursosData: function(TheFactory){
+				console.log('desde app');
+				return TheFactory.getCursos();
+			}
+		}
       })
       .otherwise({
         redirectTo: '/'

@@ -3,3 +3,22 @@
   margin: 0 auto;
   margin-top: 80px;
   width: 80%; }
+
+.curso {
+  position: relative;
+  height: 160px;
+  width: 100%;
+  overflow: hidden;
+  color: white;
+  margin-bottom: 10px; }
+  .curso h3 {
+    font-size: 40px;
+    font-weight: bold; }
+  .curso .texto {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.4);
+    width: 100%; }
+    .curso .texto p {
+      margin: 0 8px 0 8px; }
+  .curso img {
+    width: 100%; }
