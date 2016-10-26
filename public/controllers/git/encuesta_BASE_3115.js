@@ -108,8 +108,8 @@ todoApp.controller('Encuesta', function($rootScope, $scope, $location, arandanoF
         {
             'titulo': 'Aprendo mejor cuando' ,
             'ec': 'escucho y observo cuidadosamente',
-            'or': 'Confío en el pensamiento lógico',
-            'ca': 'confío en mi intuición y sentimientos',
+            'or': 'Confio en el pensamiento lógico',
+            'ca': 'confio en mi intuición y sentimientos',
             'ea': 'trabajo duro para lograr hacer las cosas'
         },
         {
@@ -117,7 +117,7 @@ todoApp.controller('Encuesta', function($rootScope, $scope, $location, arandanoF
             'ec': 'tiendo a usar el razonamiento',
             'or': 'soy responsable con lo que hago',
             'ca': 'soy callado y reservado',
-            'ea': 'tengo fuertes sensaciones y reacciones'
+            'ea': 'tengo fuertes senaciones y reacciones'
         },
         {
             'titulo': 'Yo aprendo..' ,
@@ -128,13 +128,13 @@ todoApp.controller('Encuesta', function($rootScope, $scope, $location, arandanoF
         },
         {
             'titulo': 'Cuando aprendo...' ,
-            'ec': 'Estoy abierto a nuevas experiencias',
-            'or': 'Observo todos los aspectos del asunto',
-            'ca': 'Me gusta analizar las cosas, descomponerlas en sus partes',
-            'ea': 'Me gusta probar e intentar hacer las cosas'
+            'ec': 'estoy abierto a nuevas experiencias',
+            'or': 'observo todos los aspectos del asunto',
+            'ca': 'me gusta analizar las cosas, descomponerlas en sus aprtes',
+            'ea': 'me gusta probar e intentar hacer las cosas'
         },
         {
-            'titulo': 'Cuando estoy aprendiendo..' ,
+            'titulo': 'Cando estoy aprendiendo..' ,
             'ec': 'soy una persona observadora',
             'or': 'soy una persona activa ',
             'ca': 'soy una persona intuitiva',
@@ -142,37 +142,37 @@ todoApp.controller('Encuesta', function($rootScope, $scope, $location, arandanoF
         },
         {
             'titulo': 'Yo aprendo mejor de...' ,
-            'ec': 'la observación',
-            'or': 'la relación con otras personas',
-            'ca': 'las teorías racionales',
+            'ec': 'la observacón',
+            'or': 'la relacion con otras personas',
+            'ca': 'las teorias racionales',
             'ea': 'la oportunidad de probar y practicar'
         },
         {
             'titulo': 'Cuando aprendo...' ,
-            'ec': 'me gusta ver los resultados de mi trabajo',
-            'or': 'me gustan las ideas y las teorías',
-            'ca': 'me tomo mi tiempo antes de actuar',
+            'ec': 'me gusta ver lso resultados de mi trabajo',
+            'or': 'me gustan las ideas y las teorias',
+            'ca': 'me tomo mi timepo antes de acutar',
             'ea': 'me siento personalmente involucrado en las cosas'
         },
         {
             'titulo': 'Aprendo mejor cuando...' ,
-            'ec': 'confío en mis observaciones',
-            'or': 'confío en mis sentimientos',
+            'ec': 'confio en mis observciones',
+            'or': 'confio en mis sentimientos',
             'ca': 'puedo probar por mi cuenta',
-            'ea': 'confío en mis ideas'
+            'ea': 'confio en mis ideas'
         },
         {
-            'titulo': 'Cuando estoy aprendiendo...' ,
+            'titulo': 'cuando estoy aprendiendo...' ,
             'ec': 'soy una persona reservada',
             'or': 'soy una persona receptiva',
-            'ca': 'soy una persona responsable',
+            'ca': 'soyuna persona responsable',
             'ea': 'soy una persona racional'
         },
         {
-            'titulo': 'Cuando aprendo...' ,
-            'ec': 'me involucro',
+            'titulo': 'Cuanod aprendo...' ,
+            'ec': 'me inolucro',
             'or': 'me gusta observar',
-            'ca': 'evaluó las cosas',
+            'ca': 'evaluo las cosas',
             'ea': 'me gusta ser activo'
         },
         {

@@ -117,7 +117,11 @@ todoApp.controller('Encuesta', function($rootScope, $scope, $location, arandanoF
             'ec': 'tiendo a usar el razonamiento',
             'or': 'soy responsable con lo que hago',
             'ca': 'soy callado y reservado',
+<<<<<<< HEAD
+            'ea': 'tengo fuertes sensasiones y reacciones'
+=======
             'ea': 'tengo fuertes sensaciones y reacciones'
+>>>>>>> 5e9f5e029e705c0595de4ca9c49e80a2c2814a4f
         },
         {
             'titulo': 'Yo aprendo..' ,
@@ -128,10 +132,17 @@ todoApp.controller('Encuesta', function($rootScope, $scope, $location, arandanoF
         },
         {
             'titulo': 'Cuando aprendo...' ,
+<<<<<<< HEAD
+            'ec': 'estoy abierto a nuevas experiencias',
+            'or': 'observo todos los aspectos del asunto',
+            'ca': 'me gusta analizar las cosas, descomponerlas en sus partes',
+            'ea': 'me gusta probar e intentar hacer las cosas'
+=======
             'ec': 'Estoy abierto a nuevas experiencias',
             'or': 'Observo todos los aspectos del asunto',
             'ca': 'Me gusta analizar las cosas, descomponerlas en sus partes',
             'ea': 'Me gusta probar e intentar hacer las cosas'
+>>>>>>> 5e9f5e029e705c0595de4ca9c49e80a2c2814a4f
         },
         {
             'titulo': 'Cuando estoy aprendiendo..' ,
@@ -142,22 +153,39 @@ todoApp.controller('Encuesta', function($rootScope, $scope, $location, arandanoF
         },
         {
             'titulo': 'Yo aprendo mejor de...' ,
+<<<<<<< HEAD
             'ec': 'la observación',
             'or': 'la relación con otras personas',
             'ca': 'las teorías racionales',
             'ea': 'la oportunidad de probar y practicar'
+=======
+            'ec': 'La observacón',
+            'or': 'La relacion con otras personas',
+            'ca': 'Las teorias racionales',
+            'ea': 'La oportunidad de probar y practicar'
+>>>>>>> 5e9f5e029e705c0595de4ca9c49e80a2c2814a4f
         },
         {
             'titulo': 'Cuando aprendo...' ,
             'ec': 'me gusta ver los resultados de mi trabajo',
+<<<<<<< HEAD
             'or': 'me gustan las ideas y las teorías',
             'ca': 'me tomo mi tiempo antes de actuar',
+=======
+            'or': 'me gustan las ideas y las teorias',
+            'ca': 'me tomo mi timepo antes de actuar',
+>>>>>>> 5e9f5e029e705c0595de4ca9c49e80a2c2814a4f
             'ea': 'me siento personalmente involucrado en las cosas'
         },
         {
             'titulo': 'Aprendo mejor cuando...' ,
+<<<<<<< HEAD
             'ec': 'confío en mis observaciones',
             'or': 'confío en mis sentimientos',
+=======
+            'ec': 'confio en mis observaciones',
+            'or': 'confio en mis sentimientos',
+>>>>>>> 5e9f5e029e705c0595de4ca9c49e80a2c2814a4f
             'ca': 'puedo probar por mi cuenta',
             'ea': 'confío en mis ideas'
         },
