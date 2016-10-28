@@ -8,9 +8,10 @@
     <span> {{"This is some text"}} </span-->
 
 
-    <div ng-controller="Dashboard as dash">
+    <div ng-controller="Dashboard as dash" ng-init="dash.loadEstudiante()">
 
     <h2>Dashboard</h2>
+		<span>Hola {{dash.theStudent.nickname}}!</span>
         <h3>Felicidades!, eres de tipo: {{ dash.stu.tipo }}</h3>
         <p>Proximamente con contenido</p>
     </div>

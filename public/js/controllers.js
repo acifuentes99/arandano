@@ -92,13 +92,6 @@
 
 
 
-todoApp.controller('Dashboard', function($rootScope, $scope, $location, arandanoFactory, shareData){
-    this.stu = shareData.get();
-    this.algo = "un text";
-
-});
-
-
 todoApp.controller('Encuesta', function($rootScope, $scope, $location, arandanoFactory, shareData){
 
     this.stu = {
@@ -209,8 +202,8 @@ todoApp.controller('Encuesta', function($rootScope, $scope, $location, arandanoF
         {
             'titulo': 'Aprendo mejor cuando' ,
             'ec': 'escucho y observo cuidadosamente',
-            'or': 'Confio en el pensamiento lógico',
-            'ca': 'confio en mi intuición y sentimientos',
+            'or': 'Confío en el pensamiento lógico',
+            'ca': 'confío en mi intuición y sentimientos',
             'ea': 'trabajo duro para lograr hacer las cosas'
         },
         {
@@ -218,7 +211,7 @@ todoApp.controller('Encuesta', function($rootScope, $scope, $location, arandanoF
             'ec': 'tiendo a usar el razonamiento',
             'or': 'soy responsable con lo que hago',
             'ca': 'soy callado y reservado',
-            'ea': 'tengo fuertes senaciones y reacciones'
+            'ea': 'tengo fuertes sensaciones y reacciones'
         },
         {
             'titulo': 'Yo aprendo..' ,
@@ -229,13 +222,13 @@ todoApp.controller('Encuesta', function($rootScope, $scope, $location, arandanoF
         },
         {
             'titulo': 'Cuando aprendo...' ,
-            'ec': 'estoy abierto a nuevas experiencias',
-            'or': 'observo todos los aspectos del asunto',
-            'ca': 'me gusta analizar las cosas, descomponerlas en sus aprtes',
-            'ea': 'me gusta probar e intentar hacer las cosas'
+            'ec': 'Estoy abierto a nuevas experiencias',
+            'or': 'Observo todos los aspectos del asunto',
+            'ca': 'Me gusta analizar las cosas, descomponerlas en sus partes',
+            'ea': 'Me gusta probar e intentar hacer las cosas'
         },
         {
-            'titulo': 'Cando estoy aprendiendo..' ,
+            'titulo': 'Cuando estoy aprendiendo..' ,
             'ec': 'soy una persona observadora',
             'or': 'soy una persona activa ',
             'ca': 'soy una persona intuitiva',
@@ -243,37 +236,37 @@ todoApp.controller('Encuesta', function($rootScope, $scope, $location, arandanoF
         },
         {
             'titulo': 'Yo aprendo mejor de...' ,
-            'ec': 'la observacón',
-            'or': 'la relacion con otras personas',
-            'ca': 'las teorias racionales',
+            'ec': 'la observación',
+            'or': 'la relación con otras personas',
+            'ca': 'las teorías racionales',
             'ea': 'la oportunidad de probar y practicar'
         },
         {
             'titulo': 'Cuando aprendo...' ,
-            'ec': 'me gusta ver lso resultados de mi trabajo',
-            'or': 'me gustan las ideas y las teorias',
-            'ca': 'me tomo mi timepo antes de acutar',
+            'ec': 'me gusta ver los resultados de mi trabajo',
+            'or': 'me gustan las ideas y las teorías',
+            'ca': 'me tomo mi tiempo antes de actuar',
             'ea': 'me siento personalmente involucrado en las cosas'
         },
         {
             'titulo': 'Aprendo mejor cuando...' ,
-            'ec': 'confio en mis observciones',
-            'or': 'confio en mis sentimientos',
+            'ec': 'confío en mis observaciones',
+            'or': 'confío en mis sentimientos',
             'ca': 'puedo probar por mi cuenta',
-            'ea': 'confio en mis ideas'
+            'ea': 'confío en mis ideas'
         },
         {
-            'titulo': 'cuando estoy aprendiendo...' ,
+            'titulo': 'Cuando estoy aprendiendo...' ,
             'ec': 'soy una persona reservada',
             'or': 'soy una persona receptiva',
-            'ca': 'soyuna persona responsable',
+            'ca': 'soy una persona responsable',
             'ea': 'soy una persona racional'
         },
         {
-            'titulo': 'Cuanod aprendo...' ,
-            'ec': 'me inolucro',
+            'titulo': 'Cuando aprendo...' ,
+            'ec': 'me involucro',
             'or': 'me gusta observar',
-            'ca': 'evaluo las cosas',
+            'ca': 'evaluó las cosas',
             'ea': 'me gusta ser activo'
         },
         {
@@ -332,6 +325,26 @@ todoApp.controller('Encuesta', function($rootScope, $scope, $location, arandanoF
   return _todoService;
 });
 
+
+todoApp.factory('TheFactory', function($http, $window) {
+	var theResult = {
+		getCursos: function(){
+			var promise = $http({
+				method: 'GET',
+				url: 'http://localhost:8080/api/curso/1'
+			})
+			.success(function(data, status, headers, config){
+				console.log('desde factory: '+data[0].curso_id);
+				return data;
+			})
+			;
+			return promise;
+		}
+	};
+	//console.log(theResult.getCursos());
+	return theResult; 
+ 
+ });
 
  todoApp.factory('arandanoBDExperto', function($http) {
 	var urlBase = '/api/experto';
@@ -433,20 +446,50 @@ todoApp.controller('Login', function($rootScope,$http, $scope, $location, aranda
 	var aux;
 	var that = this;
 
-    this.submitLogin = function(){
-		//var aux = arandanoBDExperto.getData(this.data.user);
-		
-		//arandanoBDExperto.sendLogin(that.data);
-		//arandanoBDExperto.consol();
 
-		console.log(that.data);
-		$http.post('/api/login', that.data)
+	this.submitLoginEstudiante = function(){
+		console.log(that.est.data);
+		$http.post('/api/login/est', that.est.data)
+			.then(function(res){
+				if(res.data.login === 1){
+					$location.path('/dashboard');
+				}
+		});
+	};
+
+
+    this.submitLoginExperto = function(){
+		console.log(that.exp.data);
+		$http.post('/api/login/exp', that.exp.data)
 			.then(function(res){
 				if(res.data.login === 1){
 					$location.path('/dash_exp');
 				}
-			})
-		;
+			});
+    };
+
+    this.submitLoginProfesor = function(){
+		console.log("profesor data: "+that.pro.data);
+		$http.post('/api/login/pro', that.pro.data)
+			.then(function(res){
+				if(res.data.login === 1){
+					$location.path('/dash_exp');
+				}
+			});
+    };
+    
+});
+
+
+/*
+ * aloja
+ * 1234
+ *
+ *
+ * andrew123
+ * 1234
+ * */
+
 
 
 		/*
@@ -461,15 +504,6 @@ todoApp.controller('Login', function($rootScope,$http, $scope, $location, aranda
 
 		}); 
 		*/
-    };
-    
-});
-
-
-/*
- * aloja
- * 1234
- * */
 
 todoApp.controller('Registro', function($rootScope, $scope, $location, arandanoBDExperto, shareData){
 
@@ -505,4 +539,101 @@ todoApp.controller('Registro', function($rootScope, $scope, $location, arandanoB
         });
     };
     
+});
+
+todoApp.controller('Dashboard', function($rootScope, $scope, $location, arandanoFactory, shareData, $http){
+    this.stu = shareData.get();
+    this.algo = "un text";
+	var that = this;
+
+
+    this.loadEstudiante = function(){
+		console.log("iniciando metodo getstudent");
+		$http.get('/api/login/est/')
+            .then(function(res){
+				console.log(res);
+				if(res.data.status === -1){
+					$location.path("/");	
+				}
+				else{
+				   console.log(res);
+					that.theStudent = res.data;
+				   //colocar variable para coloar en la pagina
+					//
+					switch(that.theStudent.tipo){
+						case 0:
+							that.stu.tipo = "Adaptador";
+							break;
+						case 1:
+							that.stu.tipo = "Divergente";
+							break;
+						case 2:
+							that.stu.tipo = "Convergente";
+							break;
+						case 3:
+							that.stu.tipo = "Asimilador";
+							break;
+
+					}
+				}
+            });
+	}
+
+});
+
+
+todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, arandanoFactory, shareData, $route){
+
+    this.stu = {
+		nombrecurso: '',
+		desccurso: '',
+		imgurl: ''
+    };
+	var that = this;
+
+	//this.theData = cursosData;
+	//this.theData = 'olfdsafsdaljfal';
+
+	console.log("En controlador, Data = "+this.theData);
+
+    var that = this;
+
+
+    this.loadExperto = function(){
+		console.log("iniciando metodo getExperto");
+		$http.get('/api/login/exp/')
+            .then(function(res){
+				console.log(res);
+				if(res.data.status === -1){
+					$location.path("/");	
+				}
+				else{
+				   console.log(res);
+					that.theExpert = res.data;
+				}
+            });
+	}
+
+
+    this.submitCurso = function(){
+        console.log("algo");
+		$http.post('/api/curso', that.stu)
+        .then(function(){
+            $route.reload();
+        });
+    };
+
+	/* Con esta supermegafuncion, hago el get al cargar la página
+	 * (se llama el método con ng-init en la vista)
+		* */
+    this.verCursos = function(){
+        $http.get('/api/curso/1')
+            .then(function(res){
+               console.log(res);
+				that.theCursos = res.data;
+               //colocar variable para coloar en la pagina
+            });
+    }
+    
+
 });

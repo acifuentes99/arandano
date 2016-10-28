@@ -117,7 +117,7 @@ todoApp.controller('Encuesta', function($rootScope, $scope, $location, arandanoF
             'ec': 'tiendo a usar el razonamiento',
             'or': 'soy responsable con lo que hago',
             'ca': 'soy callado y reservado',
-            'ea': 'tengo fuertes sensasiones y reacciones'
+            'ea': 'tengo fuertes sensaciones y reacciones'
         },
         {
             'titulo': 'Yo aprendo..' ,
@@ -128,13 +128,13 @@ todoApp.controller('Encuesta', function($rootScope, $scope, $location, arandanoF
         },
         {
             'titulo': 'Cuando aprendo...' ,
-            'ec': 'estoy abierto a nuevas experiencias',
-            'or': 'observo todos los aspectos del asunto',
-            'ca': 'me gusta analizar las cosas, descomponerlas en sus partes',
-            'ea': 'me gusta probar e intentar hacer las cosas'
+            'ec': 'Estoy abierto a nuevas experiencias',
+            'or': 'Observo todos los aspectos del asunto',
+            'ca': 'Me gusta analizar las cosas, descomponerlas en sus partes',
+            'ea': 'Me gusta probar e intentar hacer las cosas'
         },
         {
-            'titulo': 'Cando estoy aprendiendo..' ,
+            'titulo': 'Cuando estoy aprendiendo..' ,
             'ec': 'soy una persona observadora',
             'or': 'soy una persona activa ',
             'ca': 'soy una persona intuitiva',
@@ -162,7 +162,7 @@ todoApp.controller('Encuesta', function($rootScope, $scope, $location, arandanoF
             'ea': 'confío en mis ideas'
         },
         {
-            'titulo': 'cuando estoy aprendiendo...' ,
+            'titulo': 'Cuando estoy aprendiendo...' ,
             'ec': 'soy una persona reservada',
             'or': 'soy una persona receptiva',
             'ca': 'soy una persona responsable',

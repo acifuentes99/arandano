@@ -2,15 +2,15 @@
 	<div class="jumbotron">
 		<img class="img-responsive thelogo" src="assets/arandano.svg"></img>
 	</div>
-	 <div ng-controller="Practica as asd" class="front_page">
+	 <div ng-controller="Login as login" class="front_page">
 		<br>
 		<a href='#login2'><img class="special" src="assets/lock2.svg"></img></a>
-		<form>
-			<input type="text" ng-model="asd.login.user" name="username"></input><br>
-			<input type="password" ng-model="asd.login.pass" name="thepass"></input><br>
-			<button class="btn btn-lg btn-arandano">Ingresar</button>
+		<form ng-submit="login.submitLoginEstudiante()">
+			<input type="text" ng-model="login.est.data.user" name="username"></input><br>
+			<input type="password" ng-model="login.est.data.pass" name="thepass"></input><br>
+			<button type="submit" class="btn btn-lg btn-arandano">Ingresar</button>
 		</form>
-		<a href='#encuesta'><button class="btn btn-lg btn-arandano" ng-show="asd.product.show">Registrarse</button></a>
+		<a href='#encuesta'><button class="btn btn-lg btn-arandano" >Registrarse</button></a>
 
 	</div>
 </div>

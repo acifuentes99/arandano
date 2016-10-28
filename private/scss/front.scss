@@ -17,4 +17,18 @@
 		text-align: center;
 		margin: 0 auto;
 	}
+	.logContainer{
+		margin: 0 auto;
+		width: 840px;
+		.logForm{
+			display: inline-block;
+			width: 400px;
+			height: 200px;
+			margin-left: 10px;
+		}
+		h3{
+			text-align: center;
+		}
+		margin-bottom: 40px;
+	}
 }
