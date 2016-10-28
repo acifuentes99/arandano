@@ -92,50 +92,6 @@
 
 
 
-todoApp.controller('Dashboard', function($rootScope, $scope, $location, arandanoFactory, shareData){
-    this.stu = shareData.get();
-    this.algo = "un text";
-
-});
-
-
-todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, arandanoFactory, shareData, $route){
-
-    this.stu = {
-		nombrecurso: '',
-		desccurso: '',
-		imgurl: ''
-    };
-	var that = this;
-
-	//this.theData = cursosData;
-	//this.theData = 'olfdsafsdaljfal';
-
-	console.log("En controlador, Data = "+this.theData);
-
-    var that = this;
-
-    this.submitCurso = function(){
-        console.log("algo");
-		$http.post('/api/curso', that.stu)
-        .then(function(){
-            $route.reload();
-        });
-    };
-
-    this.verCursos = function(){
-        $http.get('/api/curso/1')
-            .then(function(res){
-               console.log(res);
-				that.theCursos = res.data;
-               //colocar variable para coloar en la pagina
-            })
-        ;
-    }
-    
-
-});
-
 todoApp.controller('Encuesta', function($rootScope, $scope, $location, arandanoFactory, shareData){
 
     this.stu = {
@@ -490,20 +446,50 @@ todoApp.controller('Login', function($rootScope,$http, $scope, $location, aranda
 	var aux;
 	var that = this;
 
-    this.submitLogin = function(){
-		//var aux = arandanoBDExperto.getData(this.data.user);
-		
-		//arandanoBDExperto.sendLogin(that.data);
-		//arandanoBDExperto.consol();
 
-		console.log(that.data);
-		$http.post('/api/login', that.data)
+	this.submitLoginEstudiante = function(){
+		console.log(that.est.data);
+		$http.post('/api/login/est', that.est.data)
+			.then(function(res){
+				if(res.data.login === 1){
+					$location.path('/dashboard');
+				}
+		});
+	};
+
+
+    this.submitLoginExperto = function(){
+		console.log(that.exp.data);
+		$http.post('/api/login/exp', that.exp.data)
 			.then(function(res){
 				if(res.data.login === 1){
 					$location.path('/dash_exp');
 				}
-			})
-		;
+			});
+    };
+
+    this.submitLoginProfesor = function(){
+		console.log("profesor data: "+that.pro.data);
+		$http.post('/api/login/pro', that.pro.data)
+			.then(function(res){
+				if(res.data.login === 1){
+					$location.path('/dash_exp');
+				}
+			});
+    };
+    
+});
+
+
+/*
+ * aloja
+ * 1234
+ *
+ *
+ * andrew123
+ * 1234
+ * */
+
 
 
 		/*
@@ -518,15 +504,6 @@ todoApp.controller('Login', function($rootScope,$http, $scope, $location, aranda
 
 		}); 
 		*/
-    };
-    
-});
-
-
-/*
- * aloja
- * 1234
- * */
 
 todoApp.controller('Registro', function($rootScope, $scope, $location, arandanoBDExperto, shareData){
 
@@ -562,4 +539,101 @@ todoApp.controller('Registro', function($rootScope, $scope, $location, arandanoB
         });
     };
     
+});
+
+todoApp.controller('Dashboard', function($rootScope, $scope, $location, arandanoFactory, shareData, $http){
+    this.stu = shareData.get();
+    this.algo = "un text";
+	var that = this;
+
+
+    this.loadEstudiante = function(){
+		console.log("iniciando metodo getstudent");
+		$http.get('/api/login/est/')
+            .then(function(res){
+				console.log(res);
+				if(res.data.status === -1){
+					$location.path("/");	
+				}
+				else{
+				   console.log(res);
+					that.theStudent = res.data;
+				   //colocar variable para coloar en la pagina
+					//
+					switch(that.theStudent.tipo){
+						case 0:
+							that.stu.tipo = "Adaptador";
+							break;
+						case 1:
+							that.stu.tipo = "Divergente";
+							break;
+						case 2:
+							that.stu.tipo = "Convergente";
+							break;
+						case 3:
+							that.stu.tipo = "Asimilador";
+							break;
+
+					}
+				}
+            });
+	}
+
+});
+
+
+todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, arandanoFactory, shareData, $route){
+
+    this.stu = {
+		nombrecurso: '',
+		desccurso: '',
+		imgurl: ''
+    };
+	var that = this;
+
+	//this.theData = cursosData;
+	//this.theData = 'olfdsafsdaljfal';
+
+	console.log("En controlador, Data = "+this.theData);
+
+    var that = this;
+
+
+    this.loadExperto = function(){
+		console.log("iniciando metodo getExperto");
+		$http.get('/api/login/exp/')
+            .then(function(res){
+				console.log(res);
+				if(res.data.status === -1){
+					$location.path("/");	
+				}
+				else{
+				   console.log(res);
+					that.theExpert = res.data;
+				}
+            });
+	}
+
+
+    this.submitCurso = function(){
+        console.log("algo");
+		$http.post('/api/curso', that.stu)
+        .then(function(){
+            $route.reload();
+        });
+    };
+
+	/* Con esta supermegafuncion, hago el get al cargar la página
+	 * (se llama el método con ng-init en la vista)
+		* */
+    this.verCursos = function(){
+        $http.get('/api/curso/1')
+            .then(function(res){
+               console.log(res);
+				that.theCursos = res.data;
+               //colocar variable para coloar en la pagina
+            });
+    }
+    
+
 });

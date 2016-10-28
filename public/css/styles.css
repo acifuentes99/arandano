@@ -17,6 +17,18 @@
   text-align: center;
   margin: 0 auto; }
 
+.front .logContainer {
+  margin: 0 auto;
+  width: 840px;
+  margin-bottom: 40px; }
+  .front .logContainer .logForm {
+    display: inline-block;
+    width: 400px;
+    height: 200px;
+    margin-left: 10px; }
+  .front .logContainer h3 {
+    text-align: center; }
+
 #sidebar {
   position: absolute;
   height: 100vh;

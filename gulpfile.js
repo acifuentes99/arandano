@@ -14,7 +14,7 @@ gulp.task('server', function () {
 	nodemon({
 		script: 'server.js',
 		ext: 'js html',
-        ignore: ['app/**/*','public/**/*', 'client/**/*']
+		ignore: ['app/**/*','public/**/*', 'client/**/*', 'private/**/*', 'gulpfile.js']
 	});
 });
 
@@ -29,7 +29,7 @@ gulp.task('sass', function() {
 
 gulp.task('reload', function(){
     //return gulp.src('public/js/**/*.js')
-    return gulp.src('public/**/*.js')
+	return gulp.src('public/js/passport.js')
     .pipe(livereload());
 });
 gulp.task('reload2', function(){
@@ -39,7 +39,7 @@ gulp.task('reload2', function(){
 
 // Concatenate & Minify JS
 gulp.task('scripts2', function() {
-	return gulp.src('public/controllers/*.js')
+	return gulp.src('public/controllers/**/*.js')
         .pipe(concat('controllers.js'))
 		.pipe(gulp.dest('public/js'))
 		.pipe(livereload());
@@ -51,10 +51,10 @@ gulp.task('scripts2', function() {
 // Watch Files For Changes
 gulp.task('watch', function() {
     livereload.listen();
-	//gulp.watch('public/js/**/*.js', ['reload']);
-	//gulp.watch('public/partials/**/*.html', ['reload2']);
-    gulp.watch('private/scss/*.scss', ['sass']);
-    gulp.watch('public/controllers/*.js', ['scripts2']);
+	gulp.watch('public/js/passport.js', ['reload']);
+	gulp.watch('public/partials/**/*.html', ['reload2']);
+	gulp.watch('private/scss/**/*.scss', ['sass']);
+	gulp.watch('public/controllers/**/*.js', ['scripts2']);
 });
 
 gulp.task('default', ['server', 'scripts2', 'sass', 'watch']);

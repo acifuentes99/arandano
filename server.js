@@ -4,6 +4,7 @@ var express     = require('express'),
     cookieParser= require('cookie-parser'),
     mysql       = require('mysql2'),
     passport    = require('passport'),
+	session		= require('express-session'),
     routes      = require('./routes/routes.js');
    // angular = require('angular'),
    // angularDragula = require('angular-dragula');
@@ -36,12 +37,19 @@ app.use('/node_modules', express.static(process.cwd() + '/node_modules'));
 app.use(express.static(path.join(__dirname, './public')));
 //app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
 
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
-app.use(cookieParser())
 
+
+app.use(session({ secret: 'arandanorules' })); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+
+
+require('./public/js/passport.js')(passport, connection); // pass passport for configuration
 routes(app, connection, passport);
 
 var port = process.env.PORT || 8080;
