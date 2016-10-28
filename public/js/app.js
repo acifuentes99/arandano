@@ -1,3 +1,8 @@
+/* Archivo de las Rutas del lado del cliente
+ * Aqui definimos cuando se abren las vistas en una determinada url
+ *
+* */
+
  todoApp = angular.module('todoApp', ['ngRoute', 'ngAnimate'])
   .config(function($routeProvider) {
     $routeProvider
@@ -14,7 +19,7 @@
         controller: 'Practica'
       })
       .when('/dashboard', {
-        templateUrl: '/partials/dashboard.html',
+		  templateUrl: '/partials/estudiante/dashboard.html',
         //controller: 'TodoCtrl'
         controller: 'Practica'
       })
@@ -35,7 +40,7 @@
         controller: 'Practica'
       })
       .when('/dash_exp', {
-        templateUrl: '/partials/dashboard_exp.html',
+		  templateUrl: '/partials/experto/dashboard_exp.html',
         //controller: 'TodoCtrl'
         controller: 'Dash_exp',
 		resolve: {

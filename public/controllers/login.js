@@ -4,20 +4,50 @@ todoApp.controller('Login', function($rootScope,$http, $scope, $location, aranda
 	var aux;
 	var that = this;
 
-    this.submitLogin = function(){
-		//var aux = arandanoBDExperto.getData(this.data.user);
-		
-		//arandanoBDExperto.sendLogin(that.data);
-		//arandanoBDExperto.consol();
 
-		console.log(that.data);
-		$http.post('/api/login', that.data)
+	this.submitLoginEstudiante = function(){
+		console.log(that.est.data);
+		$http.post('/api/login/est', that.est.data)
+			.then(function(res){
+				if(res.data.login === 1){
+					$location.path('/dashboard');
+				}
+		});
+	};
+
+
+    this.submitLoginExperto = function(){
+		console.log(that.exp.data);
+		$http.post('/api/login/exp', that.exp.data)
 			.then(function(res){
 				if(res.data.login === 1){
 					$location.path('/dash_exp');
 				}
-			})
-		;
+			});
+    };
+
+    this.submitLoginProfesor = function(){
+		console.log("profesor data: "+that.pro.data);
+		$http.post('/api/login/pro', that.pro.data)
+			.then(function(res){
+				if(res.data.login === 1){
+					$location.path('/dash_exp');
+				}
+			});
+    };
+    
+});
+
+
+/*
+ * aloja
+ * 1234
+ *
+ *
+ * andrew123
+ * 1234
+ * */
+
 
 
 		/*
@@ -32,12 +62,3 @@ todoApp.controller('Login', function($rootScope,$http, $scope, $location, aranda
 
 		}); 
 		*/
-    };
-    
-});
-
-
-/*
- * aloja
- * 1234
- * */

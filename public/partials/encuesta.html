@@ -1,4 +1,4 @@
- <div class="container" ng-controller="Practica as asd">
+div class="container" ng-controller="Practica as asd">
 
      <a href="#/"><img class="img-responsive thelogo2" src="assets/arandano.svg"></img></a>
 
@@ -45,7 +45,7 @@
         <br>
 
         <div ng-repeat="preg in encuesta.preguntas">
-			<h4>{{ $index+1 + ') ' + preg.titulo }}</h4><span id="{{'incom'+$index}}" class="incompleteResp">Selecciona numeros diferentes para cada pregunta.</span> 
+			<h4>{{ $index+1 + ') ' + preg.titulo }}</h4><span id="{{'incom'+$index}}" class="incompleteResp">Selecciona números diferentes para cada pregunta.</span> 
             <table text-align="left">
                 <tr>
                     <td><span>{{ preg.ec }}</span></td>
