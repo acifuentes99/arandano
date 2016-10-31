@@ -8,8 +8,9 @@ todoApp.controller('Dashboard', function($rootScope, $scope, $location, arandano
 		console.log("iniciando metodo getstudent");
 		$http.get('/api/login/est/')
             .then(function(res){
+				console.log("In student!!!, the user fecthed:")
 				console.log(res);
-				if(res.data.status === -1){
+				if(res.data.status === -1 || !res.data.stu_id){
 					$location.path("/");	
 				}
 				else{

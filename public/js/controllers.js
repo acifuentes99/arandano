@@ -440,7 +440,7 @@ todoApp.controller('Header', function($rootScope, $scope, $location, arandanoFac
     }; 
 });
 
-todoApp.controller('Login', function($rootScope,$http, $scope, $location, arandanoBDExperto, shareData){
+todoApp.controller('Login', function($rootScope,$http, $scope, $location, arandanoBDExperto, shareData, Experto){
 
 	this.data = {};
 	var aux;
@@ -458,6 +458,7 @@ todoApp.controller('Login', function($rootScope,$http, $scope, $location, aranda
 	};
 
 
+	/*
     this.submitLoginExperto = function(){
 		console.log(that.exp.data);
 		$http.post('/api/login/exp', that.exp.data)
@@ -466,7 +467,12 @@ todoApp.controller('Login', function($rootScope,$http, $scope, $location, aranda
 					$location.path('/dash_exp');
 				}
 			});
-    };
+	};
+	*/
+	console.log(Experto);
+	this.submitLoginExperto = function(){
+		Experto.loadExperto(that.exp.data);
+	}
 
     this.submitLoginProfesor = function(){
 		console.log("profesor data: "+that.pro.data);
@@ -551,8 +557,9 @@ todoApp.controller('Dashboard', function($rootScope, $scope, $location, arandano
 		console.log("iniciando metodo getstudent");
 		$http.get('/api/login/est/')
             .then(function(res){
+				console.log("In student!!!, the user fecthed:")
 				console.log(res);
-				if(res.data.status === -1){
+				if(res.data.status === -1 || !res.data.stu_id){
 					$location.path("/");	
 				}
 				else{
@@ -582,7 +589,7 @@ todoApp.controller('Dashboard', function($rootScope, $scope, $location, arandano
 });
 
 
-todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, arandanoFactory, shareData, $route){
+todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, arandanoFactory, shareData, $route, Experto){
 
     this.stu = {
 		nombrecurso: '',
@@ -598,7 +605,7 @@ todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, ara
 
     var that = this;
 
-
+	/*
     this.loadExperto = function(){
 		console.log("iniciando metodo getExperto");
 		$http.get('/api/login/exp/')
@@ -613,6 +620,9 @@ todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, ara
 				}
             });
 	}
+	*/
+
+	this.theExperto = Experto.authExperto();
 
 
     this.submitCurso = function(){
@@ -636,4 +646,208 @@ todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, ara
     }
     
 
+});
+
+/*
+var bloque = {
+	bloque_id: int(11),
+	img_url: varchar(256),
+	content: text,
+	mod_id_f: int(11),
+	stu_id_f: int(11)
+};
+*/
+
+todoApp.factory('Bloque', function($http, $location){
+	var urlBase = '/api';
+	var Bloque = {};
+
+	Bloque.addBloque = function(){
+	
+	}
+
+	Bloque.getBloque = function(){
+	
+	}
+	
+	return Bloque;	
+});
+
+/*
+var curso = {
+	curso_id: int(11),
+	nombre: varchar(256),
+	imagen: varchar(512),
+	descripcion: text,
+	exp_id_f: int(11),
+	stu_id_f: int(11)
+};
+*/
+
+todoApp.factory('Curso', function($http, $location){
+	var urlBase = '/api';
+	var Curso = {};
+
+	Curso.addCurso = function(){
+	
+	}
+
+	Curso.getCurso = function(){
+	
+	}
+	
+	return Curso;	
+});
+
+/*
+var estudiante = {
+	stu_id: int(11),
+	nickname: varchar(64),
+	nombre: varchar(128),
+	email: varchar(256),
+	password: varchar(128),
+	tipo: int(1)
+};
+*/
+
+
+todoApp.factory('Estudiante', function($http, $location){
+	var urlBase = '/api';
+	var Estudiante = {};
+
+	Estudiante.addEstudiante = function(){
+	
+	}
+
+	Estudiante.getEstudiante = function(){
+	
+	}
+	
+	return Estudiante;	
+});
+
+todoApp.factory('Experto', function($http, $location) {
+  var urlBase = '/api';
+	//Creo el objeto "Experto, donde se van a colocar las funciones
+	//y ademas, va los datos en si del experto.
+  var Experto = {};
+
+	//Constructor, crea un experto desde 0, el cual luego hay que añadirlo
+	//con addExperto
+	function Experto(){
+	
+	}
+
+	//Otro tipo de funcion constructor, pero en este caso, carga de la
+	//base de datos los datos del experto, ademas de dejarlo logueado
+	//en la página.
+	Experto.loadExperto = function(formdata){
+		$http.post('/api/login/exp', formdata)
+			.then(function(res){
+				if(res.data.login === 1){
+					$location.path('/dash_exp');
+				}
+			});
+	}
+
+	//Obtener del backend, los datos del experto, los cuales
+	//Passport.Js tiene guardados en el backend.
+	Experto.authExperto = function(){
+		$http.get('/api/login/exp')
+			.then(function(res){
+				console.log("En dashboard de experto, el usuario es:");
+				console.log(res);
+				if(res.data.status === -1 || !res.data.exp_id){
+					$location.path("/");	
+					return {};
+				}
+				else{
+					return res.data;
+				}
+			});	
+	}
+
+	//Añade un experto a la base de datos, comprobando si este
+	//anteriormente existia
+	function addExperto(exp_id, nombre_exp, exp_pass){
+		/* Tengo que agregar aqui la funcionalidad de ingresar
+		 * un experto a la base de datos.
+		 * Aqui puedo comprobar si efectivamente su nickname es diferente,
+		 * entre otras cosas, sin enredar tanto el controlador.
+		 *
+		 * (No esta todavia, por que S.O. me tiene para la caga :(...,
+		 * ajedrez de mierda)
+			* */
+	}
+
+	return Experto;
+});
+
+
+
+
+/*
+var modulo = {
+	mod_id: int(11),
+	nombre_mod: varchar(256),
+	img_mod: varchar(256),
+	curso_if_f: int(11)
+};
+*/
+
+
+todoApp.factory('Modulo', function($http, $location){
+	var urlBase = '/api';
+	var Modulo = {};
+
+	Modulo.addModulo = function(){
+	
+	}
+
+	Modulo.getModulo = function(){
+	
+	}
+	
+	return Modulo;	
+});
+
+/*
+var profesor = {
+	prof_id: int(11),
+	nickname: varchar(64),
+	nombre: varchar(128),
+	password: varchar(128),
+	email: varchar(256)
+};*/
+
+
+todoApp.factory('Profesor', function($http, $location){
+	var urlBase = '/api';
+	var Profesor = {};
+
+	Profesor.addProfesor = function(){
+	
+	}
+
+	Profesor.getProfesor = function(){
+	
+	}
+	
+	return Profesor;	
+});
+
+
+todoApp.factory('Progreso', function($http, $location){
+	var urlBase = '/api';
+	var Progreso = {};
+
+	Progreso.addProgreso = function(){
+	
+	}
+
+	Progreso.getProgreso = function(){
+	
+	}
+	
+	return Progreso;	
 });

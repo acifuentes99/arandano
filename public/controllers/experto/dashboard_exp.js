@@ -1,4 +1,4 @@
-todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, arandanoFactory, shareData, $route){
+todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, arandanoFactory, shareData, $route, Experto){
 
     this.stu = {
 		nombrecurso: '',
@@ -14,7 +14,7 @@ todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, ara
 
     var that = this;
 
-
+	/*
     this.loadExperto = function(){
 		console.log("iniciando metodo getExperto");
 		$http.get('/api/login/exp/')
@@ -29,6 +29,9 @@ todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, ara
 				}
             });
 	}
+	*/
+
+	this.theExperto = Experto.authExperto();
 
 
     this.submitCurso = function(){

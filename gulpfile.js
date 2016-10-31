@@ -39,7 +39,7 @@ gulp.task('reload2', function(){
 
 // Concatenate & Minify JS
 gulp.task('scripts2', function() {
-	return gulp.src('public/controllers/**/*.js')
+	return gulp.src(['public/controllers/**/*.js', 'public/models/**/*.js'])
         .pipe(concat('controllers.js'))
 		.pipe(gulp.dest('public/js'))
 		.pipe(livereload());
