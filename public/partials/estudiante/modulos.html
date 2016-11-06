@@ -1,0 +1,23 @@
+<div>
+
+<div>
+	<a ng-click="dash.changeScreen(0)">Cursos</a>
+	<span> / </span> 
+	{{dash.currCurso.nombre}}
+</div>
+
+	<h2>{{dash.currCurso.nombre}}: Modulos</h2>
+
+
+	<div ng-repeat="module in dash.currMods">
+		<a ng-click="dash.openBloque(module)">
+			<div class="curso">
+				<div class="texto">
+					<h3>{{module.nombre_mod}}</h3>
+				</div>
+				<img class="img-responsive" src={{module.img_mod}}></img>
+			</div>
+		</a>
+	</div>
+
+</div>

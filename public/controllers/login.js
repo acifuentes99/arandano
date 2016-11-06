@@ -1,4 +1,4 @@
-todoApp.controller('Login', function($rootScope,$http, $scope, $location, arandanoBDExperto, shareData){
+todoApp.controller('Login', function($rootScope,$http, $scope, $location, arandanoBDExperto, shareData, Experto){
 
 	this.data = {};
 	var aux;
@@ -16,6 +16,7 @@ todoApp.controller('Login', function($rootScope,$http, $scope, $location, aranda
 	};
 
 
+	/*
     this.submitLoginExperto = function(){
 		console.log(that.exp.data);
 		$http.post('/api/login/exp', that.exp.data)
@@ -24,7 +25,12 @@ todoApp.controller('Login', function($rootScope,$http, $scope, $location, aranda
 					$location.path('/dash_exp');
 				}
 			});
-    };
+	};
+	*/
+	console.log(Experto);
+	this.submitLoginExperto = function(){
+		Experto.loadExperto(that.exp.data);
+	}
 
     this.submitLoginProfesor = function(){
 		console.log("profesor data: "+that.pro.data);

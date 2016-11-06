@@ -2,9 +2,25 @@
  * Aqui definimos cuando se abren las vistas en una determinada url
  *
 * */
+/*
+angular.module('todoApp', [
+]).
+config(['markdownConverterProvider', function (markdownConverterProvider) {
+  // options to be passed to Showdown
+  // see: https://github.com/coreyti/showdown#extensions
+  markdownConverterProvider.config({
+    extensions: ['twitter']
+  });
+}])
+*/
 
- todoApp = angular.module('todoApp', ['ngRoute', 'ngAnimate'])
+todoApp = angular.module('todoApp', ['ngRoute', 'ngAnimate', 'ngSanitize', 'btford.markdown'
+])
+//.config(['markdownConverterProvider', function($routeProvider, markdownConverterProvider) {
   .config(function($routeProvider) {
+	  /*
+	markdownConverterProvider.config({
+	});*/
     $routeProvider
       .when('/', {
         //templateUrl: '/partials/todo.html',

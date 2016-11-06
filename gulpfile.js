@@ -39,7 +39,7 @@ gulp.task('reload2', function(){
 
 // Concatenate & Minify JS
 gulp.task('scripts2', function() {
-	return gulp.src('public/controllers/**/*.js')
+	return gulp.src(['public/controllers/**/*.js', 'public/models/**/*.js'])
         .pipe(concat('controllers.js'))
 		.pipe(gulp.dest('public/js'))
 		.pipe(livereload());
@@ -55,6 +55,7 @@ gulp.task('watch', function() {
 	gulp.watch('public/partials/**/*.html', ['reload2']);
 	gulp.watch('private/scss/**/*.scss', ['sass']);
 	gulp.watch('public/controllers/**/*.js', ['scripts2']);
+	gulp.watch('public/models/**/*.js', ['scripts2']);
 });
 
 gulp.task('default', ['server', 'scripts2', 'sass', 'watch']);

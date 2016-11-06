@@ -440,7 +440,7 @@ todoApp.controller('Header', function($rootScope, $scope, $location, arandanoFac
     }; 
 });
 
-todoApp.controller('Login', function($rootScope,$http, $scope, $location, arandanoBDExperto, shareData){
+todoApp.controller('Login', function($rootScope,$http, $scope, $location, arandanoBDExperto, shareData, Experto){
 
 	this.data = {};
 	var aux;
@@ -458,6 +458,7 @@ todoApp.controller('Login', function($rootScope,$http, $scope, $location, aranda
 	};
 
 
+	/*
     this.submitLoginExperto = function(){
 		console.log(that.exp.data);
 		$http.post('/api/login/exp', that.exp.data)
@@ -466,7 +467,12 @@ todoApp.controller('Login', function($rootScope,$http, $scope, $location, aranda
 					$location.path('/dash_exp');
 				}
 			});
-    };
+	};
+	*/
+	console.log(Experto);
+	this.submitLoginExperto = function(){
+		Experto.loadExperto(that.exp.data);
+	}
 
     this.submitLoginProfesor = function(){
 		console.log("profesor data: "+that.pro.data);
@@ -545,21 +551,39 @@ todoApp.controller('Dashboard', function($rootScope, $scope, $location, arandano
     this.stu = shareData.get();
     this.algo = "un text";
 	var that = this;
+	this.show = [true, false, false];
+	this.theStudent = {}; //Informacion sobre el estudiante
+	this.currCurso = {}; //informacion del curso Actrualmente Abierto
+	this.currMods = {}; //Contiene los modulos de un curso
+	this.currMod = {}; //Informacion del modulo actualmente abierto
 
+
+	this.loadCursos = function(){
+		$http.get('/api/cursos/')
+			.then(function(res){
+				console.log("lo intento");
+				that.theCursos = res;
+				console.log(res);
+			});
+	};
+
+	this.probando = function(){
+		console.log("theCursos vale: ");
+		console.log(that.theCursos);
+	}
 
     this.loadEstudiante = function(){
 		console.log("iniciando metodo getstudent");
+		that.loadCursos();
 		$http.get('/api/login/est/')
             .then(function(res){
+				console.log("In student!!!, the user fecthed:")
 				console.log(res);
-				if(res.data.status === -1){
+				if(res.data.status === -1 || !res.data.stu_id){
 					$location.path("/");	
 				}
 				else{
-				   console.log(res);
 					that.theStudent = res.data;
-				   //colocar variable para coloar en la pagina
-					//
 					switch(that.theStudent.tipo){
 						case 0:
 							that.stu.tipo = "Adaptador";
@@ -573,32 +597,85 @@ todoApp.controller('Dashboard', function($rootScope, $scope, $location, arandano
 						case 3:
 							that.stu.tipo = "Asimilador";
 							break;
-
 					}
 				}
             });
 	}
 
+	this.openCurso = function(curid, aux){
+		that.currCurso = that.theCursos.data[aux];
+		$http.get('/api/modulo/'+curid)
+			.then(function(res){
+				console.log("Info del get del modulo: ");
+				console.log(res.data);
+				that.currMods = res.data;
+			});
+		that.changeScreen(1);
+	}
+
+	this.openBloque = function(module){
+		that.currMod = module;
+		var modid = module.mod_id;
+				console.log("data from the get:");
+		$http.post('/api/getbloque', {modid: modid, tipo: that.theStudent.tipo})
+			.then(function(res){
+				console.log(res);
+				that.currBloque = res.data[0];
+				that.changeScreen(2);
+			});
+	}
+
+	this.changeScreen = function(num){
+		that.show = [false, false, false];
+		that.show[num] = true;
+	}
+
 });
 
 
-todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, arandanoFactory, shareData, $route){
+todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, arandanoFactory, shareData, $route, Experto, Modulo){
 
     this.stu = {
 		nombrecurso: '',
 		desccurso: '',
 		imgurl: ''
     };
+	this.theExperto = {}; //Datos del Experto
+	this.currCurso = {}; //Cursos del Experto
+	this.currMods = {}; //Modulos de un Curso
+	this.openMod = {}; //Modulo actualmente abierto
+	this.content = {
+		ad: 'Inserte para Adaptadores',
+		as: 'Inserte para Asimiladores',
+		di: 'Inserte para Divergentes',
+		co: 'Inserte para Convergentes'
+	};
+
 	var that = this;
+	//Shows, me define que vista se puede ver, y cual no
+	//en este caso, el ver primero cursos, y luego modulos
+	this.shows = [true, false, false];
+	this.showType = [true, false, false, false];
 
-	//this.theData = cursosData;
-	//this.theData = 'olfdsafsdaljfal';
-
-	console.log("En controlador, Data = "+this.theData);
+	//console.log("En controlador, Data = "+this.theData);
 
     var that = this;
+	this.bloqueChangeType = function(aux){
+		that.showType = [false, false, false, false];
+		that.showType[aux] = true;
+	}
+
+	/*
+	this.postMaterial = function(){
+		var id_modulo = ;
+		$http.post('/api/cursos/'+id_modulo, that.content.ac).then(
+			
+		);
+	}*/
 
 
+
+	/*
     this.loadExperto = function(){
 		console.log("iniciando metodo getExperto");
 		$http.get('/api/login/exp/')
@@ -613,27 +690,306 @@ todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, ara
 				}
             });
 	}
+	*/
+
+	//this.theExperto = Experto.authExperto();
 
 
     this.submitCurso = function(){
         console.log("algo");
+		that.stu.admin = that.theExperto.exp_id;
 		$http.post('/api/curso', that.stu)
         .then(function(){
             $route.reload();
         });
     };
 
+    this.submitModulo = function(){
+        console.log("algo");
+		that.stu.admin = that.theExperto.exp_id;
+		Modulo.addModulo(that.currCurso.curso_id, that.mod, that.reloadPage);
+    };
+	this.getModulos = function(){
+		Modulo.getModulos(that.currCurso.curso_id, that);
+	}
+	this.reloadPage = function(){
+		$route.reload();
+	};
+
+	this.tryMe = function(){
+		console.log("that.theExperto vale: ");
+		console.log(that.theExperto);
+	}
+
 	/* Con esta supermegafuncion, hago el get al cargar la página
 	 * (se llama el método con ng-init en la vista)
 		* */
     this.verCursos = function(){
-        $http.get('/api/curso/1')
+		console.log("en funcion init, lalala");
+		Experto.authExperto(that);
+		/*
+        $http.get('/api/curso/'+this.theExperto.exp_id)
             .then(function(res){
                console.log(res);
 				that.theCursos = res.data;
                //colocar variable para coloar en la pagina
-            });
+			});*/
     }
-    
+	//Funcion que utilizo de callback al realizar el init
+	//de la vista de cursos.
+	this.verCursos2 = function(id){
+		console.log("en verCusros2");
+		$http.get('/api/curso/'+id)
+            .then(function(res){
+               console.log(res);
+				that.theCursos = res.data;
+			});
+	}
+	this.openCurso = function(curso){
+		console.log(curso);
+		that.currCurso = curso;
+		Modulo.getModulos(curso.curso_id, that, that.change2Modulos);
+	}
 
+
+	this.change2Bloques = function(aux){
+		that.shows[0] = false;
+		that.shows[1] = false;
+		that.shows[2] = true;
+		that.openMod = that.currMods[aux]; //Modulo actualmente abierto
+	}
+
+	this.change2Modulos = function(){
+		that.shows[0] = false;
+		that.shows[1] = true;
+		that.shows[2] = false;
+	}
+	this.change2Cursos = function(){
+		that.shows[0] = true;
+		that.shows[1] = false;
+		that.shows[2] = false;
+	}
+    
+	this.postBloques = function(){
+		console.log(that.content);
+		$http.post('/api/bloques/'+that.openMod.mod_id, that.content);
+	}
+
+});
+
+/*
+var bloque = {
+	bloque_id: int(11),
+	img_url: varchar(256),
+	content: text,
+	mod_id_f: int(11),
+	stu_id_f: int(11)
+};
+*/
+
+todoApp.factory('Bloque', function($http, $location){
+	var urlBase = '/api';
+	var Bloque = {};
+
+	Bloque.addBloque = function(){
+	
+	}
+
+	Bloque.getBloque = function(){
+	
+	}
+	
+	return Bloque;	
+});
+
+/*
+var curso = {
+	curso_id: int(11),
+	nombre: varchar(256),
+	imagen: varchar(512),
+	descripcion: text,
+	exp_id_f: int(11),
+	stu_id_f: int(11)
+};
+*/
+
+todoApp.factory('Curso', function($http, $location){
+	var urlBase = '/api';
+	var Curso = {};
+
+	Curso.addCurso = function(){
+	
+	}
+
+	Curso.getCurso = function(){
+	
+	}
+	
+	return Curso;	
+});
+
+/*
+var estudiante = {
+	stu_id: int(11),
+	nickname: varchar(64),
+	nombre: varchar(128),
+	email: varchar(256),
+	password: varchar(128),
+	tipo: int(1)
+};
+*/
+
+
+todoApp.factory('Estudiante', function($http, $location){
+	var urlBase = '/api';
+	var Estudiante = {};
+
+	Estudiante.addEstudiante = function(){
+	
+	}
+
+	Estudiante.getEstudiante = function(){
+	
+	}
+	
+	return Estudiante;	
+});
+
+todoApp.factory('Experto', function($http, $location) {
+  var urlBase = '/api';
+	//Creo el objeto "Experto, donde se van a colocar las funciones
+	//y ademas, va los datos en si del experto.
+  var Experto = {};
+
+	//Constructor, crea un experto desde 0, el cual luego hay que añadirlo
+	//con addExperto
+	function Experto(){
+	
+	}
+
+	//Otro tipo de funcion constructor, pero en este caso, carga de la
+	//base de datos los datos del experto, ademas de dejarlo logueado
+	//en la página.
+	Experto.loadExperto = function(formdata){
+		$http.post('/api/login/exp', formdata)
+			.then(function(res){
+				if(res.data.login === 1){
+					$location.path('/dash_exp');
+				}
+			});
+	}
+
+	//Obtener del backend, los datos del experto, los cuales
+	//Passport.Js tiene guardados en el backend.
+	Experto.authExperto = function(aux){
+		$http.get('/api/login/exp')
+			.then(function(res){
+				console.log("En dashboard de experto, el usuario es:");
+				//console.log(res);
+				if(res.data.status === -1 || !res.data.exp_id){
+					$location.path("/");	
+					return {};
+				}
+				else{
+					aux.theExperto = res.data;
+					aux.verCursos2(res.data.exp_id);
+				}
+			});	
+	}
+
+	//Añade un experto a la base de datos, comprobando si este
+	//anteriormente existia
+	function addExperto(exp_id, nombre_exp, exp_pass){
+		/* Tengo que agregar aqui la funcionalidad de ingresar
+		 * un experto a la base de datos.
+		 * Aqui puedo comprobar si efectivamente su nickname es diferente,
+		 * entre otras cosas, sin enredar tanto el controlador.
+		 *
+		 * (No esta todavia, por que S.O. me tiene para la caga :(...,
+		 * ajedrez de mierda)
+			* */
+	}
+
+	return Experto;
+});
+
+
+
+
+/*
+var modulo = {
+	mod_id: int(11),
+	nombre_mod: varchar(256),
+	img_mod: varchar(256),
+	curso_if_f: int(11)
+};
+*/
+
+
+todoApp.factory('Modulo', function($http, $location){
+	var urlBase = '/api';
+	var Modulo = {};
+
+	Modulo.addModulo = function(cursoId, formdata, reloadPage){
+		$http.post('/api/modulo/'+cursoId, formdata)
+			.then(function(res){
+				//if(res.data.login === 1){
+					console.log("Posted!");
+					reloadPage();
+				//}
+			});
+	}
+
+	/*Obtener los modulos de un curso*/
+	Modulo.getModulos = function(cursoId, aux, changeView){
+		$http.get('/api/modulo/'+cursoId)
+			.then(function(res){
+				console.log("si lo cambie");
+				aux.currMods = res.data;	
+				changeView();
+			});
+	}
+	
+	return Modulo;	
+});
+
+/*
+var profesor = {
+	prof_id: int(11),
+	nickname: varchar(64),
+	nombre: varchar(128),
+	password: varchar(128),
+	email: varchar(256)
+};*/
+
+
+todoApp.factory('Profesor', function($http, $location){
+	var urlBase = '/api';
+	var Profesor = {};
+
+	Profesor.addProfesor = function(){
+	
+	}
+
+	Profesor.getProfesor = function(){
+	
+	}
+	
+	return Profesor;	
+});
+
+
+todoApp.factory('Progreso', function($http, $location){
+	var urlBase = '/api';
+	var Progreso = {};
+
+	Progreso.addProgreso = function(){
+	
+	}
+
+	Progreso.getProgreso = function(){
+	
+	}
+	
+	return Progreso;	
 });

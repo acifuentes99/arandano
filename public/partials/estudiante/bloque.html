@@ -1,0 +1,17 @@
+<div style="display: none;">
+<p>{{dash.theStudent}}</p>
+<p>{{dash.currMod}}</p>
+<p>{{dash.currBloque}}</p>
+</div>
+
+<div>
+	<a ng-click="dash.changeScreen(0)">Cursos</a>
+	<span> / </span> 
+	<a ng-click="dash.changeScreen(1)">{{dash.currCurso.nombre}}</a> 
+	<span> / </span>
+	{{dash.currMod.nombre_mod}}
+</div>
+
+<h1>{{dash.currMod.nombre_mod}}</h1>
+
+<div btf-markdown="dash.currBloque.content"></div>

@@ -6,4 +6,5 @@ public/lib/
 *.swx
 *.swy
 *.swz
+.fuse_hidden*
 tags

@@ -5,8 +5,10 @@ Proyecto para el ramo FISW de la UTFSM
 ## Requisitos
 - Tener Gulp instalado globalmente (comando: npm install -g gulp)
 - Tener Bower instalado globalmente (npm install -g bower)
+- Tener corriendo una base de datos SQL
 
 ## Instrucciones
+- Comenzar servicio de base de datos SQL en su PC, si no, Node tirara error.
 - Ejecutar en terminal:
     - npm install
     - bower install

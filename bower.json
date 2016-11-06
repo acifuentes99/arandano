@@ -8,6 +8,8 @@
     "bootstrap": "^3.3.7",
     "angular": "^1.5.8",
     "angular-route": "^1.5.8",
-    "angular-animate": "^1.5.8"
+    "angular-animate": "^1.5.8",
+    "angular-markdown-directive": "^0.3.1",
+    "showdown-youtube": "^1.1.0"
   }
 }
