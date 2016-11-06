@@ -2,8 +2,11 @@
 <div>
 	<h2>{{dash.currCurso.nombre}}: Modulos</h2>
 
-	<a><button  ng-click="dash.changeView()">Ir a Cursos</button></a>
-	<button ng-click="goCats2 = !goCats2">Añadir Modulo</button>
+<div>
+	<a ng-click="dash.change2Cursos()">Cursos</a>
+	<span> / </span> 
+	<span>{{dash.currCurso.nombre}}</span> 
+</div>
 
 
 	<div ng-show="goCats2">
@@ -34,10 +37,7 @@
 		</a>
 	</div>
 
-
-
-	<div class="modulo">
-		hola!!!	
-	</div>
+	<br></br>
+	<button ng-click="goCats2 = !goCats2">Añadir Modulo</button>
 
 </div>

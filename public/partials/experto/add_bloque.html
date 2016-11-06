@@ -1,22 +1,18 @@
 <div>
 	<a ng-click="dash.change2Cursos()">Cursos</a>
 	<span> / </span> 
-	<a ng-click="dash.change2Modulos()">Modulos</a> 
+	<a ng-click="dash.change2Modulos()">{{dash.currCurso.nombre}}</a> 
 	<span> / </span>
-	EsteModulo
+	{{dash.openMod.nombre_mod}}
 </div>
 
 
-<h2>Nombre Modulo</h2>
+<h2>Modulo: {{dash.openMod.nombre_mod}}</h2>
 <button ng-click="dash.bloqueChangeType(0)">Adaptador</button>
 <button ng-click="dash.bloqueChangeType(1)">Asimilador</button>
 <button ng-click="dash.bloqueChangeType(2)">Convergente</button>
 <button ng-click="dash.bloqueChangeType(3)">Divergente</button>
 
-<h2>Titulo</h2>
-<input type="text"></input>
-
-<p>{{dash.openMod}}</p>
 
 	<div ng-show="dash.showType[0]" ng-model="dash.content.ad" class="">
 		<h3>Adaptador</h3>
