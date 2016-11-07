@@ -36,7 +36,7 @@ todoApp.factory('Experto', function($http, $location) {
 			.then(function(res){
 				console.log("En dashboard de experto, el usuario es:");
 				console.log(res);
->>>>>>> cf5e420ec1b43c111d69241d6bcf087fd66f3217
+>>>>>>> c907327eae7b8904d4066595a440c5403dca14ab
 				if(res.data.status === -1 || !res.data.exp_id){
 					$location.path("/");	
 					return {};
@@ -47,7 +47,7 @@ todoApp.factory('Experto', function($http, $location) {
 					aux.verCursos2(res.data.exp_id);
 =======
 					return res.data;
->>>>>>> cf5e420ec1b43c111d69241d6bcf087fd66f3217
+>>>>>>> c907327eae7b8904d4066595a440c5403dca14ab
 				}
 			});	
 	}

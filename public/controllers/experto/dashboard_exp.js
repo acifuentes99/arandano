@@ -38,8 +38,6 @@ todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, ara
 		);
 	}*/
 
-
-
 	/*
     this.loadExperto = function(){
 		console.log("iniciando metodo getExperto");

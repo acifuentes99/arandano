@@ -38,7 +38,7 @@ todoApp.factory('Modulo', function($http, $location){
 
 	Modulo.getModulo = function(){
 	
->>>>>>> cf5e420ec1b43c111d69241d6bcf087fd66f3217
+>>>>>>> c907327eae7b8904d4066595a440c5403dca14ab
 	}
 	
 	return Modulo;	

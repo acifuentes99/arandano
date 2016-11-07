@@ -2,7 +2,7 @@
 todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, arandanoFactory, shareData, $route, Experto, Modulo){
 =======
 todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, arandanoFactory, shareData, $route, Experto){
->>>>>>> cf5e420ec1b43c111d69241d6bcf087fd66f3217
+>>>>>>> c907327eae7b8904d4066595a440c5403dca14ab
 
     this.stu = {
 		nombrecurso: '',
@@ -46,7 +46,7 @@ todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, ara
 
 
 =======
->>>>>>> cf5e420ec1b43c111d69241d6bcf087fd66f3217
+>>>>>>> c907327eae7b8904d4066595a440c5403dca14ab
 	/*
     this.loadExperto = function(){
 		console.log("iniciando metodo getExperto");
@@ -68,7 +68,7 @@ todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, ara
 	//this.theExperto = Experto.authExperto();
 =======
 	this.theExperto = Experto.authExperto();
->>>>>>> cf5e420ec1b43c111d69241d6bcf087fd66f3217
+>>>>>>> c907327eae7b8904d4066595a440c5403dca14ab
 
 
     this.submitCurso = function(){
