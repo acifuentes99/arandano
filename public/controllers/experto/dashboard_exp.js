@@ -135,7 +135,9 @@ todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, ara
     
 	this.postBloques = function(){
 		console.log(that.content);
+		console.log("posteando");
 		$http.post('/api/bloques/'+that.openMod.mod_id, that.content);
+		that.change2Modulos();
 	}
 
 });
