@@ -1,0 +1,18 @@
+
+    <h2>Dashboard</h2>
+	<span>Hola {{dash.theStudent.nickname}}!, estilo: {{dash.stu.tipo}}</span>
+
+	<br></br>
+	<div ng-repeat="curso in dash.theCursos.data">
+		<a ng-click="dash.openCurso(curso.curso_id, $index)">
+			<div class="curso">
+				<div class="texto">
+					<h3>{{curso.nombre}}</h3>
+					<p>{{curso.descripcion}}</p>
+					<button>Inscribir</button>
+				</div>
+				<img class="img-responsive" src={{curso.imagen}}></img>
+			</div>
+		</a>
+	</div>
+

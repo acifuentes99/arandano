@@ -55,6 +55,7 @@ gulp.task('watch', function() {
 	gulp.watch('public/partials/**/*.html', ['reload2']);
 	gulp.watch('private/scss/**/*.scss', ['sass']);
 	gulp.watch('public/controllers/**/*.js', ['scripts2']);
+	gulp.watch('public/models/**/*.js', ['scripts2']);
 });
 
 gulp.task('default', ['server', 'scripts2', 'sass', 'watch']);

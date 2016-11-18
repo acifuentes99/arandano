@@ -1,0 +1,42 @@
+<div>
+	<a ng-click="dash.change2Cursos()">Cursos</a>
+	<span> / </span> 
+	<a ng-click="dash.change2Modulos()">{{dash.currCurso.nombre}}</a> 
+	<span> / </span>
+	{{dash.openMod.nombre_mod}}
+</div>
+
+
+<h2>Modulo: {{dash.openMod.nombre_mod}}</h2>
+<button ng-click="dash.bloqueChangeType(0)">Adaptador</button>
+<button ng-click="dash.bloqueChangeType(1)">Asimilador</button>
+<button ng-click="dash.bloqueChangeType(2)">Convergente</button>
+<button ng-click="dash.bloqueChangeType(3)">Divergente</button>
+
+
+	<div ng-show="dash.showType[0]" ng-model="dash.content.ad" class="">
+		<h3>Adaptador</h3>
+		<textarea ng-model="dash.content.ad"></textarea>
+		<div btf-markdown="dash.content.ad"></div>
+	</div>
+
+	<div ng-show="dash.showType[1]" ng-model="dash.content.as" class="">
+		<h3>Asimilador</h3>
+		<textarea ng-model="dash.content.as"></textarea>
+		<div btf-markdown="dash.content.as"></div>
+	</div>
+
+	<div ng-show="dash.showType[2]" ng-model="dash.content.co" class="">
+		<h3>Convergente</h3>
+		<textarea ng-model="dash.content.co"></textarea>
+		<div btf-markdown="dash.content.co"></div>
+	</div>
+
+	<div ng-show="dash.showType[3]" ng-model="dash.content.di" class="">
+		<h3>Divergente</h3>
+		<textarea ng-model="dash.content.di"></textarea>
+		<div btf-markdown="dash.content.di"></div>
+	</div>
+
+	<button ng-click="dash.postBloques()">Enviar</button>
+

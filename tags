@@ -1,7 +1,0 @@
-!_TAG_FILE_SORTED	2	/0=unsorted, 1=sorted, 2=foldcase/
-app	/run/media/aczombie/Storage/Files/Documentos/1_Web_Projects/11_ArandanoProject/server.js	/^var app = express();$/;"	v	language:JavaScript
-connection	/run/media/aczombie/Storage/Files/Documentos/1_Web_Projects/11_ArandanoProject/server.js	/^var connection = mysql.createConnection({ $/;"	v	language:JavaScript
-db	/run/media/aczombie/Storage/Files/Documentos/1_Web_Projects/11_ArandanoProject/server.js	/^var db = mysql;$/;"	v	language:JavaScript
-express	/run/media/aczombie/Storage/Files/Documentos/1_Web_Projects/11_ArandanoProject/server.js	/^var express     = require('express'),$/;"	v	language:JavaScript
-gulp	/run/media/aczombie/Storage/Files/Documentos/1_Web_Projects/11_ArandanoProject/gulpfile.js	/^var gulp        = require('gulp'),$/;"	v	language:JavaScript
-port	/run/media/aczombie/Storage/Files/Documentos/1_Web_Projects/11_ArandanoProject/server.js	/^var port = process.env.PORT || 8080;$/;"	v	language:JavaScript

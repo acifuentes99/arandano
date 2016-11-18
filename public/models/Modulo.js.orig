@@ -13,13 +13,6 @@ todoApp.factory('Modulo', function($http, $location){
 	var Modulo = {};
 
 <<<<<<< HEAD
-	Modulo.addModulo = function(){
-	
-	}
-
-	Modulo.getModulo = function(){
-	
-=======
 	Modulo.addModulo = function(cursoId, formdata, reloadPage){
 		$http.post('/api/modulo/'+cursoId, formdata)
 			.then(function(res){
@@ -38,7 +31,14 @@ todoApp.factory('Modulo', function($http, $location){
 				aux.currMods = res.data;	
 				changeView();
 			});
->>>>>>> master
+=======
+	Modulo.addModulo = function(){
+	
+	}
+
+	Modulo.getModulo = function(){
+	
+>>>>>>> c907327eae7b8904d4066595a440c5403dca14ab
 	}
 	
 	return Modulo;	

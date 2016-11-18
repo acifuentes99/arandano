@@ -1,0 +1,34 @@
+
+<p>hola! {{dash.theExperto.nombre_exp}}</p>
+	<h3>Mis Cursos</h3>
+	<div ng-repeat="curso in dash.theCursos">
+		<a ng-click="dash.openCurso(curso)">
+			<div class="curso">
+				<div class="texto">
+					<h3>{{curso.nombre}}</h3>
+					<p>{{curso.descripcion}}</p>
+				</div>
+				<img class="img-responsive" src={{curso.imagen}}></img>
+			</div>
+		</a>
+	</div>
+
+	<a><button  ng-click="goCats = !goCats">Añadir Curso</button></a>
+
+	<div ng-show="goCats">
+		<form ng-submit="dash.submitCurso()" >
+			Nombre Curso <input type="text"
+				ng-model="dash.stu.nombrecurso"
+				name="nombrecurso" ></input><br>
+			Descripción Curso <input type="text"
+			ng-model="dash.stu.desccurso"
+			name="desccurso" ></input><br>
+			Url Imagen <input type="text"
+			ng-model="dash.stu.imgurl"
+			name="imgurl" ></input><br>
+			<br>
+			<button type="submit">Agregar</button>
+		</form>
+	</div>
+
+    </div>

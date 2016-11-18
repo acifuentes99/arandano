@@ -3,10 +3,10 @@ $arandano_claro:  #d1d1e0;
 @import "front";
 @import "header";
 @import "dashboards";
+@import "experto/modulos";
 @import 'https://fonts.googleapis.com/css?family=Paytone+One';
 
-
-/* 11 de Septiembre, stylish */
+//btf-markdown/* 11 de Septiembre, stylish */
 
 body{
     //background-color: $arandano_claro;
@@ -25,6 +25,10 @@ body{
     ng-view{
         width: 100%;
     }
+}
+
+btf-markdown{
+	h1{}
 }
 
 

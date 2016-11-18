@@ -1,0 +1,43 @@
+
+<div>
+	<h2>{{dash.currCurso.nombre}}: Modulos</h2>
+
+<div>
+	<a ng-click="dash.change2Cursos()">Cursos</a>
+	<span> / </span> 
+	<span>{{dash.currCurso.nombre}}</span> 
+</div>
+
+
+	<div ng-show="goCats2">
+		<form ng-submit="dash.submitModulo()" >
+			Nombre Modulo <input type="text"
+				ng-model="dash.mod.nombremod"
+				name="nombremod" ></input><br>
+			Descripción Curso <input type="text"
+			ng-model="dash.mod.descmod"
+			name="descmod" ></input><br>
+			Url Imagen <input type="text"
+			ng-model="dash.mod.imgurl"
+			name="imgurl" ></input><br>
+			<br>
+			<button type="submit">Agregar</button>
+		</form>
+	</div>
+
+
+	<div ng-repeat="module in dash.currMods">
+		<a ng-click="dash.change2Bloques($index)">
+			<div class="curso">
+				<div class="texto">
+					<h3>{{module.nombre_mod}}</h3>
+				</div>
+				<img class="img-responsive" src={{module.img_mod}}></img>
+			</div>
+		</a>
+	</div>
+
+	<br></br>
+	<button ng-click="goCats2 = !goCats2">Añadir Modulo</button>
+
+</div>

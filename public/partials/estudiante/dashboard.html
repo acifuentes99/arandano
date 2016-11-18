@@ -8,13 +8,8 @@
     <span> {{"This is some text"}} </span-->
 
 
-    <div ng-controller="Dashboard as dash" ng-init="dash.loadEstudiante()">
-
-    <h2>Dashboard</h2>
-		<span>Hola {{dash.theStudent.nickname}}!</span>
-        <h3>Felicidades!, eres de tipo: {{ dash.stu.tipo }}</h3>
-        <p>Proximamente con contenido</p>
-    </div>
-
-
-</div>
+    <div class="dashcontent" ng-controller="Dashboard as dash" ng-init="dash.loadEstudiante()">
+		<div class="" ng-show="dash.show[0]" ng-include="'partials/estudiante/cursos.html'"></div>
+		<div class="" ng-show="dash.show[1]" ng-include="'partials/estudiante/modulos.html'"></div>
+		<div class="" ng-show="dash.show[2]" ng-include="'partials/estudiante/bloque.html'"></div>
+	</div>

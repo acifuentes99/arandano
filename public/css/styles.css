@@ -91,7 +91,11 @@
   .curso img {
     width: 100%; }
 
-/* 11 de Septiembre, stylish */
+.modulo {
+  height: 400px;
+  width: 100px;
+  background-color: blue; }
+
 body {
   background-color: arandano_claro; }
   body .jumbotron {

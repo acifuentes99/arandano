@@ -7,41 +7,11 @@
     <div ng-controller="Dash_exp as dash" ng-init="dash.verCursos()">
 
     <h2>Dashboard Experto</h2>
+	<div class="" ng-show="dash.shows[0]" ng-include="'partials/experto/cursos.html'"></div>
+	<div class="" ng-show="dash.shows[1]" ng-include="'partials/experto/modulos.html'"></div>
+	<div class="" ng-show="dash.shows[2]" ng-include="'partials/experto/add_bloque.html'"></div>
 
-	<h3>Mis Cursos</h3>
 
-	<div ng-repeat="curso in dash.theCursos">
-		<div class="curso">
-			<div class="texto">
-				<h3>{{curso.nombre}}</h3>
-				<p>{{curso.descripcion}}</p>
-			</div>
-			<img class="img-responsive" src={{curso.imagen}}></img>
-		</div>
-	</div>
-
-	<a><button  ng-click="goCats = !goCats">Añadir Curso</button></a>
-	<div ng-show="goCats">
-		<form ng-submit="dash.submitCurso()" >
-			Nombre Curso <input type="text"
-				ng-model="dash.stu.nombrecurso"
-				name="nombrecurso" ></input><br>
-			Descripción Curso <input type="text"
-			ng-model="dash.stu.desccurso"
-			name="desccurso" ></input><br>
-			Url Imagen <input type="text"
-			ng-model="dash.stu.imgurl"
-			name="imgurl" ></input><br>
-			<br>
-			Experto administrador <input type="text"
-			ng-model="dash.stu.admin"
-			name="admin" ></input><br>
-			
-
-			<button type="submit">Agregar</button>
-		</form>
-	</div>
-    </div>
 
 </div>
 </div>
