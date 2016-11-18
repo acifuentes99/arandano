@@ -12,7 +12,17 @@ var estudiante = {
 
 todoApp.factory('Estudiante', function($http, $location){
 	var urlBase = '/api';
-	var Estudiante = {};
+
+	var Estudiante = function(){
+		return {
+			stu_id: "",
+			nickname: "",
+			nombre: "",
+			email: "",
+			password: "",
+			tipo: ""
+		}
+	}
 
 	Estudiante.addEstudiante = function(){
 	

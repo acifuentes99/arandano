@@ -10,7 +10,15 @@ var bloque = {
 
 todoApp.factory('Bloque', function($http, $location){
 	var urlBase = '/api';
-	var Bloque = {};
+	var Bloque = function(){
+		return{
+			bloque_id: "",
+			img_url: "",
+			content: "",
+			mod_id_f: "",
+			tipo: ""
+		}
+	};
 
 	Bloque.addBloque = function(){
 	

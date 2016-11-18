@@ -10,7 +10,15 @@ var profesor = {
 
 todoApp.factory('Profesor', function($http, $location){
 	var urlBase = '/api';
-	var Profesor = {};
+	var Profesor = function(){
+		return{
+			prof_id: "",
+			nickname: "",
+			nombre: "",
+			password: "",
+			email: ""
+		}
+	};
 
 	Profesor.addProfesor = function(){
 	

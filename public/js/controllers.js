@@ -547,12 +547,13 @@ todoApp.controller('Registro', function($rootScope, $scope, $location, arandanoB
     
 });
 
-todoApp.controller('Dashboard', function($rootScope, $scope, $location, arandanoFactory, shareData, $http){
+todoApp.controller('Dashboard', function($rootScope, $scope, $location, arandanoFactory, shareData, $http, Estudiante){
     this.stu = shareData.get();
     this.algo = "un text";
 	var that = this;
 	this.show = [true, false, false];
-	this.theStudent = {}; //Informacion sobre el estudiante
+	this.theStudent = {
+	}; //Informacion sobre el estudiante
 	this.currCurso = {}; //informacion del curso Actrualmente Abierto
 	this.currMods = {}; //Contiene los modulos de un curso
 	this.currMod = {}; //Informacion del modulo actualmente abierto
@@ -583,6 +584,8 @@ todoApp.controller('Dashboard', function($rootScope, $scope, $location, arandano
 					$location.path("/");	
 				}
 				else{
+					//that.theStudent = res.data;
+					that.theStudent = new Estudiante();
 					that.theStudent = res.data;
 					switch(that.theStudent.tipo){
 						case 0:
@@ -633,7 +636,7 @@ todoApp.controller('Dashboard', function($rootScope, $scope, $location, arandano
 });
 
 
-todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, arandanoFactory, shareData, $route, Experto, Modulo){
+todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, arandanoFactory, shareData, $route, Experto, Modulo, Curso){
 
     this.stu = {
 		nombrecurso: '',
@@ -654,6 +657,9 @@ todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, ara
 	var that = this;
 	//Shows, me define que vista se puede ver, y cual no
 	//en este caso, el ver primero cursos, y luego modulos
+	/*showType, muestra el tipo para el cual se esta editando
+	 * el contenido.
+	*/
 	this.shows = [true, false, false];
 	this.showType = [true, false, false, false];
 
@@ -731,6 +737,7 @@ todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, ara
 		$http.get('/api/curso/'+id)
             .then(function(res){
                console.log(res);
+				that.theCursos = new Curso();
 				that.theCursos = res.data;
 			});
 	}
@@ -780,7 +787,15 @@ var bloque = {
 
 todoApp.factory('Bloque', function($http, $location){
 	var urlBase = '/api';
-	var Bloque = {};
+	var Bloque = function(){
+		return{
+			bloque_id: "",
+			img_url: "",
+			content: "",
+			mod_id_f: "",
+			tipo: ""
+		}
+	};
 
 	Bloque.addBloque = function(){
 	
@@ -806,7 +821,15 @@ var curso = {
 
 todoApp.factory('Curso', function($http, $location){
 	var urlBase = '/api';
-	var Curso = {};
+	var Curso = function(){
+		return{
+			curso_id: "",
+			nombre: "",
+			imagen: "",
+			descripcion: "",
+			exp_id_f: ""
+		}
+	};
 
 	Curso.addCurso = function(){
 	
@@ -833,7 +856,17 @@ var estudiante = {
 
 todoApp.factory('Estudiante', function($http, $location){
 	var urlBase = '/api';
-	var Estudiante = {};
+
+	var Estudiante = function(){
+		return {
+			stu_id: "",
+			nickname: "",
+			nombre: "",
+			email: "",
+			password: "",
+			tipo: ""
+		}
+	}
 
 	Estudiante.addEstudiante = function(){
 	
@@ -850,12 +883,15 @@ todoApp.factory('Experto', function($http, $location) {
   var urlBase = '/api';
 	//Creo el objeto "Experto, donde se van a colocar las funciones
 	//y ademas, va los datos en si del experto.
-  var Experto = {};
 
 	//Constructor, crea un experto desde 0, el cual luego hay que añadirlo
 	//con addExperto
-	function Experto(){
-	
+	var Experto = function(){
+		return{
+			exp_id: "",
+			nombre_exp: "",
+			exp_pass: ""
+		}
 	}
 
 	//Otro tipo de funcion constructor, pero en este caso, carga de la
@@ -919,7 +955,14 @@ var modulo = {
 
 todoApp.factory('Modulo', function($http, $location){
 	var urlBase = '/api';
-	var Modulo = {};
+	var Modulo = function(){
+		return{
+			mod_id: "",
+			nombre_mod: "",
+			img_mod: "",
+			curso_id_f: ""
+		}
+	};
 
 	Modulo.addModulo = function(cursoId, formdata, reloadPage){
 		$http.post('/api/modulo/'+cursoId, formdata)
@@ -956,7 +999,15 @@ var profesor = {
 
 todoApp.factory('Profesor', function($http, $location){
 	var urlBase = '/api';
-	var Profesor = {};
+	var Profesor = function(){
+		return{
+			prof_id: "",
+			nickname: "",
+			nombre: "",
+			password: "",
+			email: ""
+		}
+	};
 
 	Profesor.addProfesor = function(){
 	
@@ -972,7 +1023,14 @@ todoApp.factory('Profesor', function($http, $location){
 
 todoApp.factory('Progreso', function($http, $location){
 	var urlBase = '/api';
-	var Progreso = {};
+	var Progreso = function(){
+		return{
+			Nivel: "",
+			fecha: "",
+			mod_id_f: "",
+			stu_id_f: ""
+		}
+	};
 
 	Progreso.addProgreso = function(){
 	

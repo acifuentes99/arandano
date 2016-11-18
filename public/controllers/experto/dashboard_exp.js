@@ -1,4 +1,4 @@
-todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, arandanoFactory, shareData, $route, Experto, Modulo){
+todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, arandanoFactory, shareData, $route, Experto, Modulo, Curso){
 
     this.stu = {
 		nombrecurso: '',
@@ -19,6 +19,9 @@ todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, ara
 	var that = this;
 	//Shows, me define que vista se puede ver, y cual no
 	//en este caso, el ver primero cursos, y luego modulos
+	/*showType, muestra el tipo para el cual se esta editando
+	 * el contenido.
+	*/
 	this.shows = [true, false, false];
 	this.showType = [true, false, false, false];
 
@@ -96,6 +99,7 @@ todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, ara
 		$http.get('/api/curso/'+id)
             .then(function(res){
                console.log(res);
+				that.theCursos = new Curso();
 				that.theCursos = res.data;
 			});
 	}
