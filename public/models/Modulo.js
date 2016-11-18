@@ -12,14 +12,6 @@ todoApp.factory('Modulo', function($http, $location){
 	var urlBase = '/api';
 	var Modulo = {};
 
-<<<<<<< HEAD
-	Modulo.addModulo = function(){
-	
-	}
-
-	Modulo.getModulo = function(){
-	
-=======
 	Modulo.addModulo = function(cursoId, formdata, reloadPage){
 		$http.post('/api/modulo/'+cursoId, formdata)
 			.then(function(res){
@@ -38,7 +30,6 @@ todoApp.factory('Modulo', function($http, $location){
 				aux.currMods = res.data;	
 				changeView();
 			});
->>>>>>> master
 	}
 	
 	return Modulo;	

@@ -24,30 +24,18 @@ todoApp.factory('Experto', function($http, $location) {
 
 	//Obtener del backend, los datos del experto, los cuales
 	//Passport.Js tiene guardados en el backend.
-<<<<<<< HEAD
-	Experto.authExperto = function(){
-		$http.get('/api/login/exp')
-			.then(function(res){
-				console.log("En dashboard de experto, el usuario es:");
-				console.log(res);
-=======
 	Experto.authExperto = function(aux){
 		$http.get('/api/login/exp')
 			.then(function(res){
 				console.log("En dashboard de experto, el usuario es:");
 				//console.log(res);
->>>>>>> master
 				if(res.data.status === -1 || !res.data.exp_id){
 					$location.path("/");	
 					return {};
 				}
 				else{
-<<<<<<< HEAD
-					return res.data;
-=======
 					aux.theExperto = res.data;
 					aux.verCursos2(res.data.exp_id);
->>>>>>> master
 				}
 			});	
 	}
