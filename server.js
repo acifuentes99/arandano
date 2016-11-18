@@ -44,7 +44,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 
-app.use(session({ secret: 'arandanorules' })); // session secret
+app.use(session({ secret: 'arandanorules' ,cookie: { maxAge: 6000 }, resave: true, saveUninitialized: true })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 

@@ -17,10 +17,12 @@
     "debug": "^2.2.0",
     "ejs": "^2.5.1",
     "express": "^4.14.0",
+    "express-session": "^1.14.1",
     "morgan": "^1.7.0",
     "mysql2": "^1.0.0-rc.12",
     "passport": "^0.3.2",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "semantic-ui": "^2.2.6"
   },
   "devDependencies": {
     "browserify": "^13.0.0",
