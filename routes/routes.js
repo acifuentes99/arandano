@@ -2,6 +2,8 @@ var path = process.cwd();
 //var bcrypt = require('bcrypt');
 //var salt = bcrypt.genSaltSync(10);
 const util = require('util');
+var multer = require('multer');
+var upload = multer({ dest: 'uploads/' })
 
 module.exports = function (app, connection, passport) {
 
@@ -9,6 +11,34 @@ module.exports = function (app, connection, passport) {
     .get(function(req, res) {
         res.render('index.html');
     });
+
+	app.route('/query/get')
+		.post(function(req, res){
+			//console.log("VAlor de query que llega");
+			//console.log(req.body.query);
+			connection.query(req.body.query, function(err, rows){
+				res.json(rows);
+			});
+		});
+	app.route('/query/post')
+		.post(function(req, res){
+			//console.log("VAlor de query que llega");
+			//console.log(req.body.query);
+			connection.query(req.body.query, function(err, rows){
+				res.json(rows);
+			});
+		});
+	app.route('/files')
+		.post(upload.single('file'), function(req, res){
+			////console.log(req.body) // form fields
+			//console.log(req.file) // form files
+			//res.status(204).end();
+			res.json(req.file);
+		});
+	app.get('/files/:id',function(req, res){
+			var file = process.cwd()+ '/uploads/'+req.params.id;
+			res.download(file, 'info.pdf'); // Set disposition and send it.
+		});
 
 	/* Ingreso de Estudiantes a la plataforma*/
     app.route('/api')
@@ -35,7 +65,7 @@ module.exports = function (app, connection, passport) {
 
 	app.route('/api/login/est')
 		.get(isLoggedIn, function(req, res){
-			console.log("fetching student data");
+			//console.log("fetching student data");
 			res.json(req.user);
 		})
 		.post(function(req, res, next) {
@@ -52,12 +82,12 @@ module.exports = function (app, connection, passport) {
 
 	app.route('/api/login/exp')
 		.get(isLoggedIn, function(req, res){
-			console.log("fetching experto data");
+			//console.log("fetching experto data");
 			res.json(req.user);
 		})
 		.post(function(req, res, next) {
 		  passport.authenticate('exp-login', function(err, user, info) {
-			  //console.log(util.inspect(user, false, null));
+			  ////console.log(util.inspect(user, false, null));
 			if (err) { return next(err); }
 			if (!user) { return res.redirect('/login'); }
 			req.logIn(user, function(err) {
@@ -70,7 +100,7 @@ module.exports = function (app, connection, passport) {
 
 	app.route('/api/login/pro')
 		.get(isLoggedIn, function(req, res){
-			console.log("fetching professor data");
+			//console.log("fetching professor data");
 			res.json(req.user);
 		})
 		.post(function(req, res, next) {
@@ -115,9 +145,9 @@ module.exports = function (app, connection, passport) {
 	app.route('/api/curso/:id')
 	.get(isLoggedIn, function(req, res) {
 		var experto = req.params.id;
-                console.log(experto);
+                //console.log(experto);
         connection.query("SELECT * FROM curso WHERE `exp_id_f` = '"+experto+"'", function(err, rows){
-            console.log(rows);
+            //console.log(rows);
             res.json(rows);
             
         });
@@ -125,7 +155,7 @@ module.exports = function (app, connection, passport) {
 	app.route('/api/curso')
     .post(isLoggedIn, function(req, res){
         var f = req.body;
-        console.log("agregando curso");
+        //console.log("agregando curso");
         connection.query("INSERT INTO curso (`nombre`, `imagen`, `descripcion`, `exp_id_f`) VALUES ( '"+f.nombrecurso+"','"+f.imgurl+"', '"+f.desccurso+"', '"+f.admin+"')", function(err, rows){
             res.json(rows);
         });
@@ -146,8 +176,13 @@ module.exports = function (app, connection, passport) {
 		.post(isLoggedIn, function(req, res){
 			var f = req.body;
 			var id = req.params.id;
-			console.log("agregando modulo");
-			connection.query("INSERT INTO modulo (`nombre_mod`, `img_mod`, `curso_id_f`) VALUES ( '"+f.nombremod+"','"+f.imgurl+"', '"+id+"')", function(err, rows){
+			//console.log("agregando modulo");
+			//connection.query("INSERT INTO modulo (`nombre_mod`, `img_mod`, `curso_id_f`) VALUES ( '"+f.nombremod+"','"+f.imgurl+"', '"+id+"')", function(err, rows){
+			var q = "INSERT INTO modulo (`nombre_mod`, `img_mod`, `curso_id_f`) VALUES ( '"+f.nombremod+"','"+f.imgurl+"', '"+id+"'); INSERT INTO bloque (`content`,`tipo`,`mod_id_f`) VALUES ('Adaptadores','0',LAST_INSERT_ID()),('Divergentes','1',LAST_INSERT_ID()),('Convergentes','2',LAST_INSERT_ID()),('Asimiladores','3',LAST_INSERT_ID())";
+			//console.log(q);
+			connection.query(q, function(err, rows){
+				if(err) console.log(err);
+				console.log("query realizada");
 				res.json(rows);
 			});
 		});
@@ -173,20 +208,20 @@ bloque_id 	img_url 	content 	mod_id_f 	stu_id_f
 		
 		})
 		.post(function(req, res){
-			console.log("Estamos intentando postear en bloque");
+			//console.log("Estamos intentando postear en bloque");
 			var modid = req.params.modid;
 			var cont = req.body;
-			console.log(modid);
+			//console.log(modid);
 			var values = [
 				[cont.ad, 0, modid],
 				[cont.di, 1, modid],
 				[cont.co, 2, modid],
 				[cont.as, 3, modid]
 			];
-			console.log(req.body);
+			//console.log(req.body);
 			connection.query("INSERT INTO bloque (`content`,`tipo`,`mod_id_f`) VALUES ?", [values], function(err){
 				if(err) console.log("algo no resulto");
-				console.log("Posting Bloques in Database");
+				//console.log("Posting Bloques in Database");
 			});
 			
 		});
@@ -225,9 +260,9 @@ bloque_id 	img_url 	content 	mod_id_f 	stu_id_f
 	app.route('/api/curso_estudiante/:id')
 		.get(function(req, res) {
 			var experto = req.params.id;
-					console.log(estudiante);
+					//console.log(estudiante);
 			connection.query("SELECT * FROM curso_estudiante INNER JOIN curso ON curso.curso_id= '"+estudiante+"'", function(err, rows){
-				console.log(rows);
+				//console.log(rows);
 				res.json(rows);
 				
 			});
@@ -235,7 +270,7 @@ bloque_id 	img_url 	content 	mod_id_f 	stu_id_f
 		app.route('/api/curso_estudiante')
 		.post(function(req, res){
 			var f = req.body;
-			console.log("agregando alumno a curso");
+			//console.log("agregando alumno a curso");
 			connection.query("INSERT INTO curso_estudiante (``, ``) VALUES ( '"+f.curso+"','"+f.stu+"')", function(err, rows){
 				res.json(rows);
 
@@ -252,7 +287,7 @@ function isLoggedIn(req, res, next) {
     if (req.isAuthenticated())
         return next();
     // if they aren't redirect them to the home page
-	console.log("Getting auth dat failed");
+	//console.log("Getting auth dat failed");
 	res.json({status: -1});
 	//    res.redirect('/');
 }
@@ -267,25 +302,25 @@ function isLoggedIn(req, res, next) {
  *
 		.post(function(req, res) {
 			var f = req.body;	
-			console.log("el body: "+f);
-			console.log(util.inspect(f, false, null))
+			//console.log("el body: "+f);
+			//console.log(util.inspect(f, false, null))
 			connection.query("SELECT * FROM estudiante WHERE nickname ='"+f.user+"'", function(err, rows){
-				console.log("Query : "+rows);
+				//console.log("Query : "+rows);
 				if(err){ 
 					throw err;
 				}
 				if(rows[0]){
 				if(f.pass === rows[0].password){
-						console.log("login successful");
+						//console.log("login successful");
 						res.json({login: 1});
 					}
 					else{
-						console.log("login failed, wrong password");
+						//console.log("login failed, wrong password");
 						res.json({login: 0});
 					}
 				}
 				else{
-					console.log("not in database");
+					//console.log("not in database");
 					res.json({login: 0});
 				}
 			});

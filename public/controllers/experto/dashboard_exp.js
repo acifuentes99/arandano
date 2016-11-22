@@ -1,4 +1,4 @@
-todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, arandanoFactory, shareData, $route, Experto, Modulo, Curso){
+todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, arandanoFactory, shareData, $route, Experto, Modulo, Curso, Bloque){
 
     this.stu = {
 		nombrecurso: '',
@@ -17,6 +17,7 @@ todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, ara
 	};
 
 	var that = this;
+	/*Ad: 0; Di: 1; Co: 2; As: 3*/
 	//Shows, me define que vista se puede ver, y cual no
 	//en este caso, el ver primero cursos, y luego modulos
 	/*showType, muestra el tipo para el cual se esta editando
@@ -24,13 +25,69 @@ todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, ara
 	*/
 	this.shows = [true, false, false];
 	this.showType = [true, false, false, false];
-
+	
 	//console.log("En controlador, Data = "+this.theData);
 
     var that = this;
 	this.bloqueChangeType = function(aux){
 		that.showType = [false, false, false, false];
 		that.showType[aux] = true;
+	}
+
+	this.addBloqueData = function(bloques){
+		bloques.forEach(function(aux){
+			if(aux.tipo === 0) that.content.ad = aux.content;
+			else if(aux.tipo === 1)  that.content.di = aux.content;
+			else if(aux.tipo === 2)  that.content.co = aux.content;
+			else  that.content.as = aux.content;
+		});
+	}
+
+	this.postMaterial = function(file){
+	   console.log(file);
+	   var fd = new FormData();
+		fd.append('file', file);
+
+		$http.post('/files', fd, {
+			transformRequest: angular.identity,
+			headers: {
+				'Content-Type': undefined},
+			enctype: 'multipart/form-data'
+			});
+		};
+
+	$scope.uploadFile = function(file) {
+	   var fd = new FormData();
+		fd.append('file', file);
+		$http.post('/files', fd, {
+			transformRequest: angular.identity,
+			headers: {
+				'Content-Type': undefined},
+				enctype: 'multipart/form-data'
+			}
+		 )
+			.then(function(res){
+				console.log("en then, valor de res:")
+				console.log(res)
+				var data = {
+					filename: res.data.filename,
+					modid: that.openMod.mod_id
+				};
+				Bloque.addDoc(data);
+			});
+	 };
+
+	$scope.readFile = function(elem) {
+		var file= elem.files[0];
+		console.log("file received ");
+		var reader = new FileReader();
+	   reader.onload = function() {
+		   $scope.$apply(function(){
+			   $scope.file = file;
+			   $scope.imageUrl = reader.result // to display         image via ng-Src
+		   })
+	   }
+	   reader.readAsDataURL(file);
 	}
 
 	/*
@@ -109,6 +166,10 @@ todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, ara
 		Modulo.getModulos(curso.curso_id, that, that.change2Modulos);
 	}
 
+	this.openBloques = function(index){
+		var auxMod = that.currMods[index];
+		Bloque.getBloques(auxMod.mod_id, index, that.change2Bloques,that.addBloqueData);
+	}
 
 	this.change2Bloques = function(aux){
 		that.shows[0] = false;
@@ -131,8 +192,13 @@ todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, ara
 	this.postBloques = function(){
 		console.log(that.content);
 		console.log("posteando");
-		$http.post('/api/bloques/'+that.openMod.mod_id, that.content);
-		that.change2Modulos();
+		var obj = {
+			content: that.content,  
+			modid: that.openMod.mod_id
+		};
+		Bloque.updateBloques(obj, that.change2Modulos);
+		//$http.post('/api/bloques/'+that.openMod.mod_id, that.content);
+		//that.change2Modulos();
 	}
 
 });

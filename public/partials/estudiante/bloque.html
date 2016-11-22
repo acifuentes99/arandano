@@ -15,3 +15,8 @@
 <h1>{{dash.currMod.nombre_mod}}</h1>
 
 <div btf-markdown="dash.currBloque.content"></div>
+
+<div ng-show="dash.currBloque.boolDoc">
+	<a class="btn btn-material" href="{{'/files/'+dash.currBloque.doc}}"><img class="docimg" src="/assets/file.svg"></img>Descargar material</a>
+	
+</div>

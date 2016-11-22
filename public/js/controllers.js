@@ -457,6 +457,10 @@ todoApp.controller('Login', function($rootScope,$http, $scope, $location, aranda
 		});
 	};
 
+	$http.post("/query", {query: "SELECT * FROM estudiante"})
+		.then(function(res){
+			console.log(res);
+		});
 
 	/*
     this.submitLoginExperto = function(){
@@ -547,7 +551,7 @@ todoApp.controller('Registro', function($rootScope, $scope, $location, arandanoB
     
 });
 
-todoApp.controller('Dashboard', function($rootScope, $scope, $location, arandanoFactory, shareData, $http, Estudiante){
+todoApp.controller('Dashboard', function($rootScope, $scope, $location, arandanoFactory, shareData, $http, Estudiante, Modulo, Bloque){
     this.stu = shareData.get();
     this.algo = "un text";
 	var that = this;
@@ -624,6 +628,8 @@ todoApp.controller('Dashboard', function($rootScope, $scope, $location, arandano
 			.then(function(res){
 				console.log(res);
 				that.currBloque = res.data[0];
+				if(that.currBloque.doc != ''){that.currBloque.boolDoc = true;}
+				else{ that.currBloque.boolDoc = false; }
 				that.changeScreen(2);
 			});
 	}
@@ -636,7 +642,7 @@ todoApp.controller('Dashboard', function($rootScope, $scope, $location, arandano
 });
 
 
-todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, arandanoFactory, shareData, $route, Experto, Modulo, Curso){
+todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, arandanoFactory, shareData, $route, Experto, Modulo, Curso, Bloque){
 
     this.stu = {
 		nombrecurso: '',
@@ -655,6 +661,7 @@ todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, ara
 	};
 
 	var that = this;
+	/*Ad: 0; Di: 1; Co: 2; As: 3*/
 	//Shows, me define que vista se puede ver, y cual no
 	//en este caso, el ver primero cursos, y luego modulos
 	/*showType, muestra el tipo para el cual se esta editando
@@ -662,13 +669,69 @@ todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, ara
 	*/
 	this.shows = [true, false, false];
 	this.showType = [true, false, false, false];
-
+	
 	//console.log("En controlador, Data = "+this.theData);
 
     var that = this;
 	this.bloqueChangeType = function(aux){
 		that.showType = [false, false, false, false];
 		that.showType[aux] = true;
+	}
+
+	this.addBloqueData = function(bloques){
+		bloques.forEach(function(aux){
+			if(aux.tipo === 0) that.content.ad = aux.content;
+			else if(aux.tipo === 1)  that.content.di = aux.content;
+			else if(aux.tipo === 2)  that.content.co = aux.content;
+			else  that.content.as = aux.content;
+		});
+	}
+
+	this.postMaterial = function(file){
+	   console.log(file);
+	   var fd = new FormData();
+		fd.append('file', file);
+
+		$http.post('/files', fd, {
+			transformRequest: angular.identity,
+			headers: {
+				'Content-Type': undefined},
+			enctype: 'multipart/form-data'
+			});
+		};
+
+	$scope.uploadFile = function(file) {
+	   var fd = new FormData();
+		fd.append('file', file);
+		$http.post('/files', fd, {
+			transformRequest: angular.identity,
+			headers: {
+				'Content-Type': undefined},
+				enctype: 'multipart/form-data'
+			}
+		 )
+			.then(function(res){
+				console.log("en then, valor de res:")
+				console.log(res)
+				var data = {
+					filename: res.data.filename,
+					modid: that.openMod.mod_id
+				};
+				Bloque.addDoc(data);
+			});
+	 };
+
+	$scope.readFile = function(elem) {
+		var file= elem.files[0];
+		console.log("file received ");
+		var reader = new FileReader();
+	   reader.onload = function() {
+		   $scope.$apply(function(){
+			   $scope.file = file;
+			   $scope.imageUrl = reader.result // to display         image via ng-Src
+		   })
+	   }
+	   reader.readAsDataURL(file);
 	}
 
 	/*
@@ -747,6 +810,10 @@ todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, ara
 		Modulo.getModulos(curso.curso_id, that, that.change2Modulos);
 	}
 
+	this.openBloques = function(index){
+		var auxMod = that.currMods[index];
+		Bloque.getBloques(auxMod.mod_id, index, that.change2Bloques,that.addBloqueData);
+	}
 
 	this.change2Bloques = function(aux){
 		that.shows[0] = false;
@@ -769,8 +836,13 @@ todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, ara
 	this.postBloques = function(){
 		console.log(that.content);
 		console.log("posteando");
-		$http.post('/api/bloques/'+that.openMod.mod_id, that.content);
-		that.change2Modulos();
+		var obj = {
+			content: that.content,  
+			modid: that.openMod.mod_id
+		};
+		Bloque.updateBloques(obj, that.change2Modulos);
+		//$http.post('/api/bloques/'+that.openMod.mod_id, that.content);
+		//that.change2Modulos();
 	}
 
 });
@@ -797,15 +869,38 @@ todoApp.factory('Bloque', function($http, $location){
 		}
 	};
 
-	Bloque.addBloque = function(){
+	Bloque.getBloques = function(modid, index, changeScreen, addBloqueData){
+		var obj = {query : "SELECT * FROM bloque WHERE mod_id_f='"+modid+"'" };
+		$http.post('/query/get', obj)
+			.then(function(res){
+				console.log("resultado de query:");
+				console.log(res.data);
+				addBloqueData(res.data);
+				changeScreen(index);
+			});
+	}
+
+	Bloque.updateBloques = function(obj, changeScreen){
+		obj.query = "UPDATE bloque SET content = (CASE tipo WHEN 0 THEN '"+obj.content.ad+"' WHEN 1 THEN '"+obj.content.di+"' WHEN 2 THEN '"+obj.content.co+"' WHEN 3 THEN '"+obj.content.as+"' END) WHERE tipo IN ('0','1','2','3') AND mod_id_f='"+obj.modid+"';";
+		$http.post('/query/post', obj)
+			.then(function(res){
+				changeScreen();
+			});
 	
 	}
 
-	Bloque.getBloque = function(){
+	Bloque.addDoc = function(aux){
+		var obj = aux;
+		obj.query = "UPDATE bloque SET doc='"+obj.filename+"' WHERE mod_id_f='"+obj.modid+"'";
+		$http.post('/query/post', obj);
+	}
+
+	Bloque.openBloque = function(){
 	
 	}
 	
 	return Bloque;	
+	//
 });
 
 /*

@@ -1,4 +1,4 @@
-todoApp.controller('Dashboard', function($rootScope, $scope, $location, arandanoFactory, shareData, $http, Estudiante){
+todoApp.controller('Dashboard', function($rootScope, $scope, $location, arandanoFactory, shareData, $http, Estudiante, Modulo, Bloque){
     this.stu = shareData.get();
     this.algo = "un text";
 	var that = this;
@@ -75,6 +75,8 @@ todoApp.controller('Dashboard', function($rootScope, $scope, $location, arandano
 			.then(function(res){
 				console.log(res);
 				that.currBloque = res.data[0];
+				if(that.currBloque.doc != ''){that.currBloque.boolDoc = true;}
+				else{ that.currBloque.boolDoc = false; }
 				that.changeScreen(2);
 			});
 	}
