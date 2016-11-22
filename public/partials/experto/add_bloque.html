@@ -14,29 +14,34 @@
 <button ng-click="dash.bloqueChangeType(3)">Divergente</button>
 
 
-	<div ng-show="dash.showType[0]" ng-model="dash.content.ad" class="">
+	<div ng-show="dash.showType[0]" class="">
 		<h3>Adaptador</h3>
-		<textarea ng-model="dash.content.ad"></textarea>
-		<div btf-markdown="dash.content.ad"></div>
+		<textarea markdown-editor value="{{dash.content.ad}}" ng-model="dash.content.ad">{{dash.content.ad}}</textarea>
+		<div  btf-markdown="dash.content.ad"></div>
 	</div>
 
-	<div ng-show="dash.showType[1]" ng-model="dash.content.as" class="">
+	<div ng-show="dash.showType[1]"  class="">
 		<h3>Asimilador</h3>
-		<textarea ng-model="dash.content.as"></textarea>
+		<textarea markdown-editor value="{{dash.content.as}}" ng-model="dash.content.as">{{dash.content.as}}</textarea>
 		<div btf-markdown="dash.content.as"></div>
 	</div>
 
-	<div ng-show="dash.showType[2]" ng-model="dash.content.co" class="">
+	<div ng-show="dash.showType[2]"  class="">
 		<h3>Convergente</h3>
-		<textarea ng-model="dash.content.co"></textarea>
+		<textarea markdown-editor value="{{dash.content.co}}" ng-model="dash.content.co">{{dash.content.co}}</textarea>
 		<div btf-markdown="dash.content.co"></div>
 	</div>
 
-	<div ng-show="dash.showType[3]" ng-model="dash.content.di" class="">
+	<div ng-show="dash.showType[3]" class="">
 		<h3>Divergente</h3>
-		<textarea ng-model="dash.content.di"></textarea>
+		<textarea markdown-editor value="{{dash.content.di}}" ng-model="dash.content.di">{{dash.content.di}}</textarea>
 		<div btf-markdown="dash.content.di"></div>
 	</div>
+	<button ng-click="dash.postBloques()">Actualizar Contenidos</button>
 
-	<button ng-click="dash.postBloques()">Enviar</button>
-
+	<h3>Subir Archivo</h3>
+		<!--form action="/files" method="post" enctype="multipart/form-data"-->
+	<form enctype="multipart/form-data" method="post" ng-submit="uploadFile(file)">
+	 <input type="file" ng-model="file" name="file" onchange="angular.element(this).scope().readFile(this)"/> 
+	 <button type="submit" >Upload</button>
+	 </form>

@@ -2,12 +2,15 @@ todoApp.factory('Experto', function($http, $location) {
   var urlBase = '/api';
 	//Creo el objeto "Experto, donde se van a colocar las funciones
 	//y ademas, va los datos en si del experto.
-  var Experto = {};
 
 	//Constructor, crea un experto desde 0, el cual luego hay que añadirlo
 	//con addExperto
-	function Experto(){
-	
+	var Experto = function(){
+		return{
+			exp_id: "",
+			nombre_exp: "",
+			exp_pass: ""
+		}
 	}
 
 	//Otro tipo de funcion constructor, pero en este caso, carga de la

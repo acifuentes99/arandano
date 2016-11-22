@@ -457,6 +457,10 @@ todoApp.controller('Login', function($rootScope,$http, $scope, $location, aranda
 		});
 	};
 
+	$http.post("/query", {query: "SELECT * FROM estudiante"})
+		.then(function(res){
+			console.log(res);
+		});
 
 	/*
     this.submitLoginExperto = function(){
@@ -547,7 +551,98 @@ todoApp.controller('Registro', function($rootScope, $scope, $location, arandanoB
     
 });
 
-todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, arandanoFactory, shareData, $route, Experto, Modulo){
+todoApp.controller('Dashboard', function($rootScope, $scope, $location, arandanoFactory, shareData, $http, Estudiante, Modulo, Bloque){
+    this.stu = shareData.get();
+    this.algo = "un text";
+	var that = this;
+	this.show = [true, false, false];
+	this.theStudent = {
+	}; //Informacion sobre el estudiante
+	this.currCurso = {}; //informacion del curso Actrualmente Abierto
+	this.currMods = {}; //Contiene los modulos de un curso
+	this.currMod = {}; //Informacion del modulo actualmente abierto
+
+
+	this.loadCursos = function(){
+		$http.get('/api/cursos/')
+			.then(function(res){
+				console.log("lo intento");
+				that.theCursos = res;
+				console.log(res);
+			});
+	};
+
+	this.probando = function(){
+		console.log("theCursos vale: ");
+		console.log(that.theCursos);
+	}
+
+    this.loadEstudiante = function(){
+		console.log("iniciando metodo getstudent");
+		that.loadCursos();
+		$http.get('/api/login/est/')
+            .then(function(res){
+				console.log("In student!!!, the user fecthed:")
+				console.log(res);
+				if(res.data.status === -1 || !res.data.stu_id){
+					$location.path("/");	
+				}
+				else{
+					//that.theStudent = res.data;
+					that.theStudent = new Estudiante();
+					that.theStudent = res.data;
+					switch(that.theStudent.tipo){
+						case 0:
+							that.stu.tipo = "Adaptador";
+							break;
+						case 1:
+							that.stu.tipo = "Divergente";
+							break;
+						case 2:
+							that.stu.tipo = "Convergente";
+							break;
+						case 3:
+							that.stu.tipo = "Asimilador";
+							break;
+					}
+				}
+            });
+	}
+
+	this.openCurso = function(curid, aux){
+		that.currCurso = that.theCursos.data[aux];
+		$http.get('/api/modulo/'+curid)
+			.then(function(res){
+				console.log("Info del get del modulo: ");
+				console.log(res.data);
+				that.currMods = res.data;
+			});
+		that.changeScreen(1);
+	}
+
+	this.openBloque = function(module){
+		that.currMod = module;
+		var modid = module.mod_id;
+				console.log("data from the get:");
+		$http.post('/api/getbloque', {modid: modid, tipo: that.theStudent.tipo})
+			.then(function(res){
+				console.log(res);
+				that.currBloque = res.data[0];
+				if(that.currBloque.doc != ''){that.currBloque.boolDoc = true;}
+				else{ that.currBloque.boolDoc = false; }
+				that.changeScreen(2);
+			});
+	}
+
+	this.changeScreen = function(num){
+		that.show = [false, false, false];
+		that.show[num] = true;
+	}
+
+});
+
+
+todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, arandanoFactory, shareData, $route, Experto, Modulo, Curso, Bloque){
 
     this.stu = {
 		nombrecurso: '',
@@ -566,11 +661,15 @@ todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, ara
 	};
 
 	var that = this;
+	/*Ad: 0; Di: 1; Co: 2; As: 3*/
 	//Shows, me define que vista se puede ver, y cual no
 	//en este caso, el ver primero cursos, y luego modulos
+	/*showType, muestra el tipo para el cual se esta editando
+	 * el contenido.
+	*/
 	this.shows = [true, false, false];
 	this.showType = [true, false, false, false];
-
+	
 	//console.log("En controlador, Data = "+this.theData);
 
     var that = this;
@@ -579,13 +678,61 @@ todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, ara
 		that.showType[aux] = true;
 	}
 
-	/*
-	this.postMaterial = function(){
-		var id_modulo = ;
-		$http.post('/api/cursos/'+id_modulo, that.content.ac).then(
-			
-		);
-	}*/
+	this.addBloqueData = function(bloques){
+		bloques.forEach(function(aux){
+			if(aux.tipo === 0) that.content.ad = aux.content;
+			else if(aux.tipo === 1)  that.content.di = aux.content;
+			else if(aux.tipo === 2)  that.content.co = aux.content;
+			else  that.content.as = aux.content;
+		});
+	}
+
+	this.postMaterial = function(file){
+	   console.log(file);
+	   var fd = new FormData();
+		fd.append('file', file);
+
+		$http.post('/files', fd, {
+			transformRequest: angular.identity,
+			headers: {
+				'Content-Type': undefined},
+			enctype: 'multipart/form-data'
+			});
+		};
+
+	$scope.uploadFile = function(file) {
+	   var fd = new FormData();
+		fd.append('file', file);
+		$http.post('/files', fd, {
+			transformRequest: angular.identity,
+			headers: {
+				'Content-Type': undefined},
+				enctype: 'multipart/form-data'
+			}
+		 )
+			.then(function(res){
+				console.log("en then, valor de res:")
+				console.log(res)
+				var data = {
+					filename: res.data.filename,
+					modid: that.openMod.mod_id
+				};
+				Bloque.addDoc(data);
+			});
+	 };
+
+	$scope.readFile = function(elem) {
+		var file= elem.files[0];
+		console.log("file received ");
+		var reader = new FileReader();
+	   reader.onload = function() {
+		   $scope.$apply(function(){
+			   $scope.file = file;
+			   $scope.imageUrl = reader.result // to display         image via ng-Src
+		   })
+	   }
+	   reader.readAsDataURL(file);
+	}
 
 	/*
     this.loadExperto = function(){
@@ -605,7 +752,6 @@ todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, ara
 	*/
 
 	//this.theExperto = Experto.authExperto();
-
 
     this.submitCurso = function(){
         console.log("algo");
@@ -654,6 +800,7 @@ todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, ara
 		$http.get('/api/curso/'+id)
             .then(function(res){
                console.log(res);
+				that.theCursos = new Curso();
 				that.theCursos = res.data;
 			});
 	}
@@ -663,6 +810,10 @@ todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, ara
 		Modulo.getModulos(curso.curso_id, that, that.change2Modulos);
 	}
 
+	this.openBloques = function(index){
+		var auxMod = that.currMods[index];
+		Bloque.getBloques(auxMod.mod_id, index, that.change2Bloques,that.addBloqueData);
+	}
 
 	this.change2Bloques = function(aux){
 		that.shows[0] = false;
@@ -685,97 +836,17 @@ todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, ara
 	this.postBloques = function(){
 		console.log(that.content);
 		console.log("posteando");
-		$http.post('/api/bloques/'+that.openMod.mod_id, that.content);
-		that.change2Modulos();
+		var obj = {
+			content: that.content,  
+			modid: that.openMod.mod_id
+		};
+		Bloque.updateBloques(obj, that.change2Modulos);
+		//$http.post('/api/bloques/'+that.openMod.mod_id, that.content);
+		//that.change2Modulos();
 	}
+
 
 });
-
-todoApp.controller('Dashboard', function($rootScope, $scope, $location, arandanoFactory, shareData, $http){
-    this.stu = shareData.get();
-    this.algo = "un text";
-	var that = this;
-	this.show = [true, false, false];
-	this.theStudent = {}; //Informacion sobre el estudiante
-	this.currCurso = {}; //informacion del curso Actrualmente Abierto
-	this.currMods = {}; //Contiene los modulos de un curso
-	this.currMod = {}; //Informacion del modulo actualmente abierto
-
-
-	this.loadCursos = function(){
-		$http.get('/api/cursos/')
-			.then(function(res){
-				console.log("lo intento");
-				that.theCursos = res;
-				console.log(res);
-			});
-	};
-
-	this.probando = function(){
-		console.log("theCursos vale: ");
-		console.log(that.theCursos);
-	}
-
-    this.loadEstudiante = function(){
-		console.log("iniciando metodo getstudent");
-		that.loadCursos();
-		$http.get('/api/login/est/')
-            .then(function(res){
-				console.log("In student!!!, the user fecthed:")
-				console.log(res);
-				if(res.data.status === -1 || !res.data.stu_id){
-					$location.path("/");	
-				}
-				else{
-					that.theStudent = res.data;
-					switch(that.theStudent.tipo){
-						case 0:
-							that.stu.tipo = "Adaptador";
-							break;
-						case 1:
-							that.stu.tipo = "Divergente";
-							break;
-						case 2:
-							that.stu.tipo = "Convergente";
-							break;
-						case 3:
-							that.stu.tipo = "Asimilador";
-							break;
-					}
-				}
-            });
-	}
-
-	this.openCurso = function(curid, aux){
-		that.currCurso = that.theCursos.data[aux];
-		$http.get('/api/modulo/'+curid)
-			.then(function(res){
-				console.log("Info del get del modulo: ");
-				console.log(res.data);
-				that.currMods = res.data;
-			});
-		that.changeScreen(1);
-	}
-
-	this.openBloque = function(module){
-		that.currMod = module;
-		var modid = module.mod_id;
-				console.log("data from the get:");
-		$http.post('/api/getbloque', {modid: modid, tipo: that.theStudent.tipo})
-			.then(function(res){
-				console.log(res);
-				that.currBloque = res.data[0];
-				that.changeScreen(2);
-			});
-	}
-
-	this.changeScreen = function(num){
-		that.show = [false, false, false];
-		that.show[num] = true;
-	}
-
-});
-
 
 /*
 var bloque = {
@@ -789,17 +860,48 @@ var bloque = {
 
 todoApp.factory('Bloque', function($http, $location){
 	var urlBase = '/api';
-	var Bloque = {};
+	var Bloque = function(){
+		return{
+			bloque_id: "",
+			img_url: "",
+			content: "",
+			mod_id_f: "",
+			tipo: ""
+		}
+	};
 
-	Bloque.addBloque = function(){
+	Bloque.getBloques = function(modid, index, changeScreen, addBloqueData){
+		var obj = {query : "SELECT * FROM bloque WHERE mod_id_f='"+modid+"'" };
+		$http.post('/query/get', obj)
+			.then(function(res){
+				console.log("resultado de query:");
+				console.log(res.data);
+				addBloqueData(res.data);
+				changeScreen(index);
+			});
+	}
+
+	Bloque.updateBloques = function(obj, changeScreen){
+		obj.query = "UPDATE bloque SET content = (CASE tipo WHEN 0 THEN '"+obj.content.ad+"' WHEN 1 THEN '"+obj.content.di+"' WHEN 2 THEN '"+obj.content.co+"' WHEN 3 THEN '"+obj.content.as+"' END) WHERE tipo IN ('0','1','2','3') AND mod_id_f='"+obj.modid+"';";
+		$http.post('/query/post', obj)
+			.then(function(res){
+				changeScreen();
+			});
 	
 	}
 
-	Bloque.getBloque = function(){
+	Bloque.addDoc = function(aux){
+		var obj = aux;
+		obj.query = "UPDATE bloque SET doc='"+obj.filename+"' WHERE mod_id_f='"+obj.modid+"'";
+		$http.post('/query/post', obj);
+	}
+
+	Bloque.openBloque = function(){
 	
 	}
 	
 	return Bloque;	
+	//
 });
 
 /*
@@ -815,7 +917,15 @@ var curso = {
 
 todoApp.factory('Curso', function($http, $location){
 	var urlBase = '/api';
-	var Curso = {};
+	var Curso = function(){
+		return{
+			curso_id: "",
+			nombre: "",
+			imagen: "",
+			descripcion: "",
+			exp_id_f: ""
+		}
+	};
 
 	Curso.addCurso = function(){
 	
@@ -842,7 +952,17 @@ var estudiante = {
 
 todoApp.factory('Estudiante', function($http, $location){
 	var urlBase = '/api';
-	var Estudiante = {};
+
+	var Estudiante = function(){
+		return {
+			stu_id: "",
+			nickname: "",
+			nombre: "",
+			email: "",
+			password: "",
+			tipo: ""
+		}
+	}
 
 	Estudiante.addEstudiante = function(){
 	
@@ -859,12 +979,15 @@ todoApp.factory('Experto', function($http, $location) {
   var urlBase = '/api';
 	//Creo el objeto "Experto, donde se van a colocar las funciones
 	//y ademas, va los datos en si del experto.
-  var Experto = {};
 
 	//Constructor, crea un experto desde 0, el cual luego hay que añadirlo
 	//con addExperto
-	function Experto(){
-	
+	var Experto = function(){
+		return{
+			exp_id: "",
+			nombre_exp: "",
+			exp_pass: ""
+		}
 	}
 
 	//Otro tipo de funcion constructor, pero en este caso, carga de la
@@ -928,7 +1051,14 @@ var modulo = {
 
 todoApp.factory('Modulo', function($http, $location){
 	var urlBase = '/api';
-	var Modulo = {};
+	var Modulo = function(){
+		return{
+			mod_id: "",
+			nombre_mod: "",
+			img_mod: "",
+			curso_id_f: ""
+		}
+	};
 
 	Modulo.addModulo = function(cursoId, formdata, reloadPage){
 		$http.post('/api/modulo/'+cursoId, formdata)
@@ -965,7 +1095,15 @@ var profesor = {
 
 todoApp.factory('Profesor', function($http, $location){
 	var urlBase = '/api';
-	var Profesor = {};
+	var Profesor = function(){
+		return{
+			prof_id: "",
+			nickname: "",
+			nombre: "",
+			password: "",
+			email: ""
+		}
+	};
 
 	Profesor.addProfesor = function(){
 	
@@ -981,7 +1119,14 @@ todoApp.factory('Profesor', function($http, $location){
 
 todoApp.factory('Progreso', function($http, $location){
 	var urlBase = '/api';
-	var Progreso = {};
+	var Progreso = function(){
+		return{
+			Nivel: "",
+			fecha: "",
+			mod_id_f: "",
+			stu_id_f: ""
+		}
+	};
 
 	Progreso.addProgreso = function(){
 	

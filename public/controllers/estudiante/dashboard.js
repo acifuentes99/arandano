@@ -1,9 +1,10 @@
-todoApp.controller('Dashboard', function($rootScope, $scope, $location, arandanoFactory, shareData, $http){
+todoApp.controller('Dashboard', function($rootScope, $scope, $location, arandanoFactory, shareData, $http, Estudiante, Modulo, Bloque){
     this.stu = shareData.get();
     this.algo = "un text";
 	var that = this;
 	this.show = [true, false, false];
-	this.theStudent = {}; //Informacion sobre el estudiante
+	this.theStudent = {
+	}; //Informacion sobre el estudiante
 	this.currCurso = {}; //informacion del curso Actrualmente Abierto
 	this.currMods = {}; //Contiene los modulos de un curso
 	this.currMod = {}; //Informacion del modulo actualmente abierto
@@ -34,6 +35,8 @@ todoApp.controller('Dashboard', function($rootScope, $scope, $location, arandano
 					$location.path("/");	
 				}
 				else{
+					//that.theStudent = res.data;
+					that.theStudent = new Estudiante();
 					that.theStudent = res.data;
 					switch(that.theStudent.tipo){
 						case 0:
@@ -72,6 +75,8 @@ todoApp.controller('Dashboard', function($rootScope, $scope, $location, arandano
 			.then(function(res){
 				console.log(res);
 				that.currBloque = res.data[0];
+				if(that.currBloque.doc != ''){that.currBloque.boolDoc = true;}
+				else{ that.currBloque.boolDoc = false; }
 				that.changeScreen(2);
 			});
 	}

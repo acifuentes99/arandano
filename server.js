@@ -16,8 +16,8 @@ var app = express();
 var connection = mysql.createConnection({ 
     user: 'aliwen', 
     database: 'arandano',
-    password: 'arandano'
-    
+    password: 'arandano',
+    multipleStatements: true
 });
 var db = mysql;
 
@@ -47,6 +47,7 @@ app.use(bodyParser.urlencoded({
 app.use(session({ secret: 'arandanorules' })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
+//app.use(multer({ dest: './uploads/'}));
 
 
 require('./public/js/passport.js')(passport, connection); // pass passport for configuration

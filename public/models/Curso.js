@@ -11,7 +11,15 @@ var curso = {
 
 todoApp.factory('Curso', function($http, $location){
 	var urlBase = '/api';
-	var Curso = {};
+	var Curso = function(){
+		return{
+			curso_id: "",
+			nombre: "",
+			imagen: "",
+			descripcion: "",
+			exp_id_f: ""
+		}
+	};
 
 	Curso.addCurso = function(){
 	

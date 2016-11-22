@@ -10,7 +10,14 @@ var modulo = {
 
 todoApp.factory('Modulo', function($http, $location){
 	var urlBase = '/api';
-	var Modulo = {};
+	var Modulo = function(){
+		return{
+			mod_id: "",
+			nombre_mod: "",
+			img_mod: "",
+			curso_id_f: ""
+		}
+	};
 
 	Modulo.addModulo = function(cursoId, formdata, reloadPage){
 		$http.post('/api/modulo/'+cursoId, formdata)

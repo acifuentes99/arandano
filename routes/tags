@@ -1,6 +1,6 @@
 !_TAG_FILE_SORTED	2	/0=unsorted, 1=sorted, 2=foldcase/
 express	/run/media/aczombie/Storage/Files/Documentos/1_Web_Projects/11_ArandanoProject/routes/index.js	/^var express = require('express');$/;"	v	language:JavaScript
 isLoggedIn	/run/media/aczombie/Storage/Files/Documentos/1_Web_Projects/11_ArandanoProject/routes/routes.js	/^function isLoggedIn(req, res, next) {$/;"	f	language:JavaScript
-module.exports	/run/media/aczombie/Storage/Files/Documentos/1_Web_Projects/11_ArandanoProject/routes/routes.js	/^module.exports = function (app, connection, passport) {$/;"	f	language:JavaScript
+multer	/run/media/aczombie/Storage/Files/Documentos/1_Web_Projects/11_ArandanoProject/routes/routes.js	/^var multer = require('multer');$/;"	v	language:JavaScript
 path	/run/media/aczombie/Storage/Files/Documentos/1_Web_Projects/11_ArandanoProject/routes/routes.js	/^var path = process.cwd();$/;"	v	language:JavaScript
 router	/run/media/aczombie/Storage/Files/Documentos/1_Web_Projects/11_ArandanoProject/routes/index.js	/^var router = express.Router();$/;"	v	language:JavaScript

@@ -26,8 +26,9 @@
 	</div>
 
 
+		<!--a ng-click="dash.change2Bloques($index)"-->
 	<div ng-repeat="module in dash.currMods">
-		<a ng-click="dash.change2Bloques($index)">
+		<a ng-click="dash.openBloques($index)">
 			<div class="curso">
 				<div class="texto">
 					<h3>{{module.nombre_mod}}</h3>

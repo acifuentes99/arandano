@@ -15,6 +15,10 @@ todoApp.controller('Login', function($rootScope,$http, $scope, $location, aranda
 		});
 	};
 
+	$http.post("/query", {query: "SELECT * FROM estudiante"})
+		.then(function(res){
+			console.log(res);
+		});
 
 	/*
     this.submitLoginExperto = function(){
