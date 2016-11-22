@@ -2,15 +2,27 @@ todoApp.controller('Dashboard', function($rootScope, $scope, $location, arandano
     this.stu = shareData.get();
     this.algo = "un text";
 	var that = this;
-	this.show = [true, false, false];
+	this.show = [true, false, false,false];
 	this.theStudent = {}; //Informacion sobre el estudiante
 	this.currCurso = {}; //informacion del curso Actrualmente Abierto
 	this.currMods = {}; //Contiene los modulos de un curso
 	this.currMod = {}; //Informacion del modulo actualmente abierto
 
 
+	this.MisloadCursos = function(){
+		
+
+		console.log(that.theStudent.stu_id);
+		$http.get('/api/curso_estudiante/'+ that.theStudent.stu_id)
+			.then(function(res){
+			
+				that.MisCursos = res;
+			});
+	};
+
 	this.loadCursos = function(){
-		$http.get('/api/cursos/')
+
+		$http.get('/api/cursos/'+that.theStudent.stu_id)
 			.then(function(res){
 				console.log("lo intento");
 				that.theCursos = res;
@@ -23,9 +35,26 @@ todoApp.controller('Dashboard', function($rootScope, $scope, $location, arandano
 		console.log(that.theCursos);
 	}
 
+	this.inscribir = function(curid){
+		console.log('curid = ');
+		console.log(+curid);
+
+
+		$http.post('/api/curso_estudiante/',{curso:curid , stu: that.theStudent.stu_id});	
+		console.log("alumno inscrito");
+		that.changeScreen(0);
+		that.MisloadCursos();
+
+	};
+
+	this.openOtrosCursos= function (){
+		that.loadCursos();
+		that.changeScreen(3);
+	};
+
     this.loadEstudiante = function(){
 		console.log("iniciando metodo getstudent");
-		that.loadCursos();
+		
 		$http.get('/api/login/est/')
             .then(function(res){
 				console.log("In student!!!, the user fecthed:")
@@ -35,6 +64,7 @@ todoApp.controller('Dashboard', function($rootScope, $scope, $location, arandano
 				}
 				else{
 					that.theStudent = res.data;
+					that.MisloadCursos();
 					switch(that.theStudent.tipo){
 						case 0:
 							that.stu.tipo = "Adaptador";
@@ -51,10 +81,23 @@ todoApp.controller('Dashboard', function($rootScope, $scope, $location, arandano
 					}
 				}
             });
+           
 	}
 
 	this.openCurso = function(curid, aux){
+		console.log("openCurso");
 		that.currCurso = that.theCursos.data[aux];
+		$http.get('/api/modulo/'+curid)
+			.then(function(res){
+				console.log("Info del get del modulo: ");
+				console.log(res.data);
+				that.currMods = res.data;
+			});
+		that.changeScreen(1);
+	}
+	this.misopenCurso = function(curid, aux){
+		console.log("openCurso");
+		that.currCurso = that.MisCursos.data[aux];
 		$http.get('/api/modulo/'+curid)
 			.then(function(res){
 				console.log("Info del get del modulo: ");
@@ -77,7 +120,7 @@ todoApp.controller('Dashboard', function($rootScope, $scope, $location, arandano
 	}
 
 	this.changeScreen = function(num){
-		that.show = [false, false, false];
+		that.show = [false, false, false,false];
 		that.show[num] = true;
 	}
 

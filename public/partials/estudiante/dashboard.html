@@ -3,13 +3,11 @@
 <div ng-include="'partials/header.html'"></div>
  <div class="container" >
 
-    <!--span> {{asd.product.value}} </span>
-    <span> {{5+5}} </span>
-    <span> {{"This is some text"}} </span-->
-
-
+    <h2>Mis Cursos</h2>	
     <div class="dashcontent" ng-controller="Dashboard as dash" ng-init="dash.loadEstudiante()">
 		<div class="" ng-show="dash.show[0]" ng-include="'partials/estudiante/cursos.html'"></div>
 		<div class="" ng-show="dash.show[1]" ng-include="'partials/estudiante/modulos.html'"></div>
 		<div class="" ng-show="dash.show[2]" ng-include="'partials/estudiante/bloque.html'"></div>
+		<div class="" ng-show="dash.show[3]" ng-include="'partials/estudiante/oCursos.html'"></div>
+		
 	</div>
