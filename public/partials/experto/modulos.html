@@ -1,7 +1,9 @@
 
 <div>
-	<h2>{{dash.currCurso.nombre}}: Modulos</h2>
-
+	<h2>{{dash.currCurso.nombre}}</h2>
+	<div>
+		<a ng-click="dash.verlista()"><h3>Ver lista de estudiantes del curso </h3></a>
+	</div>
 <div>
 	<a ng-click="dash.change2Cursos()">Cursos</a>
 	<span> / </span> 
@@ -14,7 +16,7 @@
 			Nombre Modulo <input type="text"
 				ng-model="dash.mod.nombremod"
 				name="nombremod" ></input><br>
-			Descripción Curso <input type="text"
+			Descripción Modulo <input type="text"
 			ng-model="dash.mod.descmod"
 			name="descmod" ></input><br>
 			Url Imagen <input type="text"

@@ -1,0 +1,22 @@
+<h1>Ma
+ Cursos</h1>
+	<br></br>
+	<div ng-repeat="curso in dash.theCursos.data ">
+
+		<a ng-click="dash.openCurso(curso.curso_id, $index)">
+			<div class="curso">
+				<div class="texto">
+					<h3>{{curso.nombre}}</h3>
+					<p>{{curso.descripcion}}</p>
+					
+
+				</div>
+				<img class="img-responsive" src={{curso.imagen}}></img>
+			</div>
+		</a>
+		<button class="btn btn-lg btn-arandano" ng-click="dash.inscribir(curso.curso_id)" >Inscribir</button>
+	</div>
+
+	<div>
+		<br><br><br><br><br><br><br><br><br><br><br>
+	</div> 

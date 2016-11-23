@@ -1,0 +1,25 @@
+<div>
+	<h2> LISTA </h2>
+
+
+	<div ng-repeat="estudiante in dash.students">
+		<ul>
+			<li><p>{{estudiante.usuario}}  &nbsp {{estudiante.nombre}} &nbsp  {{estudiante.email}}  &nbsp  &nbsp <a ng-click="dash.changeScreenSheets(estudiante.num)">{{estudiante.tipo}}</a>   
+
+			</p></li>
+					
+		</ul>
+	</div>
+
+	<br></br>
+
+
+
+	<div>
+		<div class="" ng-show="dash.showsSheets[1]" ng-include="'partials/experto/sheetexperto/sheet-acomodador.html'"></div>
+		<div class="" ng-show="dash.showsSheets[4]" ng-include="'partials/experto/sheetexperto/sheet-asimilador.html'"></div>
+		<div class="" ng-show="dash.showsSheets[2]" ng-include="'partials/experto/sheetexperto/sheet-divergente.html'"></div>
+		<div class="" ng-show="dash.showsSheets[3]" ng-include="'partials/experto/sheetexperto/sheet-convergente.html'"></div>
+	</div>
+
+</div>

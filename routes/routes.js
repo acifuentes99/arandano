@@ -235,9 +235,15 @@ bloque_id 	img_url 	content 	mod_id_f 	stu_id_f
 		})
 	;
 
-	app.route('/api/cursos')
+	//app.route('/api/cursos')
+	app.route('/api/cursos/:id')
 		.get(function(req, res){
-			connection.query('SELECT * FROM curso ', function(err, rows){
+			//connection.query('SELECT * FROM curso ', function(err, rows){
+			console.log("ver el id :");
+			var id = req.params.id;
+			console.log(id);
+			connection.query("SELECT * FROM curso WHERE curso.curso_id NOT IN (SELECT curso_id FROM (SELECT curso.curso_id,curso.nombre,curso.imagen,curso.descripcion,curso.exp_id_f,curso_estudiante.stu_id FROM `curso` LEFT JOIN curso_estudiante ON curso.curso_id=curso_estudiante.curso_id) as CE WHERE CE.stu_id='"+id+"')", function(err, rows){
+				console.log(rows);
 				res.json(rows);
 			});
 		});
@@ -259,9 +265,15 @@ bloque_id 	img_url 	content 	mod_id_f 	stu_id_f
 
 	app.route('/api/curso_estudiante/:id')
 		.get(function(req, res) {
+			/*
 			var experto = req.params.id;
 					//console.log(estudiante);
-			connection.query("SELECT * FROM curso_estudiante INNER JOIN curso ON curso.curso_id= '"+estudiante+"'", function(err, rows){
+			connection.query("SELECT * FROM curso_estudiante INNER JOIN curso ON curso.curso_id= '"+estudiante+"'", function(err, rows){*/
+var est = req.params.id;
+					console.log("mensaje importante");
+					console.log(est);
+			connection.query("SELECT * FROM (SELECT curso.curso_id,curso.nombre,curso.imagen,curso.descripcion,curso.exp_id_f,curso_estudiante.stu_id FROM `curso` LEFT JOIN curso_estudiante ON curso.curso_id=curso_estudiante.curso_id) as CE WHERE CE.stu_id='"+est+"'", function(err, rows){
+				
 				//console.log(rows);
 				res.json(rows);
 				
@@ -271,7 +283,22 @@ bloque_id 	img_url 	content 	mod_id_f 	stu_id_f
 		.post(function(req, res){
 			var f = req.body;
 			//console.log("agregando alumno a curso");
-			connection.query("INSERT INTO curso_estudiante (``, ``) VALUES ( '"+f.curso+"','"+f.stu+"')", function(err, rows){
+			//connection.query("INSERT INTO curso_estudiante (``, ``) VALUES ( '"+f.curso+"','"+f.stu+"')", function(err, rows){
+connection.query("INSERT INTO `curso_estudiante`(`curso_id`, `stu_id`) VALUES ( '"+f.curso+"','"+f.stu+"')", function(err, rows){
+				console.log(rows);
+				res.json(rows);
+
+			});
+
+		});
+		app.route('/api/estudiantes_curso/:curso_id')
+		.get(function(req, res){
+			
+			console.log("curso a inscribir");
+			var curso = req.params.curso_id;
+			console.log(curso);
+			connection.query("SELECT * FROM estudiante WHERE estudiante.stu_id IN (SELECT curso_estudiante.stu_id FROM curso_estudiante WHERE curso_estudiante.curso_id = '"+curso+"') ", function(err, rows){
+				console.log(rows);
 				res.json(rows);
 
 			});

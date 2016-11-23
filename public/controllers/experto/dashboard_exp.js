@@ -5,6 +5,7 @@ todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, ara
 		desccurso: '',
 		imgurl: ''
     };
+	this.students={};
 	this.theExperto = {}; //Datos del Experto
 	this.currCurso = {}; //Cursos del Experto
 	this.currMods = {}; //Modulos de un Curso
@@ -23,7 +24,8 @@ todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, ara
 	/*showType, muestra el tipo para el cual se esta editando
 	 * el contenido.
 	*/
-	this.shows = [true, false, false];
+	this.shows = [true, false, false, false];
+	this.showsSheets = [true, false, false, false, false];
 	this.showType = [true, false, false, false];
 	
 	//console.log("En controlador, Data = "+this.theData);
@@ -189,6 +191,47 @@ todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, ara
 		that.shows[2] = false;
 	}
     
+this.changeScreen = function(num){
+		that.shows = [false, false, false, false];
+		that.shows[num] = true;
+	}
+
+	this.verlista = function(){
+		console.log("ver lista");
+		that.showSheets = [true, false,false,false,false];
+		console.log(that.currCurso.curso_id);
+			$http.get('/api/estudiantes_curso/'+that.currCurso.curso_id)
+			.then(function(res){
+				console.log("Info del get estuduantes: ");
+				console.log(res.data);
+			
+				that.students = that.renderData(res.data);
+			});	
+		that.changeScreen(3);
+	}
+
+	this.renderData = function(arreglo){
+		var variable = [];
+		arreglo.forEach(function(aux){
+		variable.push({
+			usuario: aux.nickname,
+			nombre: aux.nombre,
+			email: aux.email,
+			tipo: that.getTipo(aux.tipo),
+			num: (aux.tipo+1)
+			});
+		});
+		return variable;
+	}
+
+	this.getTipo = function(in_){
+		if(in_ === 0) return 'Adaptador';
+		else if(in_ === 1)  return 'Divergente';
+		else if(in_ === 2) return 'Convergente'; 
+		else   return 'Asimilador';
+	}
+
+
 	this.postBloques = function(){
 		console.log(that.content);
 		console.log("posteando");
@@ -199,6 +242,11 @@ todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, ara
 		Bloque.updateBloques(obj, that.change2Modulos);
 		//$http.post('/api/bloques/'+that.openMod.mod_id, that.content);
 		//that.change2Modulos();
+	}
+
+	this.changeScreenSheets = function(num){
+		that.showsSheets = [false, false, false, false, false];
+		that.showsSheets[num] = true;
 	}
 
 
