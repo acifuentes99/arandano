@@ -2,7 +2,7 @@ todoApp.controller('Dashboard', function($rootScope, $scope, $location, arandano
     this.stu = shareData.get();
     this.algo = "un text";
 	var that = this;
-	this.show = [true, false, false,false];
+	this.show = [true, false, false,false,false];
 	this.theStudent = {}; //Informacion sobre el estudiante
 	this.currCurso = {}; //informacion del curso Actrualmente Abierto
 	this.currMods = {}; //Contiene los modulos de un curso
@@ -84,6 +84,13 @@ todoApp.controller('Dashboard', function($rootScope, $scope, $location, arandano
            
 	}
 
+	this.desinscribir = function(curid){
+		
+		
+		that.changeScreen(0);
+		that.MisloadCursos();
+	}
+
 	this.openCurso = function(curid, aux){
 		console.log("openCurso");
 		that.currCurso = that.theCursos.data[aux];
@@ -107,6 +114,20 @@ todoApp.controller('Dashboard', function($rootScope, $scope, $location, arandano
 		that.changeScreen(1);
 	}
 
+	this.goBack = function(){
+
+		that.loadEstudiante();
+		that.changeScreen(0);
+
+	}
+
+	this.openPerfil = function(){
+		that.loadEstudiante();
+		console.log("en edicion de perfil");
+		that.changeScreen(4);
+	}
+
+
 	this.openBloque = function(module){
 		that.currMod = module;
 		var modid = module.mod_id;
@@ -120,7 +141,7 @@ todoApp.controller('Dashboard', function($rootScope, $scope, $location, arandano
 	}
 
 	this.changeScreen = function(num){
-		that.show = [false, false, false,false];
+		that.show = [ false, false, false, false, false];
 		that.show[num] = true;
 	}
 

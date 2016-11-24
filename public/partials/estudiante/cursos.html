@@ -1,6 +1,15 @@
 
-    <h2>Dashboard</h2>
-	<span>Hola {{dash.theStudent.nickname}}!, estilo: {{dash.stu.tipo}}</span>
+    <div class="curso">
+ 	   <a ng-click="dash.openPerfil()">
+			<div class="texto">
+				<h3>Hola {{dash.theStudent.nickname}}!</h3>
+				<p>Tu forma de aprender es {{dash.stu.tipo}}</p>
+			</div>
+			<img class="img-responsive" src={{dash.stu.img}}></img>
+		</a>		
+	</div>			
+   		
+   
 
 	<h1>Mis Cursos</h1>
 	<br></br>
