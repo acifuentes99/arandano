@@ -10,8 +10,8 @@
 		<div class="logForm">
 			<h3>Profesor</h3>
 			<form ng-submit="login.submitLoginProfesor()">
-				<input type="text" ng-model="login.pro.data.user" name="username"></input><br>
-				<input type="password" ng-model="login.pro.data.pass" name="thepass"></input><br>
+				<input type="text" placeholder="Nombre Usuario" ng-model="login.pro.data.user" name="username"></input><br>
+				<input type="password" placeholder="Contraseña" ng-model="login.pro.data.pass" name="thepass"></input><br>
 				<button type="submit" class="btn btn-lg btn-arandano">Ingresar</button>
 			</form>
 		</div>
@@ -19,12 +19,13 @@
 		<div class="logForm">
 			<h3>Experto</h3>
 			<form ng-submit="login.submitLoginExperto()">
-				<input type="text" ng-model="login.exp.data.user" name="username"></input><br>
-				<input type="password" ng-model="login.exp.data.pass" name="thepass"></input><br>
-				<button type="submit" class="btn btn-lg btn-arandano">Ingresar</button>
+				<input type="text" placeholder="Nombre Usuario" ng-model="login.exp.data.user" name="username"></input><br>
+				<input type="password" placeholder="Contraseña" ng-model="login.exp.data.pass" name="thepass"></input><br>
+				<button type="submit"  class="btn btn-lg btn-arandano">Ingresar</button>
 			</form>
 		</div>
-	<span id="wrongpass" class="wrongpass">Password Incorrecto, intente otra vez</span>
+
+			<div style="color: red;" ng-show="login.error.show"><p>{{login.error.m}}</p></div>
 	
 	</div>
 

@@ -5,6 +5,7 @@ var express     = require('express'),
     mysql       = require('mysql2'),
     passport    = require('passport'),
 	session		= require('express-session'),
+	flash		= require('connect-flash'),
     routes      = require('./routes/routes.js');
    // angular = require('angular'),
    // angularDragula = require('angular-dragula');
@@ -45,6 +46,7 @@ app.use(bodyParser.urlencoded({
 
 
 app.use(session({ secret: 'arandanorules' })); // session secret
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 //app.use(multer({ dest: './uploads/'}));

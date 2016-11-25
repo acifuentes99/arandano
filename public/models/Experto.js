@@ -16,11 +16,16 @@ todoApp.factory('Experto', function($http, $location) {
 	//Otro tipo de funcion constructor, pero en este caso, carga de la
 	//base de datos los datos del experto, ademas de dejarlo logueado
 	//en la página.
-	Experto.loadExperto = function(formdata){
+	Experto.loadExperto = function(formdata, that){
 		$http.post('/api/login/exp', formdata)
 			.then(function(res){
 				if(res.data.login === 1){
 					$location.path('/dash_exp');
+				}
+				else{
+					console.log("falla");
+					that.error.show = true;
+					that.error.m = res.data.m[0];
 				}
 			});
 	}

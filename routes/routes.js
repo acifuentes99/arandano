@@ -71,7 +71,9 @@ module.exports = function (app, connection, passport) {
 		.post(function(req, res, next) {
 		  passport.authenticate('est-login', function(err, user, info) {
 			if (err) { return next(err); }
-			if (!user) { return res.redirect('/login'); }
+		  if (!user) {
+			  return res.json({login: 0, m: req.flash('loginMessage')});
+		  }
 			req.logIn(user, function(err) {
 			  if (err) { return next(err); }
 				//			  return res.redirect('/users/' + user.username);
@@ -89,7 +91,11 @@ module.exports = function (app, connection, passport) {
 		  passport.authenticate('exp-login', function(err, user, info) {
 			  ////console.log(util.inspect(user, false, null));
 			if (err) { return next(err); }
-			if (!user) { return res.redirect('/login'); }
+			  if (!user) {
+				  //Autentificacion fallo, por lo que devolvemos un objeto con lo que paso
+				  //				  return res.redirect('/login'); 
+				  return res.json({login: 0, m: req.flash('loginMessage')});
+			  }
 			req.logIn(user, function(err) {
 			  if (err) { return next(err); }
 				//			  return res.redirect('/users/' + user.username);

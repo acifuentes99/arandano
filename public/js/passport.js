@@ -42,11 +42,12 @@ module.exports = function(passport, connection) {
 				if (err)
 					return done(err);
 				if (!rows.length) {
+                return done(null, false, req.flash('loginMessage', 'Usuario no encontrado')); // create the loginMessage and save it to session as flashdata
 					return done(null, false); // req.flash is the way to set flashdata using connect-flash
 				}
 				// if the user is found but the password is wrong
 				if (!( rows[0].password == password)){
-					console.log("Wrong Password");
+                return done(null, false, req.flash('loginMessage', 'Oh!, contraseña incorrecta!')); // create the loginMessage and save it to session as flashdata
 					return done(null, false); 
 				}
 				// all is well, return successful user
@@ -73,11 +74,11 @@ module.exports = function(passport, connection) {
 				if (err)
 					return done(err);
 				if (!rows.length) {
-					return done(null, false); // req.flash is the way to set flashdata using connect-flash
+                return done(null, false, req.flash('loginMessage', 'Usuario no encontrado')); // create the loginMessage and save it to session as flashdata
 				}
 				// if the user is found but the password is wrong
 				if (!( rows[0].exp_pass == password)){
-					console.log("Wrong Password");
+					return done(null, false, req.flash('loginMessage', 'Oh!, contraseña incorrecta!')); // create the loginMessage and save it to session as flashdata
 					return done(null, false); 
 				}
 				// all is well, return successful user
@@ -100,11 +101,11 @@ module.exports = function(passport, connection) {
 				if (err)
 					return done(err);
 				if (!rows.length) {
-					return done(null, false); // req.flash is the way to set flashdata using connect-flash
+                return done(null, false, req.flash('loginMessage', 'Usuario no encontrado')); // create the loginMessage and save it to session as flashdata
 				}
 				// if the user is found but the password is wrong
 				if (!( rows[0].password == password)){
-					console.log("Wrong Password");
+					return done(null, false, req.flash('loginMessage', 'Oh!, contraseña incorrecta!')); // create the loginMessage and save it to session as flashdata
 					return done(null, false); 
 				}
 				// all is well, return successful user
