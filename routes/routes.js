@@ -3,7 +3,9 @@ var path = process.cwd();
 //var salt = bcrypt.genSaltSync(10);
 const util = require('util');
 var multer = require('multer');
-var upload = multer({ dest: 'uploads/' })
+var upload = multer({ dest: 'uploads/' });
+var bcrypt = require('bcryptjs');
+var salt = bcrypt.genSaltSync(10);
 
 module.exports = function (app, connection, passport) {
 
@@ -17,6 +19,15 @@ module.exports = function (app, connection, passport) {
 			//console.log("VAlor de query que llega");
 			//console.log(req.body.query);
 			connection.query(req.body.query, function(err, rows){
+				res.json(rows);
+			});
+		});
+	app.route('/query/postuser')
+		.post(function(req, res){
+			var data = req.body;
+			var hash = bcrypt.hashSync(req.body.password, salt);
+			var query = "INSERT INTO `profesor` (`nickname`, `nombre`, `email`, `password`) VALUES ('"+data.nickname+"', '"+data.nombre+"', '"+data.email+"', '"+hash+"')";
+			connection.query(query, function(err, rows){
 				res.json(rows);
 			});
 		});
@@ -49,7 +60,8 @@ module.exports = function (app, connection, passport) {
     })
     .post(function(req, res){
         var f = req.body;
-        connection.query("INSERT INTO `estudiante` (`nickname`, `nombre`, `email`, `password`, `tipo`) VALUES ('"+f.nickname+"', '"+f.nombre+"', '"+f.email+"', '"+f.password+"', '"+f.tipon+"')", function(err, rows){
+		var hash = bcrypt.hashSync(f.password, salt);
+        connection.query("INSERT INTO `estudiante` (`nickname`, `nombre`, `email`, `password`, `tipo`) VALUES ('"+f.nickname+"', '"+f.nombre+"', '"+f.email+"', '"+hash+"', '"+f.tipon+"')", function(err, rows){
             res.json(rows); 
         });
     });
@@ -132,7 +144,11 @@ module.exports = function (app, connection, passport) {
     .post(function(req, res){
         var f = req.body;
 		//var encPass = bcrypt.hashSync(f.password, salt);
-		connection.query("INSERT INTO experto (`exp_pass`, `nombre_exp`) VALUES ('"+f.password+"', '"+f.nickname+"')", function(err, rows){
+
+		console.log("En ruta del experto");
+		var hash = bcrypt.hashSync(f.password, salt);
+		connection.query("INSERT INTO experto (`exp_pass`, `nombre_exp`) VALUES ('"+hash+"', '"+f.nickname+"')", function(err, rows){
+			console.log("experto ingresado");
             res.json(rows); 
         });
     });

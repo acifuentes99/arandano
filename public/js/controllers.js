@@ -1349,8 +1349,8 @@ todoApp.factory('Profesor', function($http, $location){
 	};
 
 	Profesor.addProfesor = function(data){
-		data.query = "INSERT INTO `profesor` (`nickname`, `nombre`, `email`, `password`) VALUES ('"+data.nickname+"', '"+data.nombre+"', '"+data.email+"', '"+data.password+"')";
-		return $http.post('/query/post', data);
+		//		data.query = "INSERT INTO `profesor` (`nickname`, `nombre`, `email`, `password`) VALUES ('"+data.nickname+"', '"+data.nombre+"', '"+data.email+"', '"+data.password+"')";
+		return $http.post('/query/postuser', data);
 	}
 
 	Profesor.loadProfesor = function(formdata, that){

@@ -1,5 +1,7 @@
 var LocalStrategy   = require('passport-local').Strategy;
 const util = require('util');
+var bcrypt = require('bcryptjs');
+var salt = bcrypt.genSaltSync(10);
 
 module.exports = function(passport, connection) {
 
@@ -46,7 +48,8 @@ module.exports = function(passport, connection) {
 					return done(null, false); // req.flash is the way to set flashdata using connect-flash
 				}
 				// if the user is found but the password is wrong
-				if (!( rows[0].password == password)){
+				//if (!( rows[0].password == password)){
+				if (!(bcrypt.compareSync(password, rows[0].password))){
                 return done(null, false, req.flash('loginMessage', 'Oh!, contraseña incorrecta!')); // create the loginMessage and save it to session as flashdata
 					return done(null, false); 
 				}
@@ -77,7 +80,8 @@ module.exports = function(passport, connection) {
                 return done(null, false, req.flash('loginMessage', 'Usuario no encontrado')); // create the loginMessage and save it to session as flashdata
 				}
 				// if the user is found but the password is wrong
-				if (!( rows[0].exp_pass == password)){
+					//if (!( rows[0].exp_pass == password)){
+				if (!(bcrypt.compareSync(password, rows[0].exp_pass))){
 					return done(null, false, req.flash('loginMessage', 'Oh!, contraseña incorrecta!')); // create the loginMessage and save it to session as flashdata
 					return done(null, false); 
 				}
@@ -104,7 +108,8 @@ module.exports = function(passport, connection) {
                 return done(null, false, req.flash('loginMessage', 'Usuario no encontrado')); // create the loginMessage and save it to session as flashdata
 				}
 				// if the user is found but the password is wrong
-				if (!( rows[0].password == password)){
+					//if (!( rows[0].password == password)){
+				if (!(bcrypt.compareSync(password, rows[0].password))){
 					return done(null, false, req.flash('loginMessage', 'Oh!, contraseña incorrecta!')); // create the loginMessage and save it to session as flashdata
 					return done(null, false); 
 				}
