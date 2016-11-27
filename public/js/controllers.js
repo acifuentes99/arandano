@@ -751,16 +751,17 @@ todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, ara
 		});
 	}
 
+	this.upMaterial = {show: false, msj: 'Material subido correctamente.'};
 	this.postMaterial = function(file){
-	   console.log(file);
-	   var fd = new FormData();
-		fd.append('file', file);
+		   console.log(file);
+		   var fd = new FormData();
+			fd.append('file', file);
 
-		$http.post('/files', fd, {
-			transformRequest: angular.identity,
-			headers: {
-				'Content-Type': undefined},
-			enctype: 'multipart/form-data'
+			$http.post('/files', fd, {
+				transformRequest: angular.identity,
+				headers: {
+					'Content-Type': undefined},
+				enctype: 'multipart/form-data'
 			});
 		};
 
@@ -782,6 +783,8 @@ todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, ara
 					modid: that.openMod.mod_id
 				};
 				Bloque.addDoc(data);
+				console.log("Material Subido");
+				that.upMaterial.show = true;	
 			});
 	 };
 

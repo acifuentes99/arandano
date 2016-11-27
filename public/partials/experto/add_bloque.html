@@ -44,4 +44,5 @@
 	<form enctype="multipart/form-data" method="post" ng-submit="uploadFile(file)">
 	 <input type="file" ng-model="file" name="file" onchange="angular.element(this).scope().readFile(this)"/> 
 	 <button type="submit" >Upload</button>
+	 <div ng-show="dash.upMaterial.show" style="color: green; text-align: left;">{{dash.upMaterial.msj}}</div>
 	 </form>
