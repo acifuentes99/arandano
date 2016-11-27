@@ -2,10 +2,8 @@ todoApp.controller('Dashboard', function($rootScope, $scope, $location, arandano
     this.stu = shareData.get();
     this.algo = "un text";
 	var that = this;
-	//	this.show = [true, false, false];
-	this.show = [true, false, false,false];
-	this.theStudent = {
-	}; //Informacion sobre el estudiante
+	this.show = [true, false, false,false,false];
+	this.theStudent = {}; //Informacion sobre el estudiante
 	this.currCurso = {}; //informacion del curso Actrualmente Abierto
 	this.currMods = {}; //Contiene los modulos de un curso
 	this.currMod = {}; //Informacion del modulo actualmente abierto
@@ -21,8 +19,19 @@ this.MisloadCursos = function(){
 			});
 	};
 
+	this.MisloadCursos = function(){
+		
+
+		console.log(that.theStudent.stu_id);
+		$http.get('/api/curso_estudiante/'+ that.theStudent.stu_id)
+			.then(function(res){
+			
+				that.MisCursos = res;
+			});
+	};
+
 	this.loadCursos = function(){
-		//$http.get('/api/cursos/')
+
 		$http.get('/api/cursos/'+that.theStudent.stu_id)
 			.then(function(res){
 				console.log("lo intento");
@@ -55,7 +64,7 @@ this.MisloadCursos = function(){
 
     this.loadEstudiante = function(){
 		console.log("iniciando metodo getstudent");
-		//that.loadCursos();
+		
 		$http.get('/api/login/est/')
             .then(function(res){
 				console.log("In student!!!, the user fecthed:")
@@ -84,9 +93,18 @@ this.MisloadCursos = function(){
 					}
 				}
             });
+           
+	}
+
+	this.desinscribir = function(curid){
+		
+		
+		that.changeScreen(0);
+		that.MisloadCursos();
 	}
 
 	this.openCurso = function(curid, aux){
+		console.log("openCurso");
 		that.currCurso = that.theCursos.data[aux];
 		$http.get('/api/modulo/'+curid)
 			.then(function(res){
@@ -96,6 +114,31 @@ this.MisloadCursos = function(){
 			});
 		that.changeScreen(1);
 	}
+	this.misopenCurso = function(curid, aux){
+		console.log("openCurso");
+		that.currCurso = that.MisCursos.data[aux];
+		$http.get('/api/modulo/'+curid)
+			.then(function(res){
+				console.log("Info del get del modulo: ");
+				console.log(res.data);
+				that.currMods = res.data;
+			});
+		that.changeScreen(1);
+	}
+
+	this.goBack = function(){
+
+		that.loadEstudiante();
+		that.changeScreen(0);
+
+	}
+
+	this.openPerfil = function(){
+		that.loadEstudiante();
+		console.log("en edicion de perfil");
+		that.changeScreen(4);
+	}
+
 
 	this.misopenCurso = function(curid, aux){
 		console.log("openCurso");
@@ -125,8 +168,7 @@ this.MisloadCursos = function(){
 	}
 
 	this.changeScreen = function(num){
-		//that.show = [false, false, false];
-		that.show = [false, false, false,false];
+		that.show = [ false, false, false, false, false];
 		that.show[num] = true;
 	}
 

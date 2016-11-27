@@ -4,12 +4,13 @@
 	<div>
 		<a ng-click="dash.verlista()"><h3>Ver lista de estudiantes del curso </h3></a>
 	</div>
+
 <div>
 	<a ng-click="dash.change2Cursos()">Cursos</a>
 	<span> / </span> 
 	<span>{{dash.currCurso.nombre}}</span> 
 </div>
-
+	
 
 	<div ng-show="goCats2">
 		<form ng-submit="dash.submitModulo()" >
