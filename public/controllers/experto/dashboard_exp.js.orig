@@ -1,14 +1,15 @@
-<<<<<<< HEAD
-todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, arandanoFactory, shareData, $route, Experto, Modulo){
-=======
-todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, arandanoFactory, shareData, $route, Experto){
->>>>>>> c907327eae7b8904d4066595a440c5403dca14ab
+todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, arandanoFactory, shareData, $route, Experto, Modulo, Curso, Bloque){
 
     this.stu = {
 		nombrecurso: '',
 		desccurso: '',
 		imgurl: ''
     };
+<<<<<<< HEAD
+	this.students={};
+=======
+    this.students={};
+>>>>>>> ead716228630ed8183e457e9e3d36d7daa43b680
 	this.theExperto = {}; //Datos del Experto
 	this.currCurso = {}; //Cursos del Experto
 	this.currMods = {}; //Modulos de un Curso
@@ -21,11 +22,20 @@ todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, ara
 	};
 
 	var that = this;
+	/*Ad: 0; Di: 1; Co: 2; As: 3*/
 	//Shows, me define que vista se puede ver, y cual no
 	//en este caso, el ver primero cursos, y luego modulos
-	this.shows = [true, false, false];
+<<<<<<< HEAD
+	/*showType, muestra el tipo para el cual se esta editando
+	 * el contenido.
+	*/
+	this.shows = [true, false, false, false];
+	this.showsSheets = [true, false, false, false, false];
+=======
+	this.shows = [true, false, false , false];
+>>>>>>> ead716228630ed8183e457e9e3d36d7daa43b680
 	this.showType = [true, false, false, false];
-
+	
 	//console.log("En controlador, Data = "+this.theData);
 
     var that = this;
@@ -34,19 +44,62 @@ todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, ara
 		that.showType[aux] = true;
 	}
 
-	/*
-	this.postMaterial = function(){
-		var id_modulo = ;
-		$http.post('/api/cursos/'+id_modulo, that.content.ac).then(
-			
-		);
-	}*/
+	this.addBloqueData = function(bloques){
+		bloques.forEach(function(aux){
+			if(aux.tipo === 0) that.content.ad = aux.content;
+			else if(aux.tipo === 1)  that.content.di = aux.content;
+			else if(aux.tipo === 2)  that.content.co = aux.content;
+			else  that.content.as = aux.content;
+		});
+	}
 
-<<<<<<< HEAD
+	this.postMaterial = function(file){
+	   console.log(file);
+	   var fd = new FormData();
+		fd.append('file', file);
 
+		$http.post('/files', fd, {
+			transformRequest: angular.identity,
+			headers: {
+				'Content-Type': undefined},
+			enctype: 'multipart/form-data'
+			});
+		};
 
-=======
->>>>>>> c907327eae7b8904d4066595a440c5403dca14ab
+	$scope.uploadFile = function(file) {
+	   var fd = new FormData();
+		fd.append('file', file);
+		$http.post('/files', fd, {
+			transformRequest: angular.identity,
+			headers: {
+				'Content-Type': undefined},
+				enctype: 'multipart/form-data'
+			}
+		 )
+			.then(function(res){
+				console.log("en then, valor de res:")
+				console.log(res)
+				var data = {
+					filename: res.data.filename,
+					modid: that.openMod.mod_id
+				};
+				Bloque.addDoc(data);
+			});
+	 };
+
+	$scope.readFile = function(elem) {
+		var file= elem.files[0];
+		console.log("file received ");
+		var reader = new FileReader();
+	   reader.onload = function() {
+		   $scope.$apply(function(){
+			   $scope.file = file;
+			   $scope.imageUrl = reader.result // to display         image via ng-Src
+		   })
+	   }
+	   reader.readAsDataURL(file);
+	}
+
 	/*
     this.loadExperto = function(){
 		console.log("iniciando metodo getExperto");
@@ -64,12 +117,7 @@ todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, ara
 	}
 	*/
 
-<<<<<<< HEAD
 	//this.theExperto = Experto.authExperto();
-=======
-	this.theExperto = Experto.authExperto();
->>>>>>> c907327eae7b8904d4066595a440c5403dca14ab
-
 
     this.submitCurso = function(){
         console.log("algo");
@@ -118,6 +166,7 @@ todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, ara
 		$http.get('/api/curso/'+id)
             .then(function(res){
                console.log(res);
+				that.theCursos = new Curso();
 				that.theCursos = res.data;
 			});
 	}
@@ -127,6 +176,10 @@ todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, ara
 		Modulo.getModulos(curso.curso_id, that, that.change2Modulos);
 	}
 
+	this.openBloques = function(index){
+		var auxMod = that.currMods[index];
+		Bloque.getBloques(auxMod.mod_id, index, that.change2Bloques,that.addBloqueData);
+	}
 
 	this.change2Bloques = function(aux){
 		that.shows[0] = false;
@@ -146,9 +199,79 @@ todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, ara
 		that.shows[2] = false;
 	}
     
+<<<<<<< HEAD
+this.changeScreen = function(num){
+=======
+	this.changeScreen = function(num){
+>>>>>>> ead716228630ed8183e457e9e3d36d7daa43b680
+		that.shows = [false, false, false, false];
+		that.shows[num] = true;
+	}
+
+	this.verlista = function(){
+		console.log("ver lista");
+<<<<<<< HEAD
+		that.showSheets = [true, false,false,false,false];
+=======
+>>>>>>> ead716228630ed8183e457e9e3d36d7daa43b680
+		console.log(that.currCurso.curso_id);
+			$http.get('/api/estudiantes_curso/'+that.currCurso.curso_id)
+			.then(function(res){
+				console.log("Info del get estuduantes: ");
+				console.log(res.data);
+			
+				that.students = that.renderData(res.data);
+			});	
+		that.changeScreen(3);
+	}
+
+	this.renderData = function(arreglo){
+		var variable = [];
+		arreglo.forEach(function(aux){
+		variable.push({
+			usuario: aux.nickname,
+<<<<<<< HEAD
+			nombre: aux.nombre,
+			email: aux.email,
+			tipo: that.getTipo(aux.tipo),
+			num: (aux.tipo+1)
+=======
+			email: aux.email,
+			tipo: that.getTipo(aux.tipo)
+>>>>>>> ead716228630ed8183e457e9e3d36d7daa43b680
+			});
+		});
+		return variable;
+	}
+
+	this.getTipo = function(in_){
+		if(in_ === 0) return 'Adaptador';
+		else if(in_ === 1)  return 'Divergente';
+		else if(in_ === 2) return 'Convergente'; 
+		else   return 'Asimilador';
+	}
+
+
+<<<<<<< HEAD
+=======
+
+>>>>>>> ead716228630ed8183e457e9e3d36d7daa43b680
 	this.postBloques = function(){
 		console.log(that.content);
-		$http.post('/api/bloques/'+that.openMod.mod_id, that.content);
+		console.log("posteando");
+		var obj = {
+			content: that.content,  
+			modid: that.openMod.mod_id
+		};
+		Bloque.updateBloques(obj, that.change2Modulos);
+		//$http.post('/api/bloques/'+that.openMod.mod_id, that.content);
+		//that.change2Modulos();
 	}
+
+	this.changeScreenSheets = function(num){
+		that.showsSheets = [false, false, false, false, false];
+		that.showsSheets[num] = true;
+	}
+
 
 });
