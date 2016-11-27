@@ -25,9 +25,20 @@ todoApp.factory('Profesor', function($http, $location){
 		return $http.post('/query/post', data);
 	}
 
-	Profesor.getProfesor = function(){
-	
+	Profesor.loadProfesor = function(formdata, that){
+		$http.post('/api/login/pro', formdata)
+			.then(function(res){
+				if(res.data.login === 1){
+					$location.path('/dash_pro');
+				}
+				else{
+					console.log("falla");
+					that.error.show = true;
+					that.error.m = res.data.m[0];
+				}
+			});
 	}
+
 	
 	return Profesor;	
 });

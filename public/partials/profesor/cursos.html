@@ -1,0 +1,27 @@
+
+    <h2>Dashboard</h2>
+	<span>Hola {{dash.theProfe.nickname}}!</span>
+ 
+	<h1>Mis Cursos</h1>
+	<br></br>
+	<div ng-repeat="curso in dash.MisCursos.data">
+		
+		<a ng-click="dash.misopenCurso(curso.curso_id, $index)">
+			
+			<div class="curso">
+
+				<div class="texto">
+					<h3>{{curso.nombre}}</h3>
+					<p>{{curso.descripcion}}</p>
+				</div>
+				<img class="img-responsive" src={{curso.imagen}}></img>
+			</div>
+		</a>
+	</div>
+
+	
+	
+	<a> <h1 ng-click="dash.openOtrosCursos()">Ver mas Cursos</h1> </a>
+	<br></br>
+		
+	</div>

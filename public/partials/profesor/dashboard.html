@@ -1,0 +1,12 @@
+
+ <div ng-include="'partials/header.html'"></div>
+  <div class="container" >
+ 
+    <h2>Mis Cursos</h2>	
+    <div class="dashcontent" ng-controller="Dash_pro as dash" ng-init="dash.loadProfe()">
+		<div class="" ng-show="dash.show[0]" ng-include="'partials/profesor/cursos.html'"></div>
+		<div class="" ng-show="dash.show[1]" ng-include="'partials/profesor/modulos.html'"></div>
+		<div class="" ng-show="dash.show[2]" ng-include="'partials/profesor/bloque.html'"></div>
+		<div class="" ng-show="dash.show[3]" ng-include="'partials/profesor/oCursos.html'"></div>
+		
+ 	</div>

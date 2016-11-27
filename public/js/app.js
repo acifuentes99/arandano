@@ -66,6 +66,17 @@ todoApp = angular.module('todoApp', ['ngRoute', 'ngAnimate', 'ngSanitize', 'btfo
 			}
 		}
       })
+      .when('/dash_pro', {
+		  templateUrl: '/partials/profesor/dashboard.html',
+        //controller: 'TodoCtrl'
+        controller: 'Dash_pro',
+		resolve: {
+			cursosData: function(TheFactory){
+				console.log('desde app');
+				return TheFactory.getCursos();
+			}
+		}
+      })
       .otherwise({
         redirectTo: '/'
       });

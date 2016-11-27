@@ -1,4 +1,4 @@
-todoApp.controller('Login', function($rootScope,$http, $scope, $location, arandanoBDExperto, shareData, Experto){
+todoApp.controller('Login', function($rootScope,$http, $scope, $location, arandanoBDExperto, shareData, Experto, Profesor){
 
 	this.data = {};
 	var aux;
@@ -50,6 +50,10 @@ todoApp.controller('Login', function($rootScope,$http, $scope, $location, aranda
 	}
 
     this.submitLoginProfesor = function(){
+		if(this.pro.data.user === '' || this.pro.data.pass === '')
+			that.errorM(this.exp.data);
+		else Profesor.loadProfesor(that.pro.data, that);
+		/*
 		console.log("profesor data: "+that.pro.data);
 		$http.post('/api/login/pro', that.pro.data)
 			.then(function(res){
@@ -57,31 +61,8 @@ todoApp.controller('Login', function($rootScope,$http, $scope, $location, aranda
 					$location.path('/dash_exp');
 				}
 			});
+			*/
     };
     
 });
 
-
-/*
- * aloja
- * 1234
- *
- *
- * andrew123
- * 1234
- * */
-
-
-
-		/*
-		 //Intento con .get , que es inseguro para passwords
-		arandanoBDExperto.getData(this.data.user, function(data){
-			aux = data;
-			//console.log(aux.data[0].exp_pass);
-			if(that.data.pass === aux.data[0].exp_pass) $location.path('/dashboard');
-			else{
-				$("#wrongpass").fadeIn(1000).css("display","block");
-			}
-
-		}); 
-		*/

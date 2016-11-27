@@ -1,0 +1,31 @@
+
+<div style="display: none;">
+<p>{{dash.theStudent}}</p>
+<p>{{dash.currMod}}</p>
+<p>{{dash.currBloque}}</p>
+</div>
+
+<div>
+	<a ng-click="dash.changeScreen(0)">Cursos</a>
+	<span> / </span> 
+	<a ng-click="dash.changeScreen(1)">{{dash.currCurso.nombre}}</a> 
+	<span> / </span>
+	{{dash.currMod.nombre_mod}}
+</div>
+
+<h1>{{dash.currMod.nombre_mod}}</h1>
+
+<button ng-click="dash.bloqueChangeType(0)">Adaptador</button>
+<button ng-click="dash.bloqueChangeType(1)">Asimilador</button>
+<button ng-click="dash.bloqueChangeType(2)">Convergente</button>
+<button ng-click="dash.bloqueChangeType(3)">Divergente</button>
+
+<div ng-show="dash.showBloque[0]" btf-markdown="dash.currBloque[0].content"></div>
+<div ng-show="dash.showBloque[1]" btf-markdown="dash.currBloque[1].content"></div>
+<div ng-show="dash.showBloque[2]" btf-markdown="dash.currBloque[2].content"></div>
+<div ng-show="dash.showBloque[3]" btf-markdown="dash.currBloque[3].content"></div>
+
+<div ng-show="dash.currBloque.boolDoc">
+	<a class="btn btn-material" href="{{'/files/'+dash.currBloque.doc}}"><img class="docimg" src="/assets/file.svg"></img>Descargar material</a>
+	
+</div>

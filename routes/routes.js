@@ -238,8 +238,15 @@ bloque_id 	img_url 	content 	mod_id_f 	stu_id_f
 			connection.query("SELECT * FROM bloque WHERE `mod_id_f` = '"+modid+"' AND `tipo` = '"+tipo+"'", function(err, rows){
 				res.json(rows);
 			});
-		})
-	;
+		});
+	app.route('/api/getbloque2')
+		.post(function(req, res){
+			var modid = req.body.modid;
+			var tipo = req.body.tipo;
+			connection.query("SELECT * FROM bloque WHERE `mod_id_f` = '"+modid+"'", function(err, rows){
+				res.json(rows);
+			});
+		});
 
 	//app.route('/api/cursos')
 	app.route('/api/cursos/:id')
@@ -249,6 +256,18 @@ bloque_id 	img_url 	content 	mod_id_f 	stu_id_f
 			var id = req.params.id;
 			console.log(id);
 			connection.query("SELECT * FROM curso WHERE curso.curso_id NOT IN (SELECT curso_id FROM (SELECT curso.curso_id,curso.nombre,curso.imagen,curso.descripcion,curso.exp_id_f,curso_estudiante.stu_id FROM `curso` LEFT JOIN curso_estudiante ON curso.curso_id=curso_estudiante.curso_id) as CE WHERE CE.stu_id='"+id+"')", function(err, rows){
+				console.log(rows);
+				res.json(rows);
+			});
+		});
+
+	app.route('/api/cursosprofe/:id')
+		.get(function(req, res){
+			//connection.query('SELECT * FROM curso ', function(err, rows){
+			console.log("ver el id :");
+			var id = req.params.id;
+			console.log(id);
+			connection.query("SELECT * FROM curso WHERE curso.curso_id NOT IN (SELECT curso_id FROM (SELECT curso.curso_id,curso.nombre,curso.imagen,curso.descripcion,curso.exp_id_f,curso_profe.prof_id FROM `curso` LEFT JOIN curso_profe ON curso.curso_id=curso_profe.curso_id) as CE WHERE CE.prof_id='"+id+"')", function(err, rows){
 				console.log(rows);
 				res.json(rows);
 			});
@@ -310,6 +329,33 @@ connection.query("INSERT INTO `curso_estudiante`(`curso_id`, `stu_id`) VALUES ( 
 			});
 		});
 
+	app.route('/api/curso_profe_load/:id')
+		.get(function(req, res) {
+			/*
+			var experto = req.params.id;
+					//console.log(estudiante);
+			connection.query("SELECT * FROM curso_estudiante INNER JOIN curso ON curso.curso_id= '"+estudiante+"'", function(err, rows){*/
+var est = req.params.id;
+					console.log("mensaje importante");
+					console.log(est);
+			connection.query("SELECT * FROM (SELECT curso.curso_id,curso.nombre,curso.imagen,curso.descripcion,curso.exp_id_f,curso_profe.prof_id FROM `curso` LEFT JOIN curso_profe ON curso.curso_id=curso_profe.curso_id) as CE WHERE CE.prof_id='"+est+"'", function(err, rows){
+				
+				//console.log(rows);
+				res.json(rows);
+				
+			});
+		});
+		app.route('/api/curso_profe')
+		.post(function(req, res){
+			var f = req.body;
+			//console.log("agregando alumno a curso");
+			//connection.query("INSERT INTO curso_estudiante (``, ``) VALUES ( '"+f.curso+"','"+f.stu+"')", function(err, rows){
+				connection.query("INSERT INTO `curso_profe`(`curso_id`, `prof_id`) VALUES ( '"+f.curso+"','"+f.profe+"')", function(err, rows){
+				console.log(rows);
+				res.json(rows);
+			});
+		});
+
 };
 
 
@@ -327,36 +373,3 @@ function isLoggedIn(req, res, next) {
 
 
 
-
-
-
-/*Codigo Por si acaso
- *
- *
-		.post(function(req, res) {
-			var f = req.body;	
-			//console.log("el body: "+f);
-			//console.log(util.inspect(f, false, null))
-			connection.query("SELECT * FROM estudiante WHERE nickname ='"+f.user+"'", function(err, rows){
-				//console.log("Query : "+rows);
-				if(err){ 
-					throw err;
-				}
-				if(rows[0]){
-				if(f.pass === rows[0].password){
-						//console.log("login successful");
-						res.json({login: 1});
-					}
-					else{
-						//console.log("login failed, wrong password");
-						res.json({login: 0});
-					}
-				}
-				else{
-					//console.log("not in database");
-					res.json({login: 0});
-				}
-			});
-		})
-		
-		*/
