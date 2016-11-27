@@ -5,7 +5,7 @@ todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, ara
 		desccurso: '',
 		imgurl: ''
     };
-	this.students={};
+    this.students={};
 	this.theExperto = {}; //Datos del Experto
 	this.currCurso = {}; //Cursos del Experto
 	this.currMods = {}; //Modulos de un Curso
@@ -21,11 +21,7 @@ todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, ara
 	/*Ad: 0; Di: 1; Co: 2; As: 3*/
 	//Shows, me define que vista se puede ver, y cual no
 	//en este caso, el ver primero cursos, y luego modulos
-	/*showType, muestra el tipo para el cual se esta editando
-	 * el contenido.
-	*/
-	this.shows = [true, false, false, false];
-	this.showsSheets = [true, false, false, false, false];
+	this.shows = [true, false, false , false];
 	this.showType = [true, false, false, false];
 	
 	//console.log("En controlador, Data = "+this.theData);
@@ -191,14 +187,13 @@ todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, ara
 		that.shows[2] = false;
 	}
     
-this.changeScreen = function(num){
+	this.changeScreen = function(num){
 		that.shows = [false, false, false, false];
 		that.shows[num] = true;
 	}
 
 	this.verlista = function(){
 		console.log("ver lista");
-		that.showSheets = [true, false,false,false,false];
 		console.log(that.currCurso.curso_id);
 			$http.get('/api/estudiantes_curso/'+that.currCurso.curso_id)
 			.then(function(res){
@@ -209,28 +204,6 @@ this.changeScreen = function(num){
 			});	
 		that.changeScreen(3);
 	}
-
-	this.renderData = function(arreglo){
-		var variable = [];
-		arreglo.forEach(function(aux){
-		variable.push({
-			usuario: aux.nickname,
-			nombre: aux.nombre,
-			email: aux.email,
-			tipo: that.getTipo(aux.tipo),
-			num: (aux.tipo+1)
-			});
-		});
-		return variable;
-	}
-
-	this.getTipo = function(in_){
-		if(in_ === 0) return 'Adaptador';
-		else if(in_ === 1)  return 'Divergente';
-		else if(in_ === 2) return 'Convergente'; 
-		else   return 'Asimilador';
-	}
-
 
 	this.postBloques = function(){
 		console.log(that.content);
