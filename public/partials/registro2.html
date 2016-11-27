@@ -12,6 +12,13 @@
 
     <form class="la_registro" name="registro.laregistro" ng-submit="registro.submitReg()" novalidate>
         <table >
+			<tr>
+				<td>Tipo de Usuario</td>
+				<td>
+				  <input type="radio" name="clase0" value="0" ng-model="registro.stu.clase" > Profesor
+				  <input type="radio" style="margin-left: 20px;" name="clase1" value="1" ng-model="registro.stu.clase" > Experto
+			  </td>
+			  </tr>
             <tr>
                 <td>Nombre y Apellido</td> 
                 <td><input type="text" ng-model="registro.stu.nombre"  name="nickname" /></td> 
@@ -31,10 +38,12 @@
             </tr>
             <tr>
                 <td>Repita Contraseña</td> 
-                <td><input type="password" name="password_r" /></td> 
+                <td><input 	ng-model="registro.stu.password2" type="password" name="password_r" /></td> 
             </tr>
         </table>
-		<div>El registro es: {{registro.laregistro.$valid}}</div>
+		<div ng-show="registro.errMsg.show" style="color: red; text-align: center;">{{registro.errMsg.msg}}</div>
+		<div ng-show="registro.errMsg.show2" style="color: red; text-align: center;">{{registro.errMsg.msg2}}</div>
+		<!--div>El registro es: {{registro.laregistro.$valid}}</div-->
 
         <br><br>
     <button class="btn btn-lg btn-arandano" >Enviar</button>

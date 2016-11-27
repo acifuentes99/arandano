@@ -528,38 +528,62 @@ todoApp.controller('Login', function($rootScope,$http, $scope, $location, aranda
 		}); 
 		*/
 
-todoApp.controller('Registro', function($rootScope, $scope, $location, arandanoBDExperto, shareData){
+todoApp.controller('Registro', function($rootScope, $scope, $location, arandanoBDExperto, Profesor, shareData){
 
     this.stu = {
         'nombre': '',
         'nickname': '',
-        'email': ' ',
+        'email': '',
         'password': '',
+        'password2': '',
         'tipon': 0,
-        'tipo': ''
+        'clase': ''
     };
+	this.errMsg = {show: false, msg: '', show2: false, msg2: 'Passwords no calzan'};
+	var that = this;
 
 	this.checkPass = function(){
-		var aux = this.stu;
+		var aux = that.stu;
 		if(aux.password !== aux.password2){
-			$("pass2").css("display", "block")
-			console.log("password dosent match");	
+			that.errMsg.show2 = true;
+			return false;
 		}
 		else{
-			$("#pass2").css("display", "block")
-			console.log("password matches!");
+			that.errMsg.show2 = false;
+			return true;
 		}	
 	}
 
+	this.checkReg = function(){
+		var campos = [];
+		var valid = true;
+		that.errMsg.msg = "Falta rellenar los campos: ";
+		if(that.stu.clase === ''){ that.errMsg.msg = that.errMsg.msg.concat("tipo de usuario, ");valid=false;}
+		if(that.stu.nombre === ''){ that.errMsg.msg = that.errMsg.msg.concat("nombre, ");valid=false;}
+		if(that.stu.nickname === ''){ that.errMsg.msg = that.errMsg.msg.concat('nickname, ');valid=false;}
+		if(that.stu.email === ''){ that.errMsg.msg = that.errMsg.msg.concat('email, ');valid=false;}
+		if(that.stu.password === ''){ that.errMsg.msg = that.errMsg.msg.concat('password, '); valid=false;}
+		that.errMsg.show = true;
+		return valid;
+	}
+
     this.submitReg = function(){
-        console.log('Holaa!');
         console.log($scope);
 
-		//shareData.set(this.stu);
-        arandanoBDExperto.saveData(this.stu)
-        .then(function(){
-            $location.path('/regexitoso');
-        });
+		if(that.checkPass() && that.checkReg()){
+			if(that.stu.clase === 1){
+				arandanoBDExperto.saveData(this.stu)
+				.then(function(){
+					$location.path('/regexitoso');
+				});
+			}
+			else{
+				Profesor.addProfesor(that.stu)
+					.then(function(){
+						$location.path('/regexitoso');
+					});
+			}
+		}
     };
     
 });
@@ -1215,8 +1239,9 @@ todoApp.factory('Profesor', function($http, $location){
 		}
 	};
 
-	Profesor.addProfesor = function(){
-	
+	Profesor.addProfesor = function(data){
+		data.query = "INSERT INTO `profesor` (`nickname`, `nombre`, `email`, `password`) VALUES ('"+data.nickname+"', '"+data.nombre+"', '"+data.email+"', '"+data.password+"')";
+		return $http.post('/query/post', data);
 	}
 
 	Profesor.getProfesor = function(){
