@@ -15,15 +15,26 @@ Proyecto para el ramo FISW de la UTFSM
 - En carpeta raíz, ejecutar "npm start"
 - El sitio se encuentra listo para su uso, esto en la dirección localhost:8080.
 
+## Uso
+Para su uso estan a dispocisión los usuarios de prueba:
+    - Experto : "admin" 
+    - Profesor: "aa"
+    - Estudiante: "convergente"
+    - Estudiante: "asimilador"
+    - Estudiante: "adaptador"
+    - Estudiante: "divergente"
+
+donde para todos los usuarios anteriores la clave es "1234", puede generar uno con una clave distinta.
+
 ## Estructura de Archivos
 (puede ir cambiando con el tiempo, para mejores practicas)
 
 ### Documentos
 
 En carpeta /documentos, se encuentran lo siguiente:
-* Informe1FISW_Arandano.pdf : Informe, donde se encuentran los casos de uso en formato completo. También, se incluyen unas imágenes de los diagramas (diagramas completos en ProyetoArandano.vpp).
+* Arandanoinforme3FISW_Arandano.pdf : Informe, donde se encuentran los casos de uso en formato completo. También, se incluyen unas imágenes de los diagramas (diagramas completos en ProyetoArandano.vpp).
 * ProyectoArandano.vpp : Archivo de visual paradigm, donde se encuentran: Diagrama de caso de uso, diagramas de secuencia, y el modelo entidad relación de base de datos.
-* arandano.sql : Archivo .sql con las tablas de la base de datos
+* arandano_vEnt3.sql : Archivo .sql con las tablas de la base de datos
 *
 
 ### Software
