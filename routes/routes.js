@@ -282,7 +282,6 @@ bloque_id 	img_url 	content 	mod_id_f 	stu_id_f
 					console.log(est);
 			connection.query("SELECT * FROM (SELECT curso.curso_id,curso.nombre,curso.imagen,curso.descripcion,curso.exp_id_f,curso_estudiante.stu_id FROM `curso` LEFT JOIN curso_estudiante ON curso.curso_id=curso_estudiante.curso_id) as CE WHERE CE.stu_id='"+est+"'", function(err, rows){
 				console.log(rows);
->>>>>>> ead716228630ed8183e457e9e3d36d7daa43b680
 				res.json(rows);
 				
 			});
