@@ -16,7 +16,8 @@ Proyecto para el ramo FISW de la UTFSM
 - El sitio se encuentra listo para su uso, esto en la dirección localhost:8080.
 
 ## Uso
-Para su uso estan a dispocisión los usuarios de prueba:
+Para su uso estan a dispocisión los usuarios de prueba:  
+
     - Experto : "admin" 
     - Profesor: "aa"
     - Estudiante: "convergente"
