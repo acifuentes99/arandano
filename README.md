@@ -27,6 +27,8 @@ Para su uso estan a dispocisión los usuarios de prueba:
 
 donde para todos los usuarios anteriores la clave es "1234", puede generar uno con una clave distinta.
 
+Para prueba de cursos una buena opción es tomar el curso "Taller de mockups", en el modulo "taller de prototipado", que es el cusro con mas estudiantes y material.
+
 ## Estructura de Archivos
 (puede ir cambiando con el tiempo, para mejores practicas)
 
