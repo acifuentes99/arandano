@@ -573,10 +573,8 @@ todoApp.controller('Dashboard', function($rootScope, $scope, $location, arandano
     this.stu = shareData.get();
     this.algo = "un text";
 	var that = this;
-	//	this.show = [true, false, false];
-	this.show = [true, false, false,false];
-	this.theStudent = {
-	}; //Informacion sobre el estudiante
+	this.show = [true, false, false,false,false];
+	this.theStudent = {}; //Informacion sobre el estudiante
 	this.currCurso = {}; //informacion del curso Actrualmente Abierto
 	this.currMods = {}; //Contiene los modulos de un curso
 	this.currMod = {}; //Informacion del modulo actualmente abierto
@@ -592,8 +590,19 @@ this.MisloadCursos = function(){
 			});
 	};
 
+	this.MisloadCursos = function(){
+		
+
+		console.log(that.theStudent.stu_id);
+		$http.get('/api/curso_estudiante/'+ that.theStudent.stu_id)
+			.then(function(res){
+			
+				that.MisCursos = res;
+			});
+	};
+
 	this.loadCursos = function(){
-		//$http.get('/api/cursos/')
+
 		$http.get('/api/cursos/'+that.theStudent.stu_id)
 			.then(function(res){
 				console.log("lo intento");
@@ -626,7 +635,7 @@ this.MisloadCursos = function(){
 
     this.loadEstudiante = function(){
 		console.log("iniciando metodo getstudent");
-		//that.loadCursos();
+		
 		$http.get('/api/login/est/')
             .then(function(res){
 				console.log("In student!!!, the user fecthed:")
@@ -655,9 +664,18 @@ this.MisloadCursos = function(){
 					}
 				}
             });
+           
+	}
+
+	this.desinscribir = function(curid){
+		
+		
+		that.changeScreen(0);
+		that.MisloadCursos();
 	}
 
 	this.openCurso = function(curid, aux){
+		console.log("openCurso");
 		that.currCurso = that.theCursos.data[aux];
 		$http.get('/api/modulo/'+curid)
 			.then(function(res){
@@ -667,6 +685,31 @@ this.MisloadCursos = function(){
 			});
 		that.changeScreen(1);
 	}
+	this.misopenCurso = function(curid, aux){
+		console.log("openCurso");
+		that.currCurso = that.MisCursos.data[aux];
+		$http.get('/api/modulo/'+curid)
+			.then(function(res){
+				console.log("Info del get del modulo: ");
+				console.log(res.data);
+				that.currMods = res.data;
+			});
+		that.changeScreen(1);
+	}
+
+	this.goBack = function(){
+
+		that.loadEstudiante();
+		that.changeScreen(0);
+
+	}
+
+	this.openPerfil = function(){
+		that.loadEstudiante();
+		console.log("en edicion de perfil");
+		that.changeScreen(4);
+	}
+
 
 	this.misopenCurso = function(curid, aux){
 		console.log("openCurso");
@@ -696,8 +739,7 @@ this.MisloadCursos = function(){
 	}
 
 	this.changeScreen = function(num){
-		//that.show = [false, false, false];
-		that.show = [false, false, false,false];
+		that.show = [ false, false, false, false, false];
 		that.show[num] = true;
 	}
 
@@ -711,11 +753,7 @@ todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, ara
 		desccurso: '',
 		imgurl: ''
     };
-<<<<<<< HEAD
-	this.students={};
-=======
     this.students={};
->>>>>>> ead716228630ed8183e457e9e3d36d7daa43b680
 	this.theExperto = {}; //Datos del Experto
 	this.currCurso = {}; //Cursos del Experto
 	this.currMods = {}; //Modulos de un Curso
@@ -731,15 +769,7 @@ todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, ara
 	/*Ad: 0; Di: 1; Co: 2; As: 3*/
 	//Shows, me define que vista se puede ver, y cual no
 	//en este caso, el ver primero cursos, y luego modulos
-<<<<<<< HEAD
-	/*showType, muestra el tipo para el cual se esta editando
-	 * el contenido.
-	*/
-	this.shows = [true, false, false, false];
-	this.showsSheets = [true, false, false, false, false];
-=======
 	this.shows = [true, false, false , false];
->>>>>>> ead716228630ed8183e457e9e3d36d7daa43b680
 	this.showType = [true, false, false, false];
 	
 	//console.log("En controlador, Data = "+this.theData);
@@ -908,18 +938,6 @@ todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, ara
 		that.shows[2] = false;
 	}
     
-<<<<<<< HEAD
-this.changeScreen = function(num){
-		that.shows = [false, false, false, false];
-		that.shows[num] = true;
-	}
-
-	this.verlista = function(){
-		console.log("ver lista");
-		that.showSheets = [true, false,false,false,false];
-		console.log(that.currCurso.curso_id);
-			$http.get('/api/estudiantes_curso/'+that.currCurso.curso_id)
-=======
 	this.changeScreen = function(num){
 		that.shows = [false, false, false, false];
 		that.shows[num] = true;
@@ -949,175 +967,12 @@ this.changeScreen = function(num){
 		});
 		return variable;
 	}
-
 	this.getTipo = function(in_){
 		if(in_ === 0) return 'Adaptador';
 		else if(in_ === 1)  return 'Divergente';
 		else if(in_ === 2) return 'Convergente'; 
 		else   return 'Asimilador';
 	}
-
-
-
-	this.postBloques = function(){
-		console.log(that.content);
-		console.log("posteando");
-		$http.post('/api/bloques/'+that.openMod.mod_id, that.content);
-		that.change2Modulos();
-	}
-
-});
-
-todoApp.controller('Dashboard', function($rootScope, $scope, $location, arandanoFactory, shareData, $http){
-    this.stu = shareData.get();
-    this.algo = "un text";
-	var that = this;
-	this.show = [true, false, false,false,false];
-	this.theStudent = {}; //Informacion sobre el estudiante
-	this.currCurso = {}; //informacion del curso Actrualmente Abierto
-	this.currMods = {}; //Contiene los modulos de un curso
-	this.currMod = {}; //Informacion del modulo actualmente abierto
-
-
-	this.MisloadCursos = function(){
-		
-
-		console.log(that.theStudent.stu_id);
-		$http.get('/api/curso_estudiante/'+ that.theStudent.stu_id)
-			.then(function(res){
-			
-				that.MisCursos = res;
-			});
-	};
-
-	this.loadCursos = function(){
-
-		$http.get('/api/cursos/'+that.theStudent.stu_id)
->>>>>>> ead716228630ed8183e457e9e3d36d7daa43b680
-			.then(function(res){
-				console.log("Info del get estuduantes: ");
-				console.log(res.data);
-			
-				that.students = that.renderData(res.data);
-			});	
-		that.changeScreen(3);
-	}
-
-<<<<<<< HEAD
-	this.renderData = function(arreglo){
-		var variable = [];
-		arreglo.forEach(function(aux){
-		variable.push({
-			usuario: aux.nickname,
-			nombre: aux.nombre,
-			email: aux.email,
-			tipo: that.getTipo(aux.tipo),
-			num: (aux.tipo+1)
-			});
-		});
-		return variable;
-	}
-
-	this.getTipo = function(in_){
-		if(in_ === 0) return 'Adaptador';
-		else if(in_ === 1)  return 'Divergente';
-		else if(in_ === 2) return 'Convergente'; 
-		else   return 'Asimilador';
-=======
-	this.inscribir = function(curid){
-		console.log('curid = ');
-		console.log(+curid);
-
-
-		$http.post('/api/curso_estudiante/',{curso:curid , stu: that.theStudent.stu_id});	
-		console.log("alumno inscrito");
-		that.changeScreen(0);
-		that.MisloadCursos();
-
-	};
-
-	this.openOtrosCursos= function (){
-		that.loadCursos();
-		that.changeScreen(3);
-	};
-
-    this.loadEstudiante = function(){
-		console.log("iniciando metodo getstudent");
-		
-		$http.get('/api/login/est/')
-            .then(function(res){
-				console.log("In student!!!, the user fecthed:")
-				console.log(res);
-				if(res.data.status === -1 || !res.data.stu_id){
-					$location.path("/");	
-				}
-				else{
-					that.theStudent = res.data;
-					that.MisloadCursos();
-					switch(that.theStudent.tipo){
-						case 0:
-							that.stu.tipo = "Adaptador";
-							break;
-						case 1:
-							that.stu.tipo = "Divergente";
-							break;
-						case 2:
-							that.stu.tipo = "Convergente";
-							break;
-						case 3:
-							that.stu.tipo = "Asimilador";
-							break;
-					}
-				}
-            });
-           
-	}
-
-	this.desinscribir = function(curid){
-		
-		
-		that.changeScreen(0);
-		that.MisloadCursos();
-	}
-
-	this.openCurso = function(curid, aux){
-		console.log("openCurso");
-		that.currCurso = that.theCursos.data[aux];
-		$http.get('/api/modulo/'+curid)
-			.then(function(res){
-				console.log("Info del get del modulo: ");
-				console.log(res.data);
-				that.currMods = res.data;
-			});
-		that.changeScreen(1);
->>>>>>> ead716228630ed8183e457e9e3d36d7daa43b680
-	}
-	this.misopenCurso = function(curid, aux){
-		console.log("openCurso");
-		that.currCurso = that.MisCursos.data[aux];
-		$http.get('/api/modulo/'+curid)
-			.then(function(res){
-				console.log("Info del get del modulo: ");
-				console.log(res.data);
-				that.currMods = res.data;
-			});
-		that.changeScreen(1);
-	}
-
-	this.goBack = function(){
-
-		that.loadEstudiante();
-		that.changeScreen(0);
-
-	}
-
-	this.openPerfil = function(){
-		that.loadEstudiante();
-		console.log("en edicion de perfil");
-		that.changeScreen(4);
-	}
-
-
 
 	this.postBloques = function(){
 		console.log(that.content);
@@ -1131,15 +986,9 @@ todoApp.controller('Dashboard', function($rootScope, $scope, $location, arandano
 		//that.change2Modulos();
 	}
 
-<<<<<<< HEAD
 	this.changeScreenSheets = function(num){
 		that.showsSheets = [false, false, false, false, false];
 		that.showsSheets[num] = true;
-=======
-	this.changeScreen = function(num){
-		that.show = [ false, false, false, false, false];
-		that.show[num] = true;
->>>>>>> ead716228630ed8183e457e9e3d36d7daa43b680
 	}
 
 

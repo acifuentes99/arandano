@@ -319,13 +319,6 @@ bloque_id 	img_url 	content 	mod_id_f 	stu_id_f
 				res.json(rows);
 				
 			});
-					console.log("mensaje importante");
-					console.log(est);
-			connection.query("SELECT * FROM (SELECT curso.curso_id,curso.nombre,curso.imagen,curso.descripcion,curso.exp_id_f,curso_estudiante.stu_id FROM `curso` LEFT JOIN curso_estudiante ON curso.curso_id=curso_estudiante.curso_id) as CE WHERE CE.stu_id='"+est+"'", function(err, rows){
-				console.log(rows);
-				res.json(rows);
-				
-			});
 		});
 		app.route('/api/curso_estudiante')
 		.post(function(req, res){

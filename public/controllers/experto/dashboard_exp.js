@@ -208,6 +208,24 @@ todoApp.controller('Dash_exp', function($rootScope,$http, $scope, $location, ara
 		that.changeScreen(3);
 	}
 
+	this.renderData = function(arreglo){
+		var variable = [];
+		arreglo.forEach(function(aux){
+		variable.push({
+			usuario: aux.nickname,
+			email: aux.email,
+			tipo: that.getTipo(aux.tipo)
+			});
+		});
+		return variable;
+	}
+	this.getTipo = function(in_){
+		if(in_ === 0) return 'Adaptador';
+		else if(in_ === 1)  return 'Divergente';
+		else if(in_ === 2) return 'Convergente'; 
+		else   return 'Asimilador';
+	}
+
 	this.postBloques = function(){
 		console.log(that.content);
 		console.log("posteando");

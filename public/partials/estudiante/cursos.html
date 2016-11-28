@@ -1,15 +1,20 @@
 
     <div class="curso">
- 	   <a ng-click="dash.openPerfil()">
-			<div class="texto">
+ 	   <a
+		  style="color: white;"
+		   ng-click="dash.openPerfil()">
+			<div style="z-index: 1000;" class="texto">
 				<h3>Hola {{dash.theStudent.nickname}}!</h3>
 				<p>Tu forma de aprender es {{dash.stu.tipo}}</p>
 			</div>
-			<img class="img-responsive" src={{dash.stu.img}}></img>
+			<div style="height: 300px; overflow: hidden; z-index: 0;">
+				<img
+				style="position: absolute; top: -180px;;"   
+				class="img-responsive" src={{dash.theStudent.img}}></img>
+			</div>
 		</a>		
 	</div>			
    		
-   
 
 	<h1>Mis Cursos</h1>
 	<br></br>
